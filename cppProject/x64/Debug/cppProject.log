@@ -1,0 +1,10 @@
+﻿  Address.cpp
+  Plane.cpp
+  FlightInfo.cpp
+C:\Users\baro\OneDrive\Desktop\Bar_Ovda_Daniel_Zusev\Bar_Ovda_Daniel_Zusev\cppProject\FlightInfo.cpp(20,28): warning C4154: deletion of an array expression; conversion to pointer supplied
+  CrewMember.cpp
+  FlightCompany.cpp
+  main.cpp
+C:\Users\baro\OneDrive\Desktop\Bar_Ovda_Daniel_Zusev\Bar_Ovda_Daniel_Zusev\cppProject\main.cpp(14,1): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  Generating Code...
+  cppProject.vcxproj -> C:\Users\baro\OneDrive\Desktop\Bar_Ovda_Daniel_Zusev\Bar_Ovda_Daniel_Zusev\x64\Debug\cppProject.exe
