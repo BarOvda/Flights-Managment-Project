@@ -6,9 +6,10 @@ using namespace std;
 #include <string.h>
 #include "Plane.h"
 
-Plane::Plane(int mSerialNumber, int mChairNumber, const char* mModel)
+Plane::Plane(int mChairNumber, const char* mModel)
 {
-	this->serialNumber = mSerialNumber;
+
+	this->serialNumber = ++CurrentserialNumber;
 	this->chairNumber = mChairNumber;
 
 	this->model = new char[strlen(mModel)];
@@ -42,12 +43,12 @@ char* Plane::getModel()
 	return this->model;
 }
 
-bool Plane::IsEqual(Plane& otherPlane)
-{
-	if (this->serialNumber == otherPlane.getSerialNumber())
-		return true;
-	return false;
-}
+//bool Plane::IsEqual(Plane& otherPlane)
+//{
+//	if (this->serialNumber == otherPlane.getSerialNumber())
+//		return true;
+//	return false;
+//}
 
 void Plane::print(ostream& out)
 {

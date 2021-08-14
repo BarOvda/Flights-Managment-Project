@@ -7,10 +7,25 @@ using namespace std;
 
 Address::Address(int mHouseNumber, const char* mStreet, const char* mCity) {
 	this->houseNumber = mHouseNumber;
-	this->street = new char[strlen(mStreet) + 1];
-	this->city = new char[strlen(mCity) + 1];
-	strcpy(this->street, mStreet);
-	strcpy(this->city, mCity);
+	if (mStreet != NULL) {
+		this->street = new char[strlen(mStreet) + 1];
+		strcpy(this->street, mStreet);
+	}		
+	else {
+		this->street = new char[20];
+	}
+	if (city != NULL) {
+		this->city = new char[strlen(mCity) + 1];
+		
+		strcpy(this->city, mCity);
+	}
+	else {
+		this->city = new char[20];
+
+	}
+	
+	//
+	//
 }
 
 Address::Address(const Address& other)
@@ -78,7 +93,10 @@ void Address::print(ostream& out)
 }
   istream& operator>>(istream& in, Address& data) {
 
-	// in >> data.houseNumber >> data.street >> data.city;
+	  in.getline(data.street, sizeof(data.street));
+	  in.getline(data.city, sizeof(data.city));
+	  in >> data.houseNumber;
+
 	 return in;
  }
 

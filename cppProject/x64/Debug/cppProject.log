@@ -1,1 +1,6 @@
-﻿
+﻿  Plane.cpp
+  main.cpp
+C:\Git\Bar_Ovda_Daniel_Zusev\Bar_Ovda_Daniel_Zusev\Flights-Managment-Project\cppProject\main.cpp(14,1): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  Generating Code...
+Plane.obj : error LNK2001: unresolved external symbol "private: static int Plane::CurrentserialNumber" (?CurrentserialNumber@Plane@@0HA)
+C:\Git\Bar_Ovda_Daniel_Zusev\Bar_Ovda_Daniel_Zusev\Flights-Managment-Project\x64\Debug\cppProject.exe : fatal error LNK1120: 1 unresolved externals

@@ -23,8 +23,18 @@ public:
 // more methods
 	void print(ostream& out);
 	friend ostream& operator<<(ostream& os, const Address& data);
-	friend istream& operator>>(istream& in, const Address& data);
 
+	friend istream& operator>>(istream& in, Address& data);
+	bool operator==( Address& other)
+	{
+
+		return other.getCity() == this->getCity() && other.houseNumber== this->houseNumber
+			&&other.getStreet() == this->getStreet();
+	}
+	bool operator!=( Address& other)
+	{
+		return !(this->operator==(other));
+	}
 private:
 
 //attributes

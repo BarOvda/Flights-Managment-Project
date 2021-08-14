@@ -5,10 +5,13 @@ using namespace std;
 #include <string.h>
 #include "FlightCompany.h"
 
-FlightCompany::FlightCompany(const char* mCompanyName)
+
+
+FlightCompany::FlightCompany(const char* mCompanyName/*, const CrewMember** crewMembers*/)/*:crewMembers(crewMembers)*/
 {
 	this->companyName = new char[strlen(mCompanyName) + 1];
 	strcpy(this->companyName, mCompanyName);
+	
 }
 
 FlightCompany::FlightCompany(FlightCompany& otherCompany)
@@ -39,3 +42,12 @@ void FlightCompany::print(ostream& out)
 {
 	out << "Flight company: " << this->companyName;
 }
+//void AddCrewMember(CrewMember crewMember) {
+//
+//}
+//void AddPlane(Plane plane) {
+//
+//}
+//void AddFlight(FlightInfo flight) {
+//
+//}

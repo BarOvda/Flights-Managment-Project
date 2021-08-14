@@ -5,7 +5,7 @@ class Plane
 {
 public:
 //c'tor
-	Plane(int mSerialNumber, int mChairNumber, const char* mModel);
+	Plane( int mChairNumber, const char* mModel);
 	Plane(Plane& otherPlane);
 
 
@@ -18,7 +18,15 @@ public:
 	char* getModel();
 
 //other methods
-	bool IsEqual(Plane& otherPlane);
+	//bool IsEqual(Plane& otherPlane);
+	bool operator==(Plane& other)
+	{
+		return other.getSerialNumber() == this->getSerialNumber();
+	}
+	bool operator!=(Plane& other)
+	{
+		return !(this->operator==(other));
+	}
 	void print(ostream& out);
 	friend ostream& operator<<(ostream& os, const Plane& data);
 	// prefix increment
@@ -37,10 +45,12 @@ public:
 private:
 
 //attributes
+	static int CurrentserialNumber;
 	int serialNumber;
 	int chairNumber;
 	char* model;
 };
+//int Plane::CurrentserialNumber = 100;
 
 #endif // !__PLANE_H
 
