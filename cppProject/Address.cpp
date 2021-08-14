@@ -67,3 +67,18 @@ void Address::print(ostream& out)
 		<< this->city 
 		<< endl;
 }
+ ostream& operator<<(ostream& os, const Address& data) {
+	 os << data.street
+		 << " "
+		 << data.houseNumber
+		 << ", "
+		 << data.city
+		 << endl;
+	 return os;
+}
+  istream& operator>>(istream& in, Address& data) {
+
+	// in >> data.houseNumber >> data.street >> data.city;
+	 return in;
+ }
+

@@ -10,6 +10,7 @@ class FlightInfo
 public:
 	//c'tor
 	FlightInfo(const char* mDestination, int mFlightNumber, int mFlightTime, int mFlightLength);
+	FlightInfo(FlightInfo& otherFlightInfo);
 
 	//d'tor
 	~FlightInfo();
@@ -29,6 +30,7 @@ public:
 	//other methods
 	bool isSameFlightNumber(int mFlightNumber);
 	void print(ostream& out);
+	friend ostream& operator<<(ostream& os, const FlightInfo& data);
 
 private:
 

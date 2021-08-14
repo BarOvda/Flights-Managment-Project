@@ -22,6 +22,8 @@ public:
 
 // more methods
 	void print(ostream& out);
+	friend ostream& operator<<(ostream& os, const Address& data);
+	friend istream& operator>>(istream& in, const Address& data);
 
 private:
 

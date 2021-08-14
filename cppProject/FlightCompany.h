@@ -23,6 +23,8 @@ public:
 private:
 //attributes
 	char* companyName;
+
+
 };
 
 #endif // !__FLIGHT_COMPANY

@@ -6,6 +6,8 @@ class Plane
 public:
 //c'tor
 	Plane(int mSerialNumber, int mChairNumber, const char* mModel);
+	Plane(Plane& otherPlane);
+
 
 //d'tor
 	~Plane();
@@ -18,6 +20,19 @@ public:
 //other methods
 	bool IsEqual(Plane& otherPlane);
 	void print(ostream& out);
+	friend ostream& operator<<(ostream& os, const Plane& data);
+	// prefix increment
+	const Plane& operator++() {
+		this->chairNumber++;
+		return *this;
+	}
+	// postfix increment
+	Plane operator++(int)
+	{
+		Plane old = *this;
+		this->chairNumber++;
+		return old;
+	}
 
 private:
 

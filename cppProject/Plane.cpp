@@ -14,7 +14,14 @@ Plane::Plane(int mSerialNumber, int mChairNumber, const char* mModel)
 	this->model = new char[strlen(mModel)];
 	strcpy(this->model, mModel);
 }
-
+Plane::Plane(Plane& otherPlane)
+{
+	this->serialNumber = otherPlane.serialNumber;
+	this->serialNumber = otherPlane.chairNumber;
+	
+	this->model = new char[strlen(otherPlane.getModel()) + 1];
+	strcpy(this->model, otherPlane.getModel());
+}
 Plane::~Plane()
 {
 	delete []this->model;
@@ -51,3 +58,13 @@ void Plane::print(ostream& out)
 		<< " seats "
 		<< this->chairNumber;
 }
+ ostream& operator<<(ostream& os, const Plane& data) {
+	 os << "Plane "
+		 << data.serialNumber
+		 << " degem "
+		 << data.model
+		 << " seats "
+		 << data.chairNumber;
+	 return os;
+}
+

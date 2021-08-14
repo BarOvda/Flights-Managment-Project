@@ -58,10 +58,10 @@ void main()
 		cout << "*****  Checking Address *****" << endl;
 		Address a(23, "Alenbi");
 		Address b(34, "Jafa", "Jerusalem");
-		a.print(cout);
-		b.print(cout);
+		cout << a;
+		cout << b;
 		b.UpdateAddress(55, "KG", "Haifa");
-		b.print(cout);
+		cout << b;
 
 	}
 
@@ -83,12 +83,12 @@ void main()
 	FlightInfo fInfo1("Paris", 343, 320, 5000);
 	FlightInfo fInfo2("Rome", 506, 220, 4000);
 
-	fInfo1.print(cout);
-	fInfo2.print(cout);
+	cout << fInfo1<<endl;
+	cout << fInfo2 << endl;
 
 	fInfo2.setDest("London");
 	cout << "Info after change destination" << endl;
-	fInfo2.print(cout);
+	cout << fInfo2 << endl;
 
 
 	cout << endl << "Checking CPlane" << endl;
@@ -96,10 +96,11 @@ void main()
 	Plane p1(101, 200, "Jumbo");
 	Plane p2(p1);
 	Plane p3 = p1;
+	//p1++;
+	cout << p1 << endl;
+	cout << p2 << endl;
+	cout << p3 << endl;
 
-	p1.print(cout);
-	p2.print(cout);
-	p3.print(cout);
 
 	if (p1.IsEqual(p2))
 		cout << "*****  EQUALS *****" << endl;
