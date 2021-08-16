@@ -52,6 +52,13 @@ char* Plane::getModel()
 //	return false;
 //}
 
+void Plane::operator=(Plane& other)
+{
+	this->chairNumber = other.getChairNumber();
+	this->model = other.getModel();
+	this->serialNumber = other.getSerialNumber();
+}
+
 void Plane::print(ostream& out)
 {
 	out << "Plane "

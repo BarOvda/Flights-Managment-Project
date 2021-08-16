@@ -30,6 +30,8 @@ public:
 		return !(this->operator==(other));
 	}
 
+	void operator=(Plane& other);
+
 	void print(ostream& out);
 
 	friend ostream& operator<<(ostream& os, const Plane& data);
