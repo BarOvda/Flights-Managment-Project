@@ -32,6 +32,24 @@ public:
 	void print(ostream& out);
 	friend ostream& operator<<(ostream& os, const FlightInfo& data);
 
+	bool operator==(const FlightInfo& other) const
+	{
+		return flightNumber == other.flightNumber
+			&& flightTime == other.flightTime
+			&& flightLength == other.flightLength
+			&& destination == other.destination;
+	}
+
+	bool operator!=(const FlightInfo& other) const
+	{
+		return !(*this == other);
+	}
+
+	operator int() const
+	{
+		return flightTime;
+	}
+
 private:
 
 	//attributes

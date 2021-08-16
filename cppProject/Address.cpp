@@ -10,22 +10,17 @@ Address::Address(int mHouseNumber, const char* mStreet, const char* mCity) {
 	if (mStreet != NULL) {
 		this->street = new char[strlen(mStreet) + 1];
 		strcpy(this->street, mStreet);
-	}		
+	}
 	else {
 		this->street = new char[20];
 	}
 	if (city != NULL) {
 		this->city = new char[strlen(mCity) + 1];
-		
 		strcpy(this->city, mCity);
 	}
 	else {
 		this->city = new char[20];
-
 	}
-	
-	//
-	//
 }
 
 Address::Address(const Address& other)
@@ -39,8 +34,8 @@ Address::Address(const Address& other)
 
 Address::~Address()
 {
-	delete []this->street;
-	delete []this->city;
+	delete[]this->street;
+	delete[]this->city;
 }
 
 int Address::getHouseNumber()
@@ -64,39 +59,43 @@ void Address::UpdateAddress(int mHouseNumber, const char* mStreet, const char* m
 	if (strlen(this->street) < strlen(mStreet)) {
 		this->street = new char[strlen(mStreet) + 1];
 	}
-	
+
 	if (strlen(this->city) < strlen(mCity)) {
 		this->city = new char[strlen(mCity) + 1];
 	}
-	
+
 	strcpy(this->street, mStreet);
 	strcpy(this->city, mCity);
 }
 
 void Address::print(ostream& out)
 {
-	out << this->street 
-		<< " " 
-		<< this->houseNumber 
-		<< ", " 
-		<< this->city 
+	out << this->street
+		<< " "
+		<< this->houseNumber
+		<< ", "
+		<< this->city
 		<< endl;
 }
- ostream& operator<<(ostream& os, const Address& data) {
-	 os << data.street
-		 << " "
-		 << data.houseNumber
-		 << ", "
-		 << data.city
-		 << endl;
-	 return os;
+Address Address::GetCurrentAddress()
+{
+	return *this;
 }
-  istream& operator>>(istream& in, Address& data) {
+ostream& operator<<(ostream& out, const Address& data) {
+	out << data.street
+		<< " "
+		<< data.houseNumber
+		<< ", "
+		<< data.city
+		<< endl;
+	return out;
+}
+istream& operator>>(istream& in, Address& data) {
+	cout << "Please enter house number street name and city name:" << endl;
+	in >> data.houseNumber;
+	in >> data.street;
+	in >> data.city;
 
-	  in.getline(data.street, sizeof(data.street));
-	  in.getline(data.city, sizeof(data.city));
-	  in >> data.houseNumber;
-
-	 return in;
- }
+	return in;
+}
 

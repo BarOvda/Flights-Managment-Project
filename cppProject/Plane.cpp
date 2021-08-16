@@ -6,6 +6,8 @@ using namespace std;
 #include <string.h>
 #include "Plane.h"
 
+int Plane::CurrentserialNumber = 100;
+
 Plane::Plane(int mChairNumber, const char* mModel)
 {
 
@@ -19,13 +21,13 @@ Plane::Plane(Plane& otherPlane)
 {
 	this->serialNumber = otherPlane.serialNumber;
 	this->serialNumber = otherPlane.chairNumber;
-	
+
 	this->model = new char[strlen(otherPlane.getModel()) + 1];
 	strcpy(this->model, otherPlane.getModel());
 }
 Plane::~Plane()
 {
-	delete []this->model;
+	delete[]this->model;
 }
 
 int Plane::getSerialNumber()
@@ -59,13 +61,19 @@ void Plane::print(ostream& out)
 		<< " seats "
 		<< this->chairNumber;
 }
- ostream& operator<<(ostream& os, const Plane& data) {
-	 os << "Plane "
-		 << data.serialNumber
-		 << " degem "
-		 << data.model
-		 << " seats "
-		 << data.chairNumber;
-	 return os;
+
+void Plane::setCurrentserialNumber(int mCurrentserialNumber)
+{
+	Plane::CurrentserialNumber = mCurrentserialNumber;
+}
+
+ostream& operator<<(ostream& os, const Plane& data) {
+	os << "Plane "
+		<< data.serialNumber
+		<< " degem "
+		<< data.model
+		<< " seats "
+		<< data.chairNumber;
+	return os;
 }
 

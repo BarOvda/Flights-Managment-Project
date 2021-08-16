@@ -5,39 +5,44 @@ class Address
 {
 public:
 
-//c'tors
+	//c'tors
 	Address(int mHouseNumber, const char* mStreet, const char* mCity = "Tel Aviv");
 	Address(const Address& other);
 
-//d'tor
+	//d'tor
 	~Address();
 
-//getters
+	//getters
 	int getHouseNumber();
 	char* getStreet();
 	char* getCity();
 
-//setters
+	//setters
 	void UpdateAddress(int mHouseNumber, const char* mStreet, const char* mCity);
 
-// more methods
+	// more methods
 	void print(ostream& out);
+
 	friend ostream& operator<<(ostream& os, const Address& data);
 
 	friend istream& operator>>(istream& in, Address& data);
-	bool operator==( Address& other)
+
+	bool operator==(Address& other)
 	{
 
-		return other.getCity() == this->getCity() && other.houseNumber== this->houseNumber
-			&&other.getStreet() == this->getStreet();
+		return other.getCity() == this->getCity() && other.houseNumber == this->houseNumber
+			&& other.getStreet() == this->getStreet();
 	}
-	bool operator!=( Address& other)
+
+	bool operator!=(Address& other)
 	{
 		return !(this->operator==(other));
 	}
+
+	Address GetCurrentAddress();
 private:
 
-//attributes
+	//attributes
 	char* city;
 	char* street;
 	int houseNumber;
