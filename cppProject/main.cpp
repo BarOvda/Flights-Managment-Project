@@ -18,9 +18,9 @@ void main()
 	cout << a;
 
 	cout << endl << "Checking CFlightCompany" << endl;
-	//Plane* pPlaneArr[2];
-	//pPlaneArr[0] = new Plane(100, "Boing373");  //seats,degem
-	//pPlaneArr[1] = new Plane(10, "Boing3");
+	Plane* pPlaneArr[2];
+	pPlaneArr[0] = new Plane(100, "Boing373");  //seats,degem
+	pPlaneArr[1] = new Plane(10, "Boing3");
 
 
 	FlightCompany* pDelta = new FlightCompany("Delta");

@@ -10,7 +10,7 @@ FlightInfo::FlightInfo(const char* mDestination, int mFlightNumber, int mFlightT
 	this->flightNumber = mFlightNumber;
 	this->flightTime = mFlightTime;
 	this->flightLength = mFlightLength;
-	
+
 	if (strlen(mDestination) < MAX)
 		strcpy(this->destination, mDestination);
 }
@@ -26,7 +26,7 @@ FlightInfo::FlightInfo(FlightInfo& otherFlightInfo)
 }
 FlightInfo::~FlightInfo()
 {
-	delete []this->destination;
+	delete[]this->destination;
 }
 
 int FlightInfo::getFlightNumber()
@@ -88,14 +88,14 @@ void FlightInfo::print(ostream& out)
 		<< " KM "
 		<< this->flightLength;
 }
- ostream& operator<<(ostream& os, const FlightInfo& data) {
-	 os << "Flight info dest: "
-		 << data.destination
-		 << " NUmber "
-		 << data.flightNumber
-		 << " minutes "
-		 << data.flightTime
-		 << " KM "
-		 << data.flightLength;
-	 return os;
+ostream& operator<<(ostream& os, const FlightInfo& data) {
+	os << "Flight info dest: "
+		<< data.destination
+		<< " NUmber "
+		<< data.flightNumber
+		<< " minutes "
+		<< data.flightTime
+		<< " KM "
+		<< data.flightLength;
+	return os;
 }

@@ -5,12 +5,15 @@ using namespace std;
 #include <string.h>
 #include "CrewMember.h"
 
+int CrewMember::currentMemberNumber = 1000;
+
 CrewMember::CrewMember(const char* mName, int mTotalFlightTime)
 {
 	this->name = new char[strlen(mName) + 1];
 	strcpy(this->name, mName);
 
 	this->totalFlightTime = mTotalFlightTime;
+	this->memberNumber = ++currentMemberNumber;
 }
 
 CrewMember::CrewMember(CrewMember& otherMember)
@@ -19,11 +22,12 @@ CrewMember::CrewMember(CrewMember& otherMember)
 	strcpy(this->name, otherMember.getName());
 
 	this->totalFlightTime = otherMember.getTotalFlightTime();
+	this->memberNumber = otherMember.getMemberNumber();
 }
 
 CrewMember::~CrewMember()
 {
-	delete []this->name;
+	delete[]this->name;
 }
 
 int CrewMember::getTotalFlightTime()
@@ -36,26 +40,31 @@ char* CrewMember::getName()
 	return this->name;
 }
 
+int CrewMember::getMemberNumber()
+{
+	return this->memberNumber;
+}
+
 void CrewMember::setName(const char* mName)
 {
 	if (strlen(this->name) < strlen(mName))
 		this->name = new char[strlen(mName) + 1];
-	
+
 	strcpy(this->name, mName);
 }
 
-bool CrewMember::UpdateMinutes(int minutes)
-{
-	if (minutes > 0) {
-		this->totalFlightTime += minutes;
-		return true;
-	}
-	return false;
-}
+//bool CrewMember::UpdateMinutes(int minutes)
+//{
+//	if (minutes > 0) {
+//		this->totalFlightTime += minutes;
+//		return true;
+//	}
+//	return false;
+//}
 
 bool CrewMember::IsEqual(CrewMember& otherMember)
 {
-	if (strcmp(this->name, otherMember.getName()) == 0)
+	if (this->memberNumber == otherMember.getMemberNumber())
 		return true;
 	return false;
 }
@@ -63,4 +72,9 @@ bool CrewMember::IsEqual(CrewMember& otherMember)
 void CrewMember::print(ostream& out)
 {
 	out << "crew member " << this->name << " minutes " << this->totalFlightTime;
+}
+
+void CrewMember::setCurrentMemberNumber(int mCurrentMemberNumber)
+{
+	CrewMember::currentMemberNumber = mCurrentMemberNumber;
 }

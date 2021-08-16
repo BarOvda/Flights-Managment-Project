@@ -5,29 +5,43 @@
 class CrewMember
 {
 public:
-//c'tor
+	//c'tor
 	CrewMember(const char* mName, int mTotalFlightTime = 0);
 	CrewMember(CrewMember& otherMember);
 
-//d'tor
+	//d'tor
 	~CrewMember();
 
-//getters
+	//getters
 	int getTotalFlightTime();
 	char* getName();
+	int getMemberNumber();
 
-//setters
+	//setters
 	void setName(const char* mName);
 
-//other methods
-	bool UpdateMinutes(int minutes);
+	//other methods
+		//bool UpdateMinutes(int minutes);
+	const CrewMember& operator+=(int minutes)
+	{
+		if (minutes > 0) {
+			totalFlightTime += minutes;
+
+		}
+		return *this;
+	}
+
 	bool IsEqual(CrewMember& otherMember);
 	void print(ostream& out);
 
+	static void setCurrentMemberNumber(int mCurrentMemberNumber);
+
 private:
-//attributes
+	//attributes
 	char* name;
 	int totalFlightTime;
+	int memberNumber;
+	static int currentMemberNumber;
 };
 
 
