@@ -30,8 +30,8 @@ public:
 	bool operator==(Address& other)
 	{
 
-		return other.getCity() == this->getCity() && other.houseNumber == this->houseNumber
-			&& other.getStreet() == this->getStreet();
+		return strcmp(other.getCity(), this->getCity()) && other.houseNumber == this->houseNumber
+			&& strcmp(other.getStreet(), this->getStreet());
 	}
 
 	bool operator!=(Address& other)

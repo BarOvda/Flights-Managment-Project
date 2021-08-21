@@ -5,7 +5,11 @@ using namespace std;
 #include <string.h>
 #include "CrewMember.h"
 
-int CrewMember::currentMemberNumber = 1000;
+int CrewMember::currentMemberNumber = CrewMember::START_ID;
+CrewMember::CrewMember() {
+	//this->name = new char[1];
+
+}
 
 CrewMember::CrewMember(const char* mName, int mTotalFlightTime)
 {
@@ -13,7 +17,7 @@ CrewMember::CrewMember(const char* mName, int mTotalFlightTime)
 	strcpy(this->name, mName);
 
 	this->totalFlightTime = mTotalFlightTime;
-	this->memberNumber = ++currentMemberNumber;
+	this->memberNumber = currentMemberNumber++;
 }
 
 CrewMember::CrewMember(CrewMember& otherMember)
@@ -27,7 +31,13 @@ CrewMember::CrewMember(CrewMember& otherMember)
 
 CrewMember::~CrewMember()
 {
-	delete[]this->name;
+	try {
+		delete[]this->name;
+		//delete this;
+	}
+	catch (exception ex) {
+		cout << ex.what();
+	}
 }
 
 int CrewMember::getTotalFlightTime()
@@ -77,4 +87,14 @@ void CrewMember::print(ostream& out)
 void CrewMember::setCurrentMemberNumber(int mCurrentMemberNumber)
 {
 	CrewMember::currentMemberNumber = mCurrentMemberNumber;
+}
+
+ ostream& operator<<(ostream& os, const CrewMember& data) {
+	os << "Name "
+		<< data.name
+		<< " Member Number "
+		<< data.memberNumber
+		<< " Total Flight Time "
+		<< data.totalFlightTime;
+	return os;
 }

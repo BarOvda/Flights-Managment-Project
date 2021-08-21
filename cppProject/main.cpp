@@ -8,20 +8,16 @@ using namespace std;
 #include "CrewMember.h"
 #include "FlightCompany.h"
 #include "Address.h"
-
+#include "Flight.h"
 
 void main()
 {
 	cout << endl << "Checking Address" << endl;
 	Address a(0, NULL, NULL);
-	cin >> a;
-	cout << a;
+	/*cin >> a;
+	cout << a;*/
 
 	cout << endl << "Checking CFlightCompany" << endl;
-	Plane* pPlaneArr[2];
-	pPlaneArr[0] = new Plane(100, "Boing373");  //seats,degem
-	pPlaneArr[1] = new Plane(10, "Boing3");
-
 
 	FlightCompany* pDelta = new FlightCompany("Delta");
 	cout << endl << "First company" << endl;
@@ -83,7 +79,7 @@ void main()
 	for (int i = 0; i < 2; i++)
 		delete pPlaneArr[i];
 
-	cout << "******** After adding Planes *********" << endl;
+	cout << "******** After adding Planes *********" << endl; 
 	pDelta->Print(cout);
 
 	FlightInfo fInfo1("Paris", 343, 320, 5000);
@@ -99,9 +95,9 @@ void main()
 
 	cout << "Flight time is: " << (int)fInfo1;
 
-	FlightInfo* FArr[2];
-	FArr[0] = new FlightInfo(fInfo1);
-	FArr[1] = new FlightInfo(fInfo2, pDelta->GetPlane(1));
+	Flight* FArr[2];
+	FArr[0] = new Flight(fInfo1);
+	FArr[1] = new Flight(fInfo2, pDelta->GetPlane(1));
 
 	cout << "Before seting plane" << endl;
 	cout << *FArr[0];
@@ -121,15 +117,15 @@ void main()
 	pDelta->Print(cout);
 
 
-	pDelta->AddCrewToFlight(fInfo1.GetFNum(), CCrewMember::START_ID);
-	pDelta->AddCrewToFlight(fInfo1.GetFNum(), CCrewMember::START_ID + 1);
-	pDelta->AddCrewToFlight(fInfo1.GetFNum(), CCrewMember::START_ID + 2);
+	pDelta->AddCrewToFlight(fInfo1.GetFNum(), CrewMember::START_ID);
+	pDelta->AddCrewToFlight(fInfo1.GetFNum(), CrewMember::START_ID + 1);
+	pDelta->AddCrewToFlight(fInfo1.GetFNum(), CrewMember::START_ID + 2);
 
 	cout << "******** After adding Crew to Flight *********" << endl;
 	pDelta->Print(cout);
 
 
-	delete pDelta;
+//	delete pDelta;
 
 	system("pause");
 }

@@ -11,16 +11,16 @@ public:
 	//c'tor
 	FlightInfo(const char* mDestination, int mFlightNumber, int mFlightTime, int mFlightLength);
 	FlightInfo(FlightInfo& otherFlightInfo);
+	FlightInfo();
 
 	//d'tor
 	~FlightInfo();
 
 	//getters
-	int getFlightNumber();
 	int getFlightTime();
 	int getFlightLength();
 	char* getDestination();
-
+	int GetFNum();
 	//setters
 	void setFlightNumber(int mFlightNumber);
 	void setFlightTime(int mFlightTime);
@@ -37,7 +37,7 @@ public:
 		return flightNumber == other.flightNumber
 			&& flightTime == other.flightTime
 			&& flightLength == other.flightLength
-			&& destination == other.destination;
+			&& strcmp(destination , other.destination);
 	}
 
 	bool operator!=(const FlightInfo& other) const

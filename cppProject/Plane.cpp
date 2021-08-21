@@ -6,28 +6,36 @@ using namespace std;
 #include <string.h>
 #include "Plane.h"
 
-int Plane::CurrentserialNumber = 100;
+int Plane::CurrentserialNumber = Plane::START_ID;
 
 Plane::Plane(int mChairNumber, const char* mModel)
 {
 
-	this->serialNumber = ++CurrentserialNumber;
+	this->serialNumber = CurrentserialNumber++;
 	this->chairNumber = mChairNumber;
 
 	this->model = new char[strlen(mModel)];
 	strcpy(this->model, mModel);
 }
+
+Plane::Plane()
+{
+	/*serialNumber = CurrentserialNumber++;
+	 chairNumber = 0;*/
+	
+}
 Plane::Plane(Plane& otherPlane)
 {
 	this->serialNumber = otherPlane.serialNumber;
 	this->serialNumber = otherPlane.chairNumber;
-
+	
 	this->model = new char[strlen(otherPlane.getModel()) + 1];
 	strcpy(this->model, otherPlane.getModel());
 }
 Plane::~Plane()
 {
-	delete[]this->model;
+	//delete[]this->model;
+	
 }
 
 int Plane::getSerialNumber()
@@ -54,8 +62,10 @@ char* Plane::getModel()
 
 void Plane::operator=(Plane& other)
 {
+	
 	this->chairNumber = other.getChairNumber();
-	this->model = other.getModel();
+	delete[]this->model;
+	this->model = strdup(other.getModel());
 	this->serialNumber = other.getSerialNumber();
 }
 
@@ -80,7 +90,8 @@ ostream& operator<<(ostream& os, const Plane& data) {
 		<< " degem "
 		<< data.model
 		<< " seats "
-		<< data.chairNumber;
+		<< data.chairNumber
+		<<endl;
 	return os;
 }
 

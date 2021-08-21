@@ -5,15 +5,22 @@ using namespace std;
 #include <string.h>
 #include "FlightInfo.h"
 
+FlightInfo::FlightInfo() {
+
+}
+
 FlightInfo::FlightInfo(const char* mDestination, int mFlightNumber, int mFlightTime, int mFlightLength)
 {
 	this->flightNumber = mFlightNumber;
 	this->flightTime = mFlightTime;
 	this->flightLength = mFlightLength;
 
-	if (strlen(mDestination) < MAX)
+	if (strlen(mDestination) < MAX) {
 		strcpy(this->destination, mDestination);
+		
+	}
 }
+
 FlightInfo::FlightInfo(FlightInfo& otherFlightInfo)
 {
 	this->flightNumber = otherFlightInfo.flightNumber;
@@ -26,11 +33,9 @@ FlightInfo::FlightInfo(FlightInfo& otherFlightInfo)
 }
 FlightInfo::~FlightInfo()
 {
-	delete[]this->destination;
+	
 }
-
-int FlightInfo::getFlightNumber()
-{
+int FlightInfo::GetFNum() {
 	return this->flightNumber;
 }
 

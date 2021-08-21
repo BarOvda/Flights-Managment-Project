@@ -4,9 +4,11 @@
 class Plane
 {
 public:
+	static const int START_ID = 100;
 	//c'tor
 	Plane(int mChairNumber, const char* mModel);
 	Plane(Plane& otherPlane);
+	Plane();
 
 
 	//d'tor
@@ -22,7 +24,8 @@ public:
 
 	bool operator==(Plane& other)
 	{
-		return other.getSerialNumber() == this->getSerialNumber();
+		return other.getSerialNumber() == this->getSerialNumber()
+			&&strcmp(other.getModel(),this->getModel())==0&& other.getChairNumber()== this->getChairNumber();
 	}
 
 	bool operator!=(Plane& other)
@@ -38,15 +41,16 @@ public:
 
 	// prefix increment
 	const Plane& operator++() {
-		this->chairNumber++;
+		chairNumber++;
 		return *this;
 	}
 
 	// postfix increment
 	Plane operator++(int)
 	{
-		Plane old = *this;
-		this->chairNumber++;
+
+		Plane old(*this);
+		chairNumber++;
 		return old;
 	}
 
