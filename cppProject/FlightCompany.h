@@ -22,8 +22,9 @@ public:
 	char* getCompanyName();
 	Plane& GetPlane(int i);
 	 Flight* GetFlight(int f_number);
-	 CrewMember* GetCrew(int c_number);
-
+	 //CrewMember* GetCrew(int c_number);
+	 CrewMember* GetCrewMember(int index);
+	 
 //setters
 	void setName(const char* mName);
 
@@ -32,7 +33,10 @@ public:
 	bool AddCrewMember(CrewMember& crewMember);
 	bool AddPlane(Plane& plane);
 	bool AddFlight(Flight& flight);
-	void AddCrewToFlight(int f_number,int crew_member_number);
+	void CrewGetPresent();
+	void PilotsToSimulator();
+	void CrewGetUniform();
+	//void AddCrewToFlight(int f_number,int crew_member_number);
 
 	//void AddFlight(FlightInfo flight);
 //Operators

@@ -8,7 +8,7 @@
 class CrewMember
 {
 public:
-	static const int START_ID = 0;
+	//static const int START_ID = 0;
 
 	//c'tor
 	CrewMember();
@@ -21,11 +21,12 @@ public:
 	//getters
 	int getTotalFlightTime();
 	char* getName();
-	int getMemberNumber();
+	//int getMemberNumber();
 
 	//setters
 	void setName(const char* mName);
-
+	virtual void GetPresent();
+	virtual const char* getType() const { return "CrewMember"; }
 	//other methods
 		//bool UpdateMinutes(int minutes);
 	virtual const bool operator+=(int minutes)
@@ -36,15 +37,15 @@ public:
 		}
 		return true;
 	}
-	bool operator==(CrewMember& other)
+	virtual bool operator==(CrewMember& other)
 	{
 
-		return other.getMemberNumber() == this->getMemberNumber() && strcmp(other.getName() , this->getName())==0
-			&& other.getTotalFlightTime() == this->getTotalFlightTime();
+		return strcmp(other.getName() , this->getName())==0
+		;
 	}
 	void operator=(CrewMember& other)
 	{
-		this->memberNumber = other.getMemberNumber();
+		//this->memberNumber = other.getMemberNumber();
 		delete[]this->name;
 		this->name = _strdup(other.getName());
 
@@ -58,8 +59,8 @@ public:
 protected:
 	char* name;
 	int totalFlightTime;
-	int memberNumber;
-	static int currentMemberNumber;
+	//int memberNumber;
+	//static int currentMemberNumber;
 
 	
 	

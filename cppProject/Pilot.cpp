@@ -4,13 +4,17 @@ using namespace std;
 #include <string.h>
 #include "Pilot.h"
 
-Pilot::Pilot(const char* name, bool isCaptian,const Address* address) : adderss(adderss), CrewMember(name) {
+Pilot::Pilot(const char* name, bool isCaptian, Address* address) : adderss(adderss.getHouseNumber()
+	,adderss.getStreet(),adderss.getCity()), CrewMember(name) {
 	this->isCaptian = isCaptian;
 	
 }
 Pilot::Pilot(const char* name, bool isCaptian) : adderss(adderss), CrewMember(name) {
 	this->isCaptian = isCaptian;
 
+}
+void Pilot::GetPresent()
+{
 }
 void Pilot::print(std::ostream& out)
 {

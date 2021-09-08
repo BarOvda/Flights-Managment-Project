@@ -5,7 +5,7 @@ using namespace std;
 #include <string.h>
 #include "CrewMember.h"
 
-int CrewMember::currentMemberNumber = CrewMember::START_ID;
+//int CrewMember::currentMemberNumber = CrewMember::START_ID;
 CrewMember::CrewMember() {
 	//this->name = new char[1];
 
@@ -17,7 +17,7 @@ CrewMember::CrewMember(const char* mName, int mTotalFlightTime)
 	strcpy(this->name, mName);
 
 	this->totalFlightTime = mTotalFlightTime;
-	this->memberNumber = currentMemberNumber++;
+	//this->memberNumber = currentMemberNumber++;
 }
 
 CrewMember::CrewMember(CrewMember& otherMember)
@@ -26,7 +26,7 @@ CrewMember::CrewMember(CrewMember& otherMember)
 	strcpy(this->name, otherMember.getName());
 
 	this->totalFlightTime = otherMember.getTotalFlightTime();
-	this->memberNumber = otherMember.getMemberNumber();
+	//this->memberNumber = otherMember.getMemberNumber();
 }
 
 CrewMember::~CrewMember()
@@ -50,10 +50,10 @@ char* CrewMember::getName()
 	return this->name;
 }
 
-int CrewMember::getMemberNumber()
-{
-	return this->memberNumber;
-}
+//int CrewMember::getMemberNumber()
+//{
+//	return this->memberNumber;
+//}
 
 void CrewMember::setName(const char* mName)
 {
@@ -61,6 +61,12 @@ void CrewMember::setName(const char* mName)
 		this->name = new char[strlen(mName) + 1];
 
 	strcpy(this->name, mName);
+}
+
+void CrewMember::GetPresent()
+{
+	std::cout << this->name << " thanking the company for receiving the holiday gift" << endl;
+
 }
 
 //bool CrewMember::UpdateMinutes(int minutes)
@@ -72,12 +78,12 @@ void CrewMember::setName(const char* mName)
 //	return false;
 //}
 
-bool CrewMember::IsEqual(CrewMember& otherMember)
-{
-	if (this->memberNumber == otherMember.getMemberNumber())
-		return true;
-	return false;
-}
+//bool CrewMember::IsEqual(CrewMember& otherMember)
+//{
+//	if (this->memberNumber == otherMember.getMemberNumber())
+//		return true;
+//	return false;
+//}
 
 void CrewMember::print(ostream& out)
 {
@@ -86,14 +92,14 @@ void CrewMember::print(ostream& out)
 
 void CrewMember::setCurrentMemberNumber(int mCurrentMemberNumber)
 {
-	CrewMember::currentMemberNumber = mCurrentMemberNumber;
+	//CrewMember::currentMemberNumber = mCurrentMemberNumber;
 }
 
  ostream& operator<<(ostream& os, const CrewMember& data) {
 	os << "Name "
 		<< data.name
-		<< " Member Number "
-		<< data.memberNumber
+		//<< " Member Number "
+		//<< data.memberNumber
 		<< " Total Flight Time "
 		<< data.totalFlightTime;
 	return os;
