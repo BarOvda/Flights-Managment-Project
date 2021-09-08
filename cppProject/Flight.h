@@ -29,7 +29,7 @@ public:
 	~Flight();
 
 	//getters
-	FlightInfo getFlightInfo();
+	FlightInfo GetFlightInfo();
 	//setters
 	void SetPlane(Plane& plane);
 	//other methods

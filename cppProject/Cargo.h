@@ -6,7 +6,7 @@
 
 #include "Plane.h"
 
-class Cargo : protected Plane
+class Cargo : public Plane
 {
 
 public:

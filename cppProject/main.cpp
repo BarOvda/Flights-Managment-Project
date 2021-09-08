@@ -69,17 +69,17 @@ void main()
 	pArr[3] = new Cargo(4, "Lift400", 4000, 5000); //seats, degem, max kg, max volume
 
 	////checking load cargo
-	if (!((Cargo*)pArr[3])->Load(1000, 1500))
+	if (!((Cargo*)pArr[3])->load(1000, 1500))
 		cout << "error1 loading plane " << (*pArr[3]) << endl;
 
-	if (!((Cargo*)pArr[3])->Load(800, 2000))
+	if (!((Cargo*)pArr[3])->load(800, 2000))
 		cout << "error2 loading plane " << (*pArr[3]) << endl;
 
-	if (!((Cargo*)pArr[3])->Load(1800, 1000))
+	if (!((Cargo*)pArr[3])->load(1800, 1000))
 		cout << "error3 loading plane " << (*pArr[3]) << endl;
 
 
-	if (!((Cargo*)pArr[3])->Load(800, 1200))
+	if (!((Cargo*)pArr[3])->load(800, 1200))
 		cout << "error4 loading plane " << (*pArr[3]) << endl;
 
 
@@ -137,7 +137,7 @@ void main()
 
 		for (int i = 0; i < CM_COUNT / 2; i++) {
 			pCmTemp = Delta.GetCrewMember(i);
-			*pF2 + pCmTemp;
+			//*pF2 + pCmTemp;
 		}
 
 		cout << "******** Take off *********" << endl;
@@ -153,7 +153,7 @@ void main()
 		cout << "flight 343 was found " << endl;
 		for (int i = 0; i < CM_COUNT; i++) {
 			pCmTemp = Delta.GetCrewMember(i);
-			*pF2 + pCmTemp;
+		//	*pF2 + pCmTemp;
 		}
 		cout << "******** Take off *********" << endl;
 		if (!pF2->TakeOff())

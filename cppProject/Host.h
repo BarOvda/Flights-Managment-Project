@@ -12,7 +12,7 @@ public:
 	void print(std::ostream& out);
 	void GetPresent();
 	virtual const char* getType() const { return "Host"; }
-
+	friend std::ostream& operator<<(std::ostream& out, const Host& data);
 
 private:
 

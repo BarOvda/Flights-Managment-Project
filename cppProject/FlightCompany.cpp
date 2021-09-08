@@ -66,7 +66,8 @@ void FlightCompany::Print(ostream& out)
 	out << "Flight company: " << this->companyName << endl
 		<< "There are " << numOfCrewMembers << " Crew members : " << endl;
 	for (int i = 0; i < numOfCrewMembers; i++) {
-		out << crewMembers[i] << endl;
+
+		crewMembers[i].print(out);
 
 	}
 
@@ -164,7 +165,7 @@ bool FlightCompany::operator==(FlightCompany& other)
 
 Flight* FlightCompany::GetFlightByNum(int f_number) {
 	for (int i = 0; i < numOfFlights; i++) {
-		if (this->flights[i].getFlightInfo().GetFNum() == f_number)
+		if (this->flights[i].GetFlightInfo().GetFNum() == f_number)
 			return &this->flights[i];
 	}
 }
@@ -183,11 +184,7 @@ CrewMember* FlightCompany::GetCrewMember(int index) {
 }
 void FlightCompany::CrewGetPresent() {
 	for (int i = 0; i < this->numOfCrewMembers; i++) {
-		std::cout << (typeid(this->crewMembers[i])).name() << endl;
-		if (strcmp(this->crewMembers[i].getType(),"Host")==0) {
-			std::cout << " I was not expecting it" << endl;
-
-		}
+		this->crewMembers[i].GetPresent();
 		
 	}
 }

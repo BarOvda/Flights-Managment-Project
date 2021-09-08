@@ -89,6 +89,7 @@ Address Address::GetCurrentAddress()
 	return *this;
 }
 ostream& operator<<(ostream& out, const Address& data) {
+	if(data.street!=NULL)
 	out << data.street
 		<< " "
 		<< data.houseNumber

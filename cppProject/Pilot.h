@@ -45,7 +45,7 @@ public:
 	bool AddPlane(Plane& plane);
 	bool AddFlight(Flight& flight);
 	void AddCrewToFlight(int f_number, int crew_member_number);*/
-
+	friend std::ostream& operator<<(std::ostream& out, const Pilot& data);
 private:
 	Address adderss;
 	bool isCaptian;

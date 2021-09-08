@@ -56,7 +56,7 @@ public:
 	virtual void print(std::ostream& out);
 
 	static void setCurrentMemberNumber(int mCurrentMemberNumber);
-	friend std::ostream& operator<<(std::ostream& os, const CrewMember& data);
+	 friend std::ostream& operator<<(std::ostream& os, const CrewMember& data);
 
 protected:
 	char* name;

@@ -149,7 +149,7 @@ bool Flight::TakeOff()
 	return isFlightOk;
 }
 
-FlightInfo Flight::getFlightInfo()
+FlightInfo Flight::GetFlightInfo()
 {
 	return this->info;
 }
