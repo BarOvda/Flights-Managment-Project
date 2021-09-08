@@ -81,7 +81,7 @@ bool CrewMember::IsEqual(CrewMember& otherMember)
 
 void CrewMember::print(ostream& out)
 {
-	out << "crew member " << this->name << " minutes " << this->totalFlightTime;
+	out << "crew member " << this->name << " minutes " << this->totalFlightTime<<endl;
 }
 
 void CrewMember::setCurrentMemberNumber(int mCurrentMemberNumber)

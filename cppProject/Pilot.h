@@ -6,14 +6,15 @@ class Pilot :
 {
 public:
 	//c'tor
-	Pilot(const char* name,bool isCaptian, Address* address);
+	Pilot(const char* name,bool isCaptian,const Address* address);
 	Pilot(const char* name, bool isCaptian);
 	const bool operator+=(int minutes)
 	{
 		if (minutes > 0) {
 
-			totalFlightTime += minutes + (minutes/10);
-
+			totalFlightTime += minutes;
+			if (isCaptian)
+				totalFlightTime += (minutes / 10);
 		}
 		return true;
 	}
@@ -30,6 +31,7 @@ public:
 	//void setName(const char* mName);
 
 	//other methods
+	void print(std::ostream& out);
 	/*void Print(ostream& out);
 	bool AddCrewMember(CrewMember& crewMember);
 	bool AddPlane(Plane& plane);

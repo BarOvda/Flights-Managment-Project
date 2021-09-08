@@ -2,8 +2,7 @@
 #define __CREW_MEMBER
 
 #include <string>
-
-
+#include <iostream>
 
 
 class CrewMember
@@ -29,7 +28,7 @@ public:
 
 	//other methods
 		//bool UpdateMinutes(int minutes);
-	const bool operator+=(int minutes)
+	virtual const bool operator+=(int minutes)
 	{
 		if (minutes > 0) {
 			totalFlightTime += minutes;
@@ -47,15 +46,15 @@ public:
 	{
 		this->memberNumber = other.getMemberNumber();
 		delete[]this->name;
-		this->name = strdup(other.getName());
+		this->name = _strdup(other.getName());
 
 		this->totalFlightTime= other.getTotalFlightTime();
 	}
 	bool IsEqual(CrewMember& otherMember);
-	void print(ostream& out);
+	virtual void print(std::ostream& out);
 
 	static void setCurrentMemberNumber(int mCurrentMemberNumber);
-	friend ostream& operator<<(ostream& os, const CrewMember& data);
+	friend std::ostream& operator<<(std::ostream& os, const CrewMember& data);
 protected:
 	char* name;
 	int totalFlightTime;

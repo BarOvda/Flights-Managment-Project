@@ -1,5 +1,6 @@
 #ifndef __ADDRESS_H
 #define __ADDRESS_H
+#include <iostream>
 
 class Address
 {
@@ -21,11 +22,11 @@ public:
 	void UpdateAddress(int mHouseNumber, const char* mStreet, const char* mCity);
 
 	// more methods
-	void print(ostream& out);
+	void print(std::ostream& out);
 
-	friend ostream& operator<<(ostream& os, const Address& data);
+	friend std::ostream& operator<<(std::ostream& os, const Address& data);
 
-	friend istream& operator>>(istream& in, Address& data);
+	friend std::istream& operator>>(std::istream& in, Address& data);
 
 	bool operator==(Address& other)
 	{

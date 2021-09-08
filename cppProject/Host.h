@@ -9,6 +9,7 @@ public:
 		, eCalcelan
 	};
 	Host(const char* name,Host::Type type);
+	void print(std::ostream& out);
 
 
 

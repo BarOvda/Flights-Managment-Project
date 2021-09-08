@@ -26,10 +26,17 @@ Address::Address(int mHouseNumber, const char* mStreet, const char* mCity) {
 Address::Address(const Address& other)
 {
 	this->houseNumber = other.houseNumber;
-	this->street = new char[strlen(other.street) + 1];
-	this->city = new char[strlen(other.city) + 1];
-	strcpy(this->street, other.street);
-	strcpy(this->city, other.city);
+	if (other.street != NULL) {
+		strcpy(this->street, other.street);
+		this->street = new char[strlen(other.street) + 1];
+
+	}
+	if (other.city != NULL) {
+		this->city = new char[strlen(other.city) + 1];
+
+		strcpy(this->city, other.city);
+	}
+	
 }
 
 Address::~Address()
