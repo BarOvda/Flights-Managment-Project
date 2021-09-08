@@ -6,6 +6,9 @@
 #include "FlightInfo.h"
 #include "Plane.h"
 #include "CrewMember.h"
+#include "Pilot.h"
+#include "Host.h"
+#include "Cargo.h"
 
 
 class Flight
@@ -34,20 +37,10 @@ public:
 
 	void operator+(CrewMember& newMember);
 	bool operator==(Flight& otherFlight);
-	void operator=(Flight& other)
-	{
-		this->numberOfMembers = other.numberOfMembers;
-		for (int i = 0; i < other.numberOfMembers; i++) {
-			this->crewMembers[i] = other.crewMembers[i];
-		}
-
-		this->isPlaneAssigned = other.isPlaneAssigned;
-		if (other.isPlaneAssigned)
-			this->info = other.info;
-		this->plane = other.plane;
-
-	}
+	void operator=(Flight& other);
+	
 	friend ostream& operator<<(ostream& os, const Flight& data);
+	bool TakeOff();
 
 private:
 	//attribuites

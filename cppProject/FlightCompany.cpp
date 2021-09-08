@@ -8,8 +8,6 @@ using namespace std;
 #include "Host.h"
 
 
-
-
 FlightCompany::FlightCompany(const char* name)
 {
 
@@ -39,27 +37,27 @@ FlightCompany::FlightCompany(FlightCompany& other) {
 	{
 		AddFlight(other.flights[i]);
 	}
-
-
 }
 
 FlightCompany::~FlightCompany()
 {
-	delete []this->companyName;
+	delete[]this->companyName;
 }
 
 char* FlightCompany::getCompanyName()
 {
 	return this->companyName;
 }
+
 Plane& FlightCompany::GetPlane(int i) {
 	return this->Planes[i];
 }
+
 void FlightCompany::setName(const char* mName)
 {
-	if (strlen(this->companyName) < strlen(mName)) 
+	if (strlen(this->companyName) < strlen(mName))
 		this->companyName = new char[strlen(mName) + 1];
-	
+
 	strcpy(this->companyName, mName);
 }
 
@@ -86,6 +84,7 @@ void FlightCompany::Print(ostream& out)
 	out
 		<< endl;
 }
+
 bool FlightCompany::AddCrewMember(CrewMember& crewMember) {
 	if (numOfCrewMembers > MAX_CREWS)
 		return false;
@@ -125,21 +124,62 @@ bool FlightCompany::AddFlight(Flight& flight) {
 			return false;
 		}
 	}
-	
+
 	flights[numOfFlights] = flight;
 	numOfFlights++;
 	return true;
 }
 
-//void FlightCompany::AddCrewToFlight(int f_number, int crew_member_number) {
-//	*(this->GetFlight(f_number)) + *(this->GetCrew(crew_member_number));
-//}
-Flight* FlightCompany::GetFlight(int f_number) {
+
+void FlightCompany::AddCrewToFlight(int f_number, int crew_member_number) {
+	*(this->GetFlightByNum(f_number)) + *(this->GetCrewMember(crew_member_number));
+}
+
+int FlightCompany::GetCargoCount()
+{
+	int totalAmount = 0;
+
+	for (int i = 0; i < this->numOfPlanes; i++)
+	{
+		if (typeid(this->Planes[i]) == typeid(Cargo)) 
+		{
+			totalAmount++;
+		}
+	}
+	return totalAmount;
+}
+
+
+bool FlightCompany::TakeOff(int flightNumber)
+{
+	Flight* temp = this->GetFlightByNum(flightNumber);
+
+	return temp->TakeOff();
+}
+
+bool FlightCompany::operator==(FlightCompany& other)
+{
+	return strcmp(this->companyName, other.companyName);
+}
+
+Flight* FlightCompany::GetFlightByNum(int f_number) {
 	for (int i = 0; i < numOfFlights; i++) {
 		if (this->flights[i].getFlightInfo().GetFNum() == f_number)
 			return &this->flights[i];
 	}
 }
+
+CrewMember* FlightCompany::GetCrewMember(int c_number) {
+	/*for (int i = 0; i < numOfCrewMembers; i++) {
+		if (this->crewMembers[i].getMemberNumber() == c_number)
+			return &this->crewMembers[i];
+	}*/
+
+	if (c_number <= numOfCrewMembers - 1)
+		return &this->crewMembers[c_number];
+	else 
+		return nullptr;
+
 //CrewMember* FlightCompany::GetCrew(int c_number) {
 //	for (int i = 0; i < numOfCrewMembers; i++) {
 //		if (this->crewMembers[i].getMemberNumber() == c_number)
@@ -184,4 +224,5 @@ void FlightCompany::CrewGetUniform()
 		}
 
 	}
+
 }
