@@ -33,7 +33,7 @@ public:
 		return !(this->operator==(other));
 	}
 
-	void operator=(Plane& other);
+	const Plane& operator=(const Plane& other);
 
 	void print(ostream& out);
 

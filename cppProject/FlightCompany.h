@@ -7,42 +7,42 @@
 #include "Flight.h"
 #include "Plane.h"
 #include "CrewMember.h"
+#include "Cargo.h"
+
 
 class FlightCompany
 {
 public:
-//c'tor
+	//c'tor
 	FlightCompany(const char* name);
 	FlightCompany(FlightCompany& other);
 
-//d'tor
+	//d'tor
 	~FlightCompany();
 
-//getters
+	//getters
 	char* getCompanyName();
 	Plane& GetPlane(int i);
-	 Flight* GetFlight(int f_number);
-	 CrewMember* GetCrew(int c_number);
+	Flight* GetFlight(int f_number);
+	CrewMember* GetCrew(int c_number);
 
-//setters
+	//setters
 	void setName(const char* mName);
 
-//other methods
+	//other methods
 	void Print(ostream& out);
 	bool AddCrewMember(CrewMember& crewMember);
 	bool AddPlane(Plane& plane);
 	bool AddFlight(Flight& flight);
-	void AddCrewToFlight(int f_number,int crew_member_number);
+	void AddCrewToFlight(int f_number, int crew_member_number);
+	int getAmountOfCargoPlanes();
 
 	//void AddFlight(FlightInfo flight);
 //Operators
-	bool operator==(FlightCompany& other)
-	{
-		return strcmp(this->companyName , other.companyName);
+	bool operator==(FlightCompany& other);
 
-	}
 private:
-//attributes
+	//attributes
 	char* companyName;
 	CrewMember crewMembers[MAX_CREWS];
 	Plane Planes[MAX_PLANES];
@@ -50,7 +50,7 @@ private:
 	int numOfCrewMembers;
 	int numOfPlanes;
 	int numOfFlights;
-	
+
 };
 
 #endif // !__FLIGHT_COMPANY

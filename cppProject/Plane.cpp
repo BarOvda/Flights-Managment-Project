@@ -60,13 +60,15 @@ char* Plane::getModel()
 //	return false;
 //}
 
-void Plane::operator=(Plane& other)
+const Plane& Plane::operator=(const Plane& other)
 {
-	
-	this->chairNumber = other.getChairNumber();
-	delete[]this->model;
-	this->model = strdup(other.getModel());
-	this->serialNumber = other.getSerialNumber();
+	if (this != &other) {
+		this->chairNumber = other.chairNumber;
+		delete[]this->model;
+		this->model = strdup(other.model);
+		this->serialNumber = other.serialNumber;
+	}
+	return *this;
 }
 
 void Plane::print(ostream& out)
