@@ -1,131 +1,188 @@
 #define _CRT_SECURE_NO_DEPRECATE
-#pragma warning (disable: 4996)
+
 #include <iostream>
 using namespace std;
 
 #include "Plane.h"
 #include "FlightInfo.h"
 #include "CrewMember.h"
-#include "FlightCompany.h"
-#include "Address.h"
 #include "Flight.h"
+#include "FlightCompany.h"
+#include "address.h"
+#include "Pilot.h"
+//#include "Cargo.h"
+#include "Host.h"
+
+
+const int CM_COUNT = 5;
+const int PLANE_COUNT = 4;
+const int FLIGHT_COUNT = 4;
 
 void main()
 {
-	cout << endl << "Checking Address" << endl;
-	Address a(0, NULL, NULL);
-	/*cin >> a;
-	cout << a;*/
+	FlightCompany Delta("Delta");
+	Address ad1(34, "DZ");
 
-	cout << endl << "Checking CFlightCompany" << endl;
+	CrewMember* cmArr[CM_COUNT];
+	cmArr[0] = new Pilot("Soso", false, &ad1); //name, bcaptain, home add, no min
+	cmArr[1] = new Host("Momo", CHost::eRegular);//name, type
+	cmArr[2] = new Host("Lolo", CHost::eSuper);
+	cmArr[3] = new Host("Popo", CHost::eCalcelan);
+	cmArr[4] = new Pilot("Toto", true); //no address and min
 
-	FlightCompany* pDelta = new FlightCompany("Delta");
-	cout << endl << "First company" << endl;
-	pDelta->Print(cout);
+	//Check updateTime
+	//for (int i = 0; i < CM_COUNT; i++)
+	//	(*cmArr[i]) += (60);
 
+	//for (int i = 0; i < CM_COUNT; i++)
+	//	cmArr[i]->Print(cout);
 
-	CrewMember* pCmArr[3];
+	//cout << endl << "******** Add CrewMember  *********" << endl;
+	//for (int i = 0; i < CM_COUNT; i++)
+	//{
+	//	if (!Delta.AddCrewMember(*cmArr[i]))
+	//		cout << "Problem adding CrewMember " << i << endl;
+	//}
 
-	pCmArr[0] = new CrewMember("Momo", 125);
-	pCmArr[1] = new CrewMember("Gogo");
-	pCmArr[2] = new CrewMember("Jojo", 60);
+	//cout << endl << "******** Trying add same CrewMember *********" << endl;
+	//CHost h1((CHost&)(*cmArr[1])); //creating temp with different pointers.
+	//CPilot p1((CPilot&)(*cmArr[4]));
+	//if (!Delta.AddCrewMember(h1))
+	//	cout << "Problem adding CrewMember h1" << endl;
 
-	if (!((*pCmArr[1]) += 200))
-		cout << "error update minutes" << endl;
+	//if (!Delta.AddCrewMember(p1))
+	//	cout << "Problem adding CrewMember p1" << endl;
 
-	for (int i = 0; i < 3; i++)
-		if (!pDelta->AddCrewMember(*pCmArr[i]))
-			cout << "Problem adding crew member " << i + 1 << endl;
+	//cout << endl << "******** After adding CrewMember *********" << endl;
+	//Delta.Print(cout);
 
-	cout << "******** try adding CrewMembers again *********" << endl;
-	//Create another array that is equal to the first array
-	CrewMember* crewsDup[3];
-	for (int i = 0; i < 3; i++)
-		crewsDup[i] = new CrewMember(*pCmArr[i]);
+	//cout << "********  *********" << endl;
 
-	for (int i = 0; i < 3; i++) {
-		if (!pDelta->AddCrewMember(*pCmArr[i]))
-			cout << "Problem adding crew member " << i + 1 << endl;
-	}
+	//for (int i = 0; i < CM_COUNT; i++)
+	//	delete cmArr[i];
 
-	for (int i = 0; i < 3; i++)
-		delete crewsDup[i];
+	//CPlane* pArr[PLANE_COUNT];
+	//pArr[0] = new CPlane(100, "Boing373"); //seats and degem
+	//pArr[1] = new CPlane(50, "Boing373");
+	//pArr[2] = new CPlane(1, "Boing3");
+	//pArr[3] = new CCargo(4, "Lift400", 4000, 5000); //seats, degem, max kg, max volume
 
-	for (int i = 0; i < 3; i++)
-		delete pCmArr[i];
+	////checking load cargo
+	//if (!((CCargo*)pArr[3])->Load(1000, 1500))
+	//	cout << "error1 loading plane " << (*pArr[3]) << endl;
 
-	cout << "******** After adding Crew member *********" << endl;
-	pDelta->Print(cout);
+	//if (!((CCargo*)pArr[3])->Load(800, 2000))
+	//	cout << "error2 loading plane " << (*pArr[3]) << endl;
 
-
-	Plane* pPlaneArr[2];
-	pPlaneArr[0] = new Plane(100, "Boing373");  //seats,degem
-	pPlaneArr[1] = new Plane(10, "Boing3");
-
-	cout << "Before adding seats" << endl;
-	cout << *pPlaneArr[1];
-
-	//Adding seats
-	(*pPlaneArr[1])++;
-	++(*pPlaneArr[1]);
-
-	cout << "After adding seats" << endl;
-	cout << *pPlaneArr[1];
-
-	for (int i = 0; i < 2; i++)
-		if (!pDelta->AddPlane(*pPlaneArr[i]))
-			cout << "Problem adding plane " << i + 1 << endl;
-
-	for (int i = 0; i < 2; i++)
-		delete pPlaneArr[i];
-
-	cout << "******** After adding Planes *********" << endl; 
-	pDelta->Print(cout);
-
-	FlightInfo fInfo1("Paris", 343, 320, 5000);
-	FlightInfo fInfo2("Rome", 506, 220, 4000);
-
-	cout << fInfo1;
-	cout << fInfo2;
-
-	if (fInfo1 != fInfo2)
-		cout << "FlightInfo not equal" << endl;
-	else
-		cout << "FlightInfo equal" << endl;
-
-	cout << "Flight time is: " << (int)fInfo1;
-
-	Flight* FArr[2];
-	FArr[0] = new Flight(fInfo1);
-	FArr[1] = new Flight(fInfo2, pDelta->GetPlane(1));
-
-	cout << "Before seting plane" << endl;
-	cout << *FArr[0];
-	FArr[0]->SetPlane(pDelta->GetPlane(0));
-
-	cout << "After seting plane " << endl;
-	cout << *FArr[0];
-
-	for (int i = 0; i < 2; i++)
-		if (!pDelta->AddFlight(*FArr[i]))
-			cout << "Problem adding flight " << i + 1 << endl;
-
-	for (int i = 0; i < 2; i++)
-		delete FArr[i];
-
-	cout << "******** After adding Flights *********" << endl;
-	pDelta->Print(cout);
+	//if (!((CCargo*)pArr[3])->Load(1800, 1000))
+	//	cout << "error3 loading plane " << (*pArr[3]) << endl;
 
 
-	pDelta->AddCrewToFlight(fInfo1.GetFNum(), CrewMember::START_ID);
-	pDelta->AddCrewToFlight(fInfo1.GetFNum(), CrewMember::START_ID + 1);
-	pDelta->AddCrewToFlight(fInfo1.GetFNum(), CrewMember::START_ID + 2);
-
-	cout << "******** After adding Crew to Flight *********" << endl;
-	pDelta->Print(cout);
+	//if (!((CCargo*)pArr[3])->Load(800, 1200))
+	//	cout << "error4 loading plane " << (*pArr[3]) << endl;
 
 
-//	delete pDelta;
+	//for (int i = 0; i < PLANE_COUNT; i++)
+	//	if (!Delta.AddPlane(*pArr[i]))
+	//		cout << "Problem adding " << *pArr[i];
 
-	system("pause");
+	//for (int i = 0; i < PLANE_COUNT; i++)
+	//	if (!Delta.AddPlane(*pArr[i]))
+	//		cout << "Problem adding " << *pArr[i];
+
+
+	//cout << "******** After adding Planes *********" << endl;
+	//Delta.Print(cout);
+	//cout << "********  *********" << endl;
+
+	//for (int i = 0; i < PLANE_COUNT; i++)
+	//	delete pArr[i];
+
+
+	//CFlightInfo* fInfoArr[FLIGHT_COUNT];
+	////const char* dest,int n,int min, int km
+	//fInfoArr[0] = new CFlightInfo("Paris", 343, 320, 5000);
+	//fInfoArr[1] = new CFlightInfo("Rome", 506, 220, 4000);
+	//fInfoArr[2] = new CFlightInfo("London", 600, 400, 6000);
+	//fInfoArr[3] = new CFlightInfo("Berlin", 706, 340, 4500);
+
+
+	//CFlight* FArr[FLIGHT_COUNT];
+	//for (int i = 0; i < FLIGHT_COUNT; i++)
+	//	FArr[i] = new CFlight(*fInfoArr[i], Delta.GetPlane(i));
+
+	//for (int i = 0; i < FLIGHT_COUNT; i++)
+	//	if (!Delta.AddFlight(*FArr[i]))
+	//		cout << "Problem adding flight " << FArr[i]->GetFlightInfo();
+
+	//for (int i = 0; i < FLIGHT_COUNT; i++)
+	//	if (!Delta.AddFlight(*FArr[i]))
+	//		cout << "Problem adding flight " << FArr[i]->GetFlightInfo();
+
+	//cout << "******** After adding Flights *********" << endl;
+	//Delta.Print(cout);
+	//cout << "********  *********" << endl;
+
+	//for (int i = 0; i < FLIGHT_COUNT; i++) {
+	//	delete fInfoArr[i];
+	//	delete FArr[i];
+	//}
+
+	//CFlight* pF2 = Delta.GetFlightByNum(706);
+
+	//CCrewMember* pCmTemp;
+	//if (pF2 != NULL) {
+	//	cout << "flight 706 was found\n" << endl;
+
+	//	for (int i = 0; i < CM_COUNT / 2; i++) {
+	//		pCmTemp = Delta.GetCrewMember(i);
+	//		*pF2 + pCmTemp;
+	//	}
+
+	//	cout << "******** Take off *********" << endl;
+	//	if (!pF2->TakeOff())
+	//		cout << "error in take of flight 706" << endl;
+
+	//}
+	//else
+	//	cout << "flight 706 was not found " << endl;
+
+	//pF2 = Delta.GetFlightByNum(343);
+	//if (pF2 != NULL) {
+	//	cout << "flight 343 was found " << endl;
+	//	for (int i = 0; i < CM_COUNT; i++) {
+	//		pCmTemp = Delta.GetCrewMember(i);
+	//		*pF2 + pCmTemp;
+	//	}
+	//	cout << "******** Take off *********" << endl;
+	//	if (!pF2->TakeOff())
+	//		cout << "error in take of flight 343" << endl;
+
+	//}
+	//else
+	//	cout << "flight 343 was not found " << endl;
+
+	//cout << "******** Holiday Gift is now on *********" << endl;
+	//Delta.CrewGetPresent();
+	//cout << "********  *********" << endl;
+
+	//cout << "******** Simulator is on *********" << endl;
+	//Delta.PilotsToSimulator();
+	//cout << "********  *********" << endl;
+
+	//cout << "******** Uniform to all *********" << endl;
+	//Delta.CrewGetUniform();
+	//cout << "********  *********" << endl;
+
+	//cout << "******** Counting cargo planes *********" << endl;
+
+	//cout << "Delta has " << Delta.GetCargoCount() << " cargo planes" << endl;
+
+	//cout << "******** final flight company print *********" << endl;
+	//Delta.Print(cout);
+	//cout << "********  *********" << endl;
+
+
+
+	//system("pause");
 }
