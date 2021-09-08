@@ -169,16 +169,6 @@ Flight* FlightCompany::GetFlightByNum(int f_number) {
 	}
 }
 
-CrewMember* FlightCompany::GetCrewMember(int c_number) {
-	/*for (int i = 0; i < numOfCrewMembers; i++) {
-		if (this->crewMembers[i].getMemberNumber() == c_number)
-			return &this->crewMembers[i];
-	}*/
-
-	if (c_number <= numOfCrewMembers - 1)
-		return &this->crewMembers[c_number];
-	else 
-		return nullptr;
 
 //CrewMember* FlightCompany::GetCrew(int c_number) {
 //	for (int i = 0; i < numOfCrewMembers; i++) {

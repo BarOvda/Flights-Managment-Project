@@ -39,6 +39,8 @@ public:
 	bool AddFlight(Flight& flight);
 	void AddCrewToFlight(int f_number, int crew_member_number);
 	int GetCargoCount();
+	Flight* GetFlightByNum(int f_number);
+
 	bool TakeOff(int flightNumber);
 	void CrewGetPresent();
 	void PilotsToSimulator();
