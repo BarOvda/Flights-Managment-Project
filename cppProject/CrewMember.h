@@ -39,7 +39,7 @@ public:
 	bool operator==(CrewMember& other)
 	{
 
-		return other.getMemberNumber() == this->getMemberNumber() && strcmp(other.getName() , this->getName())==0
+		return other.getMemberNumber() == this->getMemberNumber() && strcmp(other.getName(), this->getName()) == 0
 			&& other.getTotalFlightTime() == this->getTotalFlightTime();
 	}
 	void operator=(CrewMember& other)
@@ -48,21 +48,22 @@ public:
 		delete[]this->name;
 		this->name = _strdup(other.getName());
 
-		this->totalFlightTime= other.getTotalFlightTime();
+		this->totalFlightTime = other.getTotalFlightTime();
 	}
 	bool IsEqual(CrewMember& otherMember);
 	virtual void print(std::ostream& out);
 
 	static void setCurrentMemberNumber(int mCurrentMemberNumber);
 	friend std::ostream& operator<<(std::ostream& os, const CrewMember& data);
+
 protected:
 	char* name;
 	int totalFlightTime;
 	int memberNumber;
 	static int currentMemberNumber;
 
-	
-	
+
+
 };
 
 

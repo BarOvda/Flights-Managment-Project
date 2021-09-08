@@ -95,6 +95,60 @@ bool Flight::operator==(Flight& otherFlight)
 	return this->info == otherFlight.info;
 }
 
+void Flight::operator=(Flight& other)
+{
+	this->numberOfMembers = other.numberOfMembers;
+	for (int i = 0; i < other.numberOfMembers; i++) {
+		this->crewMembers[i] = other.crewMembers[i];
+	}
+
+	this->isPlaneAssigned = other.isPlaneAssigned;
+	if (other.isPlaneAssigned)
+		this->info = other.info;
+	this->plane = other.plane;
+}
+
+bool Flight::TakeOff()
+{
+	bool isFlightOk = true;
+
+	if (!this->isPlaneAssigned)
+		isFlightOk = false;
+
+	if (typeid(this->plane) == typeid(Plane)) {
+		int pilots = 0;
+		int hosts = 0;
+		for (int i = 0; i < numberOfMembers; i++)
+		{
+			if (typeid(this->crewMembers[i]) == typeid(Pilot)) {
+				pilots++;
+			}
+			if (typeid(this->crewMembers[i]) == typeid(Host)) {
+				//TODO get type
+			}
+		}
+		if (pilots > 1)
+		{
+			isFlightOk = false;
+		}
+	}
+	else if (typeid(this->plane) == typeid(Cargo)) {
+		int pilots = 0;
+		for (int i = 0; i < numberOfMembers; i++)
+		{
+			if (typeid(this->crewMembers[i]) == typeid(Pilot)) {
+				pilots++;
+			}
+		}
+		if (pilots < 1)
+		{
+			isFlightOk = false;
+		}
+	}
+
+	return isFlightOk;
+}
+
 FlightInfo Flight::getFlightInfo()
 {
 	return this->info;

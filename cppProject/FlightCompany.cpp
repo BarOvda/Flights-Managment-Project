@@ -129,10 +129,10 @@ bool FlightCompany::AddFlight(Flight& flight) {
 }
 
 void FlightCompany::AddCrewToFlight(int f_number, int crew_member_number) {
-	*(this->GetFlight(f_number)) + *(this->GetCrew(crew_member_number));
+	*(this->GetFlightByNum(f_number)) + *(this->GetCrewMember(crew_member_number));
 }
 
-int FlightCompany::getAmountOfCargoPlanes()
+int FlightCompany::GetCargoCount()
 {
 	int totalAmount = 0;
 
@@ -146,18 +146,52 @@ int FlightCompany::getAmountOfCargoPlanes()
 	return totalAmount;
 }
 
+void FlightCompany::PilotsToSimulator()
+{
+	for (int i = 0; i < numOfCrewMembers; i++)
+	{
+		if(typeid(this->crewMembers[i]) == typeid(Pilot))
+		{
+
+		}
+	}
+}
+
+void FlightCompany::CrewGetPresent()
+{
+	for (int i = 0; i < numOfCrewMembers; i++)
+	{
+		this->crewMembers[i].//TODO !!!!!!!!!!!!!!!!!!!!!!!!!!
+	}
+}
+
+void FlightCompany::CrewGetUniform()
+{
+	for (int i = 0; i < numOfCrewMembers; i++)
+	{
+		this->crewMembers[i].//TODO !!!!!!!!!!!!!!!!!!!!!!!!!!
+	}
+}
+
+bool FlightCompany::TakeOff(int flightNumber)
+{
+	Flight* temp = this->GetFlightByNum(flightNumber);
+
+	return temp->TakeOff();
+}
+
 bool FlightCompany::operator==(FlightCompany& other)
 {
 	return strcmp(this->companyName, other.companyName);
 }
 
-Flight* FlightCompany::GetFlight(int f_number) {
+Flight* FlightCompany::GetFlightByNum(int f_number) {
 	for (int i = 0; i < numOfFlights; i++) {
 		if (this->flights[i].getFlightInfo().GetFNum() == f_number)
 			return &this->flights[i];
 	}
 }
-CrewMember* FlightCompany::GetCrew(int c_number) {
+CrewMember* FlightCompany::GetCrewMember(int c_number) {
 	/*for (int i = 0; i < numOfCrewMembers; i++) {
 		if (this->crewMembers[i].getMemberNumber() == c_number)
 			return &this->crewMembers[i];

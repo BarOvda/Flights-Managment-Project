@@ -8,6 +8,7 @@
 #include "Plane.h"
 #include "CrewMember.h"
 #include "Cargo.h"
+#include "Pilot.h"
 
 
 class FlightCompany
@@ -23,8 +24,8 @@ public:
 	//getters
 	char* getCompanyName();
 	Plane& GetPlane(int i);
-	Flight* GetFlight(int f_number);
-	CrewMember* GetCrew(int c_number);
+	Flight* GetFlightByNum(int f_number);
+	CrewMember* GetCrewMember(int c_number);
 
 	//setters
 	void setName(const char* mName);
@@ -35,7 +36,12 @@ public:
 	bool AddPlane(Plane& plane);
 	bool AddFlight(Flight& flight);
 	void AddCrewToFlight(int f_number, int crew_member_number);
-	int getAmountOfCargoPlanes();
+	int GetCargoCount();
+	void PilotsToSimulator();
+	void CrewGetPresent();
+	void CrewGetUniform();
+	bool TakeOff(int flightNumber);
+	
 
 	//void AddFlight(FlightInfo flight);
 //Operators
