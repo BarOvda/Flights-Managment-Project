@@ -24,18 +24,18 @@ void main()
 	Address ad1(34, "DZ");
 
 	CrewMember* cmArr[CM_COUNT];
-	cmArr[0] = new Pilot("Soso", false, &ad1); //name, bcaptain, home add, no min
-	cmArr[1] = new Host("Momo", CHost::eRegular);//name, type
-	cmArr[2] = new Host("Lolo", CHost::eSuper);
-	cmArr[3] = new Host("Popo", CHost::eCalcelan);
+	cmArr[0] = new Pilot("Soso", false, &ad1); 
+	cmArr[1] = new Host("Momo", Host::eRegular);//name, type
+	cmArr[2] = new Host("Lolo", Host::eSuper);
+	cmArr[3] = new Host("Popo", Host::eCalcelan);
 	cmArr[4] = new Pilot("Toto", true); //no address and min
 
 	//Check updateTime
-	//for (int i = 0; i < CM_COUNT; i++)
-	//	(*cmArr[i]) += (60);
+	for (int i = 0; i < CM_COUNT; i++)
+		(*cmArr[i]) += (60);
 
-	//for (int i = 0; i < CM_COUNT; i++)
-	//	cmArr[i]->Print(cout);
+	for (int i = 0; i < CM_COUNT; i++)
+		cmArr[i]->print(cout);
 
 	//cout << endl << "******** Add CrewMember  *********" << endl;
 	//for (int i = 0; i < CM_COUNT; i++)

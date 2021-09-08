@@ -56,12 +56,13 @@ public:
 
 	static void setCurrentMemberNumber(int mCurrentMemberNumber);
 	friend ostream& operator<<(ostream& os, const CrewMember& data);
-private:
-	//attributes
+protected:
 	char* name;
 	int totalFlightTime;
 	int memberNumber;
 	static int currentMemberNumber;
+
+	
 	
 };
 
