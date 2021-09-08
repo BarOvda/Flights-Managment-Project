@@ -6,7 +6,7 @@ class Pilot :
 {
 public:
 	//c'tor
-	Pilot(const char* name,bool isCaptian,const Address* address);
+	Pilot(const char* name,bool isCaptian, Address* address);
 	Pilot(const char* name, bool isCaptian);
 	const bool operator+=(int minutes)
 	{
@@ -18,6 +18,14 @@ public:
 		}
 		return true;
 	}
+	virtual bool operator==(Pilot& other)
+	{
+
+		return strcmp(other.getName(), this->getName()) == 0
+			&&other.adderss==this->adderss;
+	}
+	void GetPresent();
+
 	//d'tor
 //	~FlightCompany();
 

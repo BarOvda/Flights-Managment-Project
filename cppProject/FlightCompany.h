@@ -24,10 +24,12 @@ public:
 	//getters
 	char* getCompanyName();
 	Plane& GetPlane(int i);
-	Flight* GetFlightByNum(int f_number);
-	CrewMember* GetCrewMember(int c_number);
 
-	//setters
+	 Flight* GetFlight(int f_number);
+	 //CrewMember* GetCrew(int c_number);
+	 CrewMember* GetCrewMember(int index);
+	 
+//setters
 	void setName(const char* mName);
 
 	//other methods
@@ -37,11 +39,11 @@ public:
 	bool AddFlight(Flight& flight);
 	void AddCrewToFlight(int f_number, int crew_member_number);
 	int GetCargoCount();
-	void PilotsToSimulator();
-	void CrewGetPresent();
-	void CrewGetUniform();
 	bool TakeOff(int flightNumber);
-	
+	void CrewGetPresent();
+	void PilotsToSimulator();
+	void CrewGetUniform();
+	//void AddCrewToFlight(int f_number,int crew_member_number);
 
 	//void AddFlight(FlightInfo flight);
 //Operators

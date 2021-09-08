@@ -22,6 +22,7 @@ void main()
 {
 	FlightCompany Delta("Delta");
 	Address ad1(34, "DZ");
+	//Address ad2(ad1);
 
 	CrewMember* cmArr[CM_COUNT];
 	cmArr[0] = new Pilot("Soso", false, &ad1); 
@@ -37,29 +38,29 @@ void main()
 	for (int i = 0; i < CM_COUNT; i++)
 		cmArr[i]->print(cout);
 
-	//cout << endl << "******** Add CrewMember  *********" << endl;
-	//for (int i = 0; i < CM_COUNT; i++)
-	//{
-	//	if (!Delta.AddCrewMember(*cmArr[i]))
-	//		cout << "Problem adding CrewMember " << i << endl;
-	//}
+	cout << endl << "******** Add CrewMember  *********" << endl;
+	for (int i = 0; i < CM_COUNT; i++)
+	{
+		if (!Delta.AddCrewMember(*cmArr[i]))
+			cout << "Problem adding CrewMember " << i << endl;
+	}
 
-	//cout << endl << "******** Trying add same CrewMember *********" << endl;
-	//CHost h1((CHost&)(*cmArr[1])); //creating temp with different pointers.
-	//CPilot p1((CPilot&)(*cmArr[4]));
-	//if (!Delta.AddCrewMember(h1))
-	//	cout << "Problem adding CrewMember h1" << endl;
+	cout << endl << "******** Trying add same CrewMember *********" << endl;
+	Host h1((Host&)(*cmArr[1])); //creating temp with different pointers.
+	Pilot p1((Pilot&)(*cmArr[4]));
+	if (!Delta.AddCrewMember(h1))
+		cout << "Problem adding CrewMember h1" << endl;
 
-	//if (!Delta.AddCrewMember(p1))
-	//	cout << "Problem adding CrewMember p1" << endl;
+	if (!Delta.AddCrewMember(p1))
+		cout << "Problem adding CrewMember p1" << endl;
 
-	//cout << endl << "******** After adding CrewMember *********" << endl;
-	//Delta.Print(cout);
+	cout << endl << "******** After adding CrewMember *********" << endl;
+	Delta.Print(cout);
 
-	//cout << "********  *********" << endl;
+	cout << "********  *********" << endl;
 
-	//for (int i = 0; i < CM_COUNT; i++)
-	//	delete cmArr[i];
+	for (int i = 0; i < CM_COUNT; i++)
+		delete cmArr[i];
 
 	//CPlane* pArr[PLANE_COUNT];
 	//pArr[0] = new CPlane(100, "Boing373"); //seats and degem
@@ -162,17 +163,17 @@ void main()
 	//else
 	//	cout << "flight 343 was not found " << endl;
 
-	//cout << "******** Holiday Gift is now on *********" << endl;
-	//Delta.CrewGetPresent();
-	//cout << "********  *********" << endl;
+	cout << "******** Holiday Gift is now on *********" << endl;
+	Delta.CrewGetPresent();
+	cout << "********  *********" << endl;
 
-	//cout << "******** Simulator is on *********" << endl;
-	//Delta.PilotsToSimulator();
-	//cout << "********  *********" << endl;
+	cout << "******** Simulator is on *********" << endl;
+	Delta.PilotsToSimulator();
+	cout << "********  *********" << endl;
 
-	//cout << "******** Uniform to all *********" << endl;
-	//Delta.CrewGetUniform();
-	//cout << "********  *********" << endl;
+	cout << "******** Uniform to all *********" << endl;
+	Delta.CrewGetUniform();
+	cout << "********  *********" << endl;
 
 	//cout << "******** Counting cargo planes *********" << endl;
 

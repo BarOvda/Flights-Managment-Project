@@ -4,6 +4,8 @@ using namespace std;
 
 #include <string.h>
 #include "FlightCompany.h"
+#include "Pilot.h"
+#include "Host.h"
 
 
 FlightCompany::FlightCompany(const char* name)
@@ -128,6 +130,7 @@ bool FlightCompany::AddFlight(Flight& flight) {
 	return true;
 }
 
+
 void FlightCompany::AddCrewToFlight(int f_number, int crew_member_number) {
 	*(this->GetFlightByNum(f_number)) + *(this->GetCrewMember(crew_member_number));
 }
@@ -146,32 +149,6 @@ int FlightCompany::GetCargoCount()
 	return totalAmount;
 }
 
-void FlightCompany::PilotsToSimulator()
-{
-	for (int i = 0; i < numOfCrewMembers; i++)
-	{
-		if(typeid(this->crewMembers[i]) == typeid(Pilot))
-		{
-
-		}
-	}
-}
-
-void FlightCompany::CrewGetPresent()
-{
-	for (int i = 0; i < numOfCrewMembers; i++)
-	{
-		this->crewMembers[i].//TODO !!!!!!!!!!!!!!!!!!!!!!!!!!
-	}
-}
-
-void FlightCompany::CrewGetUniform()
-{
-	for (int i = 0; i < numOfCrewMembers; i++)
-	{
-		this->crewMembers[i].//TODO !!!!!!!!!!!!!!!!!!!!!!!!!!
-	}
-}
 
 bool FlightCompany::TakeOff(int flightNumber)
 {
@@ -191,6 +168,7 @@ Flight* FlightCompany::GetFlightByNum(int f_number) {
 			return &this->flights[i];
 	}
 }
+
 CrewMember* FlightCompany::GetCrewMember(int c_number) {
 	/*for (int i = 0; i < numOfCrewMembers; i++) {
 		if (this->crewMembers[i].getMemberNumber() == c_number)
@@ -201,4 +179,50 @@ CrewMember* FlightCompany::GetCrewMember(int c_number) {
 		return &this->crewMembers[c_number];
 	else 
 		return nullptr;
+
+//CrewMember* FlightCompany::GetCrew(int c_number) {
+//	for (int i = 0; i < numOfCrewMembers; i++) {
+//		if (this->crewMembers[i].getMemberNumber() == c_number)
+//			return &this->crewMembers[i];
+//	}
+//}
+CrewMember* FlightCompany::GetCrewMember(int index) {
+	if (index < numOfCrewMembers)
+		return &(this->crewMembers[index]);
+	return NULL;
+}
+void FlightCompany::CrewGetPresent() {
+	for (int i = 0; i < this->numOfCrewMembers; i++) {
+		std::cout << (typeid(this->crewMembers[i])).name() << endl;
+		if (strcmp(this->crewMembers[i].getType(),"Host")==0) {
+			std::cout << " I was not expecting it" << endl;
+
+		}
+		
+	}
+}
+
+void FlightCompany::PilotsToSimulator()
+{
+	for (int i = 0; i < this->numOfCrewMembers; i++) {
+		std::cout << (typeid(this->crewMembers[i])).name() << endl;
+		if (strcmp(this->crewMembers[i].getType(), "Host") == 0) {
+			std::cout << " I was not expecting it" << endl;
+
+		}
+
+	}
+}
+
+void FlightCompany::CrewGetUniform()
+{
+	for (int i = 0; i < this->numOfCrewMembers; i++) {
+		std::cout << (typeid(this->crewMembers[i])).name() << endl;
+		if (strcmp(this->crewMembers[i].getType(), "Host") == 0) {
+			std::cout << " I was not expecting it" << endl;
+
+		}
+
+	}
+
 }
