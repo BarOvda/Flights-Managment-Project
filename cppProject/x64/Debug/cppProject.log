@@ -1,3 +1,0 @@
-﻿  FlightCompany.cpp
-C:\Git\Bar_Ovda_Daniel_Zusev\Bar_Ovda_Daniel_Zusev\Flights-Managment-Project\cppProject\FlightCompany.cpp(171): warning C4715: 'FlightCompany::GetFlightByNum': not all control paths return a value
-  cppProject.vcxproj -> C:\Git\Bar_Ovda_Daniel_Zusev\Bar_Ovda_Daniel_Zusev\Flights-Managment-Project\x64\Debug\cppProject.exe
