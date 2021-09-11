@@ -6,7 +6,6 @@
 class Plane
 {
 public:
-	static const int START_ID = 100;
 	//c'tor
 	Plane(int mChairNumber, const char* mModel);
 	Plane(Plane& otherPlane);
@@ -17,14 +16,13 @@ public:
 	}
 	Plane();
 
-
 	//d'tor
-	~Plane();
+	virtual ~Plane();
 
 	//getters
-	int getSerialNumber();
-	int getChairNumber();
-	char* getModel();
+	virtual int getSerialNumber();
+	virtual int getChairNumber();
+	virtual char* getModel();
 
 	//other methods
 		//bool IsEqual(Plane& otherPlane);
@@ -59,36 +57,28 @@ public:
 
 	const Plane& operator=(const Plane& other);
 
+	bool IsEqual(Plane& otherPlane);
 	void print(ostream& out);
 
-	friend ostream& operator<<(ostream& os, const Plane& data);
+	virtual void operator=(const Plane& other);
+	virtual bool operator==(const Plane& other);
+	virtual bool operator!=(const Plane& other);
 
-	// prefix increment
-	const Plane& operator++() {
-		chairNumber++;
-		return *this;
-	}
+	virtual const Plane& operator++();//prefix
+	virtual Plane operator++(int);//postfix
 
-	// postfix increment
-	Plane operator++(int)
-	{
+	friend ostream& operator<<(ostream& os, const Plane& other);
+	virtual void toOs(ostream& os) const;
 
-		Plane old(*this);
-		chairNumber++;
-		return old;
-	}
-
-	static void setCurrentserialNumber(int mCurrentserialNumber);
-
-private:
+protected:
 
 	//attributes
-	static int CurrentserialNumber;
 	int serialNumber;
 	int chairNumber;
 	char* model;
-};
 
+	static int currentSerialNumber;
+};
 
 #endif // !__PLANE_H
 

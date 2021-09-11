@@ -43,6 +43,12 @@ public:
 			in >> hose_num;
 			stringstream h_n(hose_num);
 
+	void operator=(const Address& other);
+	bool operator==(const Address& other);
+	bool operator!=(const Address& other);
+	
+	friend ostream& operator<<(ostream& os, const Address& other);
+	friend istream& operator>>(istream& in, Address& other);
 			int hose;
 			h_n >> hose;
 			houseNumber = hose;
@@ -63,12 +69,6 @@ public:
 			&& strcmp(other.getStreet(), this->getStreet());
 	}
 
-	bool operator!=(Address& other)
-	{
-		return !(this->operator==(other));
-	}
-
-	Address GetCurrentAddress();
 private:
 
 	//attributes

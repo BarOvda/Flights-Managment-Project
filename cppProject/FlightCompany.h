@@ -1,15 +1,13 @@
 #ifndef __FLIGHT_COMPANY
 #define __FLIGHT_COMPANY
-#define MAX_CREWS 100
-#define MAX_PLANES 50
-#define MAX_FLIGHT 25
 
-#include "Flight.h"
-#include "Plane.h"
 #include "CrewMember.h"
-#include "Cargo.h"
-#include "Pilot.h"
+#include "Plane.h"
+#include "Flight.h"
 
+#define MAX_CREWS 20
+#define MAX_PLANES 20
+#define MAX_FLIGHT 20
 
 class FlightCompany
 {
@@ -25,28 +23,25 @@ public:
 
 	//getters
 	char* getCompanyName();
-	Plane& GetPlane(int i);
+	Flight* GetFlightByNum(int number);
+	CrewMember* GetCrewMember(int index);
+	Plane* GetPlane(int index);
+	int GetCargoCount();
 
-	 Flight* GetFlight(int f_number);
-	 //CrewMember* GetCrew(int c_number);
-	 CrewMember* GetCrewMember(int index);
-	 
-//setters
+	//setters
 	void setName(const char* mName);
 
 	//other methods
 	void Print(ostream& out);
-	bool AddCrewMember(CrewMember& crewMember);
-	bool AddPlane(Plane& plane);
-	bool AddFlight(Flight& flight);
-	void AddCrewToFlight(int f_number, int crew_member_number);
-	int GetCargoCount();
-	Flight* GetFlightByNum(int f_number);
-
-	bool TakeOff(int flightNumber);
-	void CrewGetPresent();
+	bool AddCrewMember(CrewMember& other);
+	bool AddPlane(Plane& other);
+	bool AddFlight(Flight& other);
+	void AddCrewToFlight(int flightNum, int memberNum);
 	void PilotsToSimulator();
+	void CrewGetPresent();
 	void CrewGetUniform();
+	void TakeOff(int flightNumber);
+	
 	//void AddCrewToFlight(int f_number,int crew_member_number);
 
 	//void AddFlight(FlightInfo flight);
@@ -57,13 +52,12 @@ public:
 private:
 	//attributes
 	char* companyName;
-	CrewMember crewMembers[MAX_CREWS];
-	Plane Planes[MAX_PLANES];
+	CrewMember* members[MAX_CREWS];
+	Plane* planes[MAX_PLANES];
 	Flight flights[MAX_FLIGHT];
-	int numOfCrewMembers;
-	int numOfPlanes;
-	int numOfFlights;
-
+	int numberOfCrews;
+	int numberOfPlanes;
+	int numberOfFlights;
 };
 
 #endif // !__FLIGHT_COMPANY

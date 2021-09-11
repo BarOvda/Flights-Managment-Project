@@ -10,10 +10,10 @@ using namespace std;
 class CrewMember
 {
 public:
-	//static const int START_ID = 0;
+	static int START_ID;
 
 	//c'tor
-	CrewMember(const char* mName, int mTotalFlightTime = 0);
+	CrewMember(const char* mName = "", int mTotalFlightTime = 0);
 	CrewMember(CrewMember& otherMember);
 	CrewMember(istream& in) {
 
@@ -22,39 +22,25 @@ public:
 	}
 	CrewMember();
 	//d'tor
-	~CrewMember();
+	virtual ~CrewMember();
 
 	//getters
 	int getTotalFlightTime();
 	char* getName();
-	//int getMemberNumber();
+	//int GetMemberID();
 
 	//setters
 	void setName(const char* mName);
-	virtual void GetPresent();
-	virtual const char* getType() const { return "CrewMember"; }
+
 	//other methods
-		//bool UpdateMinutes(int minutes);
-	virtual const bool operator+=(int minutes)
-	{
-		if (minutes > 0) {
-			totalFlightTime += minutes;
+	virtual bool UpdateMinutes(int minutes);
+	bool IsEqual(CrewMember& otherMember);
+	void Print(ostream& out);
 
-		}
-		return true;
-	}
-	virtual bool operator==(CrewMember& other)
-	{
-
-		return strcmp(other.getName() , this->getName())==0
-		;
-
-	}
-	void operator=(CrewMember& other)
-	{
-		//this->memberNumber = other.getMemberNumber();
-		delete[]this->name;
-		this->name = _strdup(other.getName());
+	virtual void operator=(const CrewMember& other);
+	virtual bool operator==(const CrewMember& other);
+	virtual bool operator!=(const CrewMember& other);
+	virtual bool operator+=(int minutes);
 
 		this->totalFlightTime = other.getTotalFlightTime();
 	}
@@ -73,18 +59,20 @@ public:
 	}
 	bool IsEqual(CrewMember& otherMember);
 	virtual void print(std::ostream& out);
+	friend ostream& operator<<(ostream& os, const CrewMember& other);
+	virtual void toOs(ostream& os) const;
 
-	static void setCurrentMemberNumber(int mCurrentMemberNumber);
-	 friend std::ostream& operator<<(std::ostream& os, const CrewMember& data);
+	virtual void getUniform() const = 0;
+	virtual void takeOff(int flightTime) = 0;
+	virtual void getPresent() const = 0;
 
 protected:
+	//attributes
 	char* name;
 	int totalFlightTime;
-	//int memberNumber;
-	//static int currentMemberNumber;
 
-
-
+	//int memberId;
+	//static int currentMemberId;
 };
 
 
