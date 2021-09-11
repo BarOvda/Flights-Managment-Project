@@ -1,52 +1,102 @@
-#include "Host.h"
+#include <iostream>
 using namespace std;
-Host::Host(const char* name, Type type) :CrewMember(name) {
-	this->type = type;
-}
-void Host::print(std::ostream& out)
+#pragma warning (disable: 4996)
+
+#include <string.h>
+
+#include "Host.h"
+
+
+Host::Host(const char* name, Host::eHostType type, int totalFlightTime) : CrewMember(name, totalFlightTime), type(type)
 {
-	out << "Host ";
+}
+
+Host::Host(CrewMember& member) : CrewMember(member)
+{
+	this->type = eHostType::eRegular;
+}
+
+Host::Host(Host& other) : CrewMember(other)
+{
+	this->type = eHostType::eRegular;
+}
+
+Host::~Host()
+{
+}
+
+void Host::operator=(const Host& other)
+{
+	if (*this != other) {
+		this->totalFlightTime = other.totalFlightTime;
+
+		delete[]name;
+		this->name = strdup(other.name);
+	}
+}
+
+bool Host::operator==(const Host& other)
+{
+	return CrewMember::operator==(other);
+}
+
+bool Host::operator!=(const Host& other)
+{
+	return !(*this == other);
+}
+
+void Host::toOs(ostream& os) const
+{
+	os << "Host ";
 	switch (this->type)
 	{
-	case eRegular:
-		out << "Regular ";
+	case Host::eHostType::eRegular:
+		os << "Regular ";
 		break;
-	case eSuper:
-		out << "Super ";
+	case Host::eHostType::eSuper:
+		os << "Super ";
 		break;
-	case eCalcelan:
-		out << "Calcelan ";
+	case Host::eHostType::eCalcelan:
+		os << "Calcelan ";
 		break;
 	default:
 		break;
 	}
-	out<< this->name << " minutes " << this->totalFlightTime << endl;
+	os << this->name << " minutes " << this->totalFlightTime << endl;
 }
 
-void Host::GetPresent()
+const char* Host::getType()
 {
-	std::cout << this->name << " thanking the company for receiving the holiday gift" << endl;
-	std::cout << " I was not expecting it" << endl;
-
-}
-
-std::ostream& operator<<(std::ostream& out, const Host& data)
-{
-	out << "Host ";
-	switch (data.type)
+	switch (this->type)
 	{
-	case Host::Type::eRegular:
-		out << "Regular ";
+	case Host::eHostType::eRegular:
+		return "Regular";
 		break;
-	case Host::Type::eSuper:
-		out << "Super ";
+	case Host::eHostType::eSuper:
+		return "Super";
 		break;
-	case Host::Type::eCalcelan:
-		out << "Calcelan ";
+	case Host::eHostType::eCalcelan:
+		return "Calcelan";
 		break;
 	default:
 		break;
 	}
-	out << data.name << " minutes " << data.totalFlightTime << endl;
-	return out;
 }
+
+
+void Host::getUniform() const
+{
+	cout << "I think the new uniform is very nice!" << endl;
+}
+
+void Host::takeOff(int flightTime)
+{
+	UpdateMinutes(flightTime);
+}
+
+void Host::getPresent() const
+{
+	CrewMember::getPresent();
+	cout << "I wasn’t expecting it" << endl;
+}
+

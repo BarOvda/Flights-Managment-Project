@@ -4,170 +4,148 @@ using namespace std;
 
 #include <string.h>
 #include "Flight.h"
+#include "Pilot.h"
+#include "Host.h"
+#include "Cargo.h"
 
-Flight::Flight() :info(), plane() {
-	this->numberOfMembers = 0;
-	isPlaneAssigned = false;
-}
-Flight::Flight(FlightInfo& info):info(info),plane(){
-	this->info = info;
-	this->numberOfMembers = 0;
-	isPlaneAssigned = false;
-
-}
-Flight::Flight(FlightInfo& info, Plane& plane) :info(info), plane(plane) {
-	this->info = info;
-	this->numberOfMembers = 0;
-	this->plane = plane;
-	isPlaneAssigned = true;
-
-}
-Flight::Flight(Flight& flight) {
-	this->info = flight.info;
-	this->numberOfMembers = flight.numberOfMembers;
-	this->plane = flight.plane;
-	isPlaneAssigned = flight.isPlaneAssigned;
-	for (int i = 0; i < numberOfMembers; i++) {
-		this->crewMembers[i] = flight.crewMembers[i];
-	}
-	
+Flight::Flight(FlightInfo& info, Plane* plane) : info(info), plane(plane), numberOfMembers(0)
+{
+	this->isPlaneAssigned = this->plane == nullptr ? false : true;
 }
 
-Flight::~Flight() {
-	for (int i = 0; i < numberOfMembers; i++) {
-		crewMembers[i].~CrewMember();
-	}
-	
+Flight::Flight(const Flight& other) : info(other.info), plane(other.plane), numberOfMembers(0)
+{
+	this->isPlaneAssigned = this->plane == nullptr ? false : true;
 }
-void Flight::SetPlane(Plane& plane)
+
+Flight::Flight() : info(), plane(), numberOfMembers(0)
+{
+}
+
+Flight::~Flight()
+{
+}
+
+void Flight::SetPlane(Plane* plane)
 {
 	this->plane = plane;
-	isPlaneAssigned = true;
+	this->isPlaneAssigned = this->plane == nullptr ? false : true;
 }
 
-void Flight::updatePlane(Plane& otherPlane)
+int Flight::GetFlightNumber()
 {
-	if (this->plane != otherPlane)
-	{
-		this->plane = otherPlane;
-	}
-	isPlaneAssigned = true;
-
-
+	return info.GetFNum();
 }
 
-void Flight::operator+(CrewMember& newMember)
+Plane* Flight::GetPlane()
 {
-
-
-	if (numberOfMembers > MAX_CREW)
-		return;
-
-	CrewMember* c = new CrewMember(newMember);
-	crewMembers[numberOfMembers] = *c;
-	numberOfMembers++;
-
-	//if (this->numberOfMembers == 0)
-//{
-//	this->crewMembers[this->numberOfMembers] = newMember;
-//	this->numberOfMembers++;
-//}
-//else
-//{
-//	if (this->numberOfMembers < MAX_CREW)
-//	{
-//		for (size_t i = 0; i < this->numberOfMembers; i++)
-//		{
-//			if (!strcmp(this->crewMembers[i].getName(), newMember.getName()))
-//			{
-//				this->crewMembers[this->numberOfMembers] = newMember;
-//				this->numberOfMembers++;
-//			}
-//		}
-//	}
-//}
-
+	return this->plane;
 }
 
-bool Flight::operator==(Flight& otherFlight)
-{
-		
-	return this->info == otherFlight.info;
-}
-
-void Flight::operator=(Flight& other)
-{
-	this->numberOfMembers = other.numberOfMembers;
-	for (int i = 0; i < other.numberOfMembers; i++) {
-		this->crewMembers[i] = other.crewMembers[i];
-	}
-
-	this->isPlaneAssigned = other.isPlaneAssigned;
-	if (other.isPlaneAssigned)
-		this->info = other.info;
-	this->plane = other.plane;
-}
-
-bool Flight::TakeOff()
-{
-	bool isFlightOk = true;
-
-	if (!this->isPlaneAssigned)
-		isFlightOk = false;
-
-	if (typeid(this->plane) == typeid(Plane)) {
-		int pilots = 0;
-		int hosts = 0;
-		for (int i = 0; i < numberOfMembers; i++)
-		{
-			if (typeid(this->crewMembers[i]) == typeid(Pilot)) {
-				pilots++;
-			}
-			if (typeid(this->crewMembers[i]) == typeid(Host)) {
-				//TODO get type
-			}
-		}
-		if (pilots > 1)
-		{
-			isFlightOk = false;
-		}
-	}
-	else if (typeid(this->plane) == typeid(Cargo)) {
-		int pilots = 0;
-		for (int i = 0; i < numberOfMembers; i++)
-		{
-			if (typeid(this->crewMembers[i]) == typeid(Pilot)) {
-				pilots++;
-			}
-		}
-		if (pilots < 1)
-		{
-			isFlightOk = false;
-		}
-	}
-
-	return isFlightOk;
-}
-
-FlightInfo Flight::GetFlightInfo()
+FlightInfo& Flight::GetFlightInfo()
 {
 	return this->info;
 }
 
-
-ostream& operator<<(ostream& os, const Flight& data)
+void Flight::operator+(CrewMember* member)
 {
-	os << "Flight info: " << data.info;
-	if(data.isPlaneAssigned)
-	os <<" plane: " << data.plane;
-	else
-		os << " No plane assign yet " ;
+	if (numberOfMembers < MAX_CREW) {
+		for (int i = 0; i < numberOfMembers; i++)
+		{
+			if (strcmp((*this->members[i]).getName(), member->getName()) == 0) {
+				return;
+			}
+		}
+		this->members[numberOfMembers] = member;
+		numberOfMembers++;
+	}
+}
 
-		os << " There are " << data.numberOfMembers << " crew memebers in flight: " << endl;
-	
-	for (size_t i = 0; i <data.numberOfMembers; i++)
+void Flight::operator=(const Flight& other)
+{
+	if (*this != other) {
+		this->info = other.info;
+		this->plane = other.plane;
+		this->numberOfMembers = other.numberOfMembers;
+		this->isPlaneAssigned = other.isPlaneAssigned;
+
+		for (int i = 0; i < other.numberOfMembers; i++)
+		{
+			this->members[i] = other.members[i];
+		}
+	}
+}
+
+bool Flight::operator==(const Flight& other)
+{
+	return (this->info == other.info);
+}
+
+bool Flight::operator!=(const Flight& other)
+{
+	return !(*this == other);
+}
+
+bool Flight::TakeOff()
+{
+	if (typeid(this->plane) == typeid(Plane))
 	{
-		os << " member: " << data.crewMembers[i] << endl;
+		int pilots = 0;
+		int superHost = 0;
+		for (int i = 0; i < numberOfMembers; i++)
+		{
+			if (typeid(this->members[i]) == typeid(Pilot))
+			{
+				pilots++;
+				if (pilots > 1)
+					return false;
+			}
+
+			if (typeid(this->members[i]) == typeid(Host) && strcmp(((Host)*this->members[i]).getType(), "Super"))
+			{
+				superHost++;
+				if (superHost > 1)
+					return false;
+			}
+			((Cargo*)this->plane)->takeOff(this->info.getFlightTime());
+		}
+	}
+	else if (typeid(this->plane) == typeid(Cargo))
+	{
+		int pilots = 0;
+		for (int i = 0; i < numberOfMembers; i++)
+		{
+			if (typeid(this->members[i]) == typeid(Pilot))
+			{
+				pilots++;
+				if (pilots < 1)
+					return false;
+			}
+		}
+	}
+
+	for (int i = 0; i < numberOfMembers; i++)
+	{
+		this->members[i]->takeOff(this->info.getFlightTime());
+	}
+
+	return true;
+}
+
+ostream& operator<<(ostream& os, const Flight& other)
+{
+	os << "Flight info: " << other.info;
+
+	if (other.isPlaneAssigned)
+		os << " plane: " << other.plane;
+	else
+		os << " No plane assign yet ";
+
+	os << " There are " << other.numberOfMembers << " crew memebers in flight: " << endl;
+
+	for (size_t i = 0; i < other.numberOfMembers; i++)
+	{
+		os << " member: " << other.members[i] << endl;
 	}
 
 	return os;

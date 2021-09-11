@@ -14,10 +14,11 @@ Address::Address(int mHouseNumber, const char* mStreet, const char* mCity) {
 	else {
 		this->street = new char[20];
 	}
-	if (city != NULL) {
+
+	if (mStreet != NULL) {
 		this->city = new char[strlen(mCity) + 1];
 		strcpy(this->city, mCity);
-	}
+	}	
 	else {
 		this->city = new char[20];
 	}
@@ -26,17 +27,10 @@ Address::Address(int mHouseNumber, const char* mStreet, const char* mCity) {
 Address::Address(const Address& other)
 {
 	this->houseNumber = other.houseNumber;
-	if (other.street != NULL) {
-		strcpy(this->street, other.street);
-		this->street = new char[strlen(other.street) + 1];
-
-	}
-	if (other.city != NULL) {
-		this->city = new char[strlen(other.city) + 1];
-
-		strcpy(this->city, other.city);
-	}
-	
+	this->street = new char[strlen(other.street) + 1];
+	this->city = new char[strlen(other.city) + 1];
+	strcpy(this->street, other.street);
+	strcpy(this->city, other.city);
 }
 
 Address::~Address()
@@ -84,26 +78,55 @@ void Address::print(ostream& out)
 		<< this->city
 		<< endl;
 }
-Address Address::GetCurrentAddress()
+
+void Address::operator=(const Address& other)
+{
+	if (*this != other) {
+		this->houseNumber = other.houseNumber;
+
+		delete[]this->street;
+		delete[]this->city;
+
+		this->street = strdup(other.street);
+		this->city = strdup(other.city);
+	}
+}
+
+bool Address::operator==(const Address& other)
+{
+	if (strcmp(this->city, other.city) 
+		&& strcmp(this->street, other.street) 
+		&& this->houseNumber == other.houseNumber)
+		return true;
+	return false;
+}
+
+bool Address::operator!=(const Address& other)
+{
+	return !(*this == other);
+}
+
+Address& Address::GetCurrentAddress()
 {
 	return *this;
 }
-ostream& operator<<(ostream& out, const Address& data) {
-	if(data.street!=NULL)
-	out << data.street
-		<< " "
-		<< data.houseNumber
-		<< ", "
-		<< data.city
-		<< endl;
-	return out;
-}
-istream& operator>>(istream& in, Address& data) {
-	cout << "Please enter house number street name and city name:" << endl;
-	in >> data.houseNumber;
-	in >> data.street;
-	in >> data.city;
 
+ostream& operator<<(ostream& os, const Address& other)
+{
+	os << other.street
+		<< " "
+		<< other.houseNumber
+		<< ", "
+		<< other.city
+		<< endl;
+
+	return os;
+}
+
+istream& operator>>(istream& in, Address& other)
+{
+	cout << "Please enter house number street name and city name:" << endl;
+
+	in >> other.houseNumber >> other.street >> other.city;
 	return in;
 }
-

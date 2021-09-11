@@ -5,37 +5,37 @@ using namespace std;
 #include <string.h>
 #include "FlightInfo.h"
 
-FlightInfo::FlightInfo() {
-
-}
-
 FlightInfo::FlightInfo(const char* mDestination, int mFlightNumber, int mFlightTime, int mFlightLength)
 {
 	this->flightNumber = mFlightNumber;
 	this->flightTime = mFlightTime;
 	this->flightLength = mFlightLength;
 
-	if (strlen(mDestination) < MAX) {
+	if (strlen(mDestination) < MAX)
 		strcpy(this->destination, mDestination);
-		
-	}
 }
 
-FlightInfo::FlightInfo(FlightInfo& otherFlightInfo)
+FlightInfo::FlightInfo(const FlightInfo& other)
 {
-	this->flightNumber = otherFlightInfo.flightNumber;
-	this->flightTime = otherFlightInfo.flightTime;
-	this->flightLength = otherFlightInfo.flightLength;
+	this->flightNumber = other.flightNumber;
+	this->flightTime = other.flightTime;
+	this->flightLength = other.flightLength;
 
-	if (strlen(otherFlightInfo.destination) < MAX)
-		strcpy(this->destination, otherFlightInfo.getDestination());
-
+	if (strlen(other.destination) < MAX)
+		strcpy(this->destination, other.destination);
 }
+
+FlightInfo::FlightInfo()
+{
+}
+
 FlightInfo::~FlightInfo()
 {
-	
+
 }
-int FlightInfo::GetFNum() {
+
+int FlightInfo::GetFNum()
+{
 	return this->flightNumber;
 }
 
@@ -93,14 +93,45 @@ void FlightInfo::print(ostream& out)
 		<< " KM "
 		<< this->flightLength;
 }
-ostream& operator<<(ostream& os, const FlightInfo& data) {
+
+void FlightInfo::operator=(const FlightInfo& other)
+{
+	if (*this != other) {
+		this->flightNumber = other.flightNumber;
+		this->flightTime = other.flightTime;
+		this->flightLength = other.flightLength;
+
+		if (strlen(other.destination) < MAX)
+			strcpy(this->destination, other.destination);
+	}
+}
+
+bool FlightInfo::operator==(const FlightInfo& other)
+{
+	if (this->flightNumber == other.flightNumber)
+		return true;
+	return false;
+}
+
+bool FlightInfo::operator!=(const FlightInfo& other)
+{
+	return !(*this == other);
+}
+
+FlightInfo::operator int()
+{
+	return this->flightTime;
+}
+
+ostream& operator<<(ostream& os, const FlightInfo& other)
+{
 	os << "Flight info dest: "
-		<< data.destination
-		<< " NUmber "
-		<< data.flightNumber
+		<< other.destination
+		<< " Number "
+		<< other.flightNumber
 		<< " minutes "
-		<< data.flightTime
+		<< other.flightTime
 		<< " KM "
-		<< data.flightLength;
+		<< other.flightLength;
 	return os;
 }

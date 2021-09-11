@@ -6,36 +6,30 @@ using namespace std;
 #include <string.h>
 #include "Plane.h"
 
-int Plane::CurrentserialNumber = Plane::START_ID;
+int Plane::currentSerialNumber = 100;
 
-Plane::Plane(int mChairNumber, const char* mModel)
+Plane::Plane(int mChairNumber, const char* mModel): model(nullptr)
 {
-
-	this->serialNumber = CurrentserialNumber++;
+	this->serialNumber = currentSerialNumber++;
 	this->chairNumber = mChairNumber;
 
 	this->model = new char[strlen(mModel)];
 	strcpy(this->model, mModel);
 }
 
-Plane::Plane()
+Plane::Plane(const Plane& other): model(nullptr)
 {
-	/*serialNumber = CurrentserialNumber++;
-	 chairNumber = 0;*/
-	
+	this->serialNumber = other.serialNumber;
+	this->chairNumber = other.chairNumber;
+
+	delete[]this->model;
+	this->model = strdup(other.model);
 }
-Plane::Plane(Plane& otherPlane)
-{
-	this->serialNumber = otherPlane.serialNumber;
-	this->serialNumber = otherPlane.chairNumber;
-	
-	this->model = new char[strlen(otherPlane.getModel()) + 1];
-	strcpy(this->model, otherPlane.getModel());
-}
+
 Plane::~Plane()
 {
-	//delete[]this->model;
-	
+	this->model = nullptr;
+	delete[]this->model;
 }
 
 int Plane::getSerialNumber()
@@ -53,22 +47,11 @@ char* Plane::getModel()
 	return this->model;
 }
 
-//bool Plane::IsEqual(Plane& otherPlane)
-//{
-//	if (this->serialNumber == otherPlane.getSerialNumber())
-//		return true;
-//	return false;
-//}
-
-const Plane& Plane::operator=(const Plane& other)
+bool Plane::IsEqual(Plane& otherPlane)
 {
-	if (this != &other) {
-		this->chairNumber = other.chairNumber;
-		delete[]this->model;
-		this->model = strdup(other.model);
-		this->serialNumber = other.serialNumber;
-	}
-	return *this;
+	if (this->serialNumber == otherPlane.getSerialNumber())
+		return true;
+	return false;
 }
 
 void Plane::print(ostream& out)
@@ -81,19 +64,56 @@ void Plane::print(ostream& out)
 		<< this->chairNumber;
 }
 
-void Plane::setCurrentserialNumber(int mCurrentserialNumber)
+void Plane::operator=(const Plane& other)
 {
-	Plane::CurrentserialNumber = mCurrentserialNumber;
+	if (*this != other) {
+		this->model = nullptr;
+		this->serialNumber = other.serialNumber;
+		this->chairNumber = other.chairNumber;
+
+		delete[]this->model;
+		this->model = strdup(other.model);
+	}
 }
 
-ostream& operator<<(ostream& os, const Plane& data) {
+bool Plane::operator==(const Plane& other)
+{
+	if (this->serialNumber == other.serialNumber)
+		return true;
+	return false;
+}
+
+bool Plane::operator!=(const Plane& other)
+{
+	return !(*this == other);
+}
+
+const Plane& Plane::operator++()
+{
+	this->chairNumber++;
+	return *this;
+}
+
+Plane Plane::operator++(int)
+{
+	Plane temp(*this);
+	chairNumber++;
+	return temp;
+}
+
+void Plane::toOs(ostream& os) const
+{
 	os << "Plane "
-		<< data.serialNumber
+		<< this->serialNumber
 		<< " degem "
-		<< data.model
+		<< this->model
 		<< " seats "
-		<< data.chairNumber
-		<<endl;
+		<< this->chairNumber
+		<< endl;
+}
+
+ostream& operator<<(ostream& os, const Plane& other)
+{
+	other.toOs(os);
 	return os;
 }
-
