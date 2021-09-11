@@ -23,7 +23,7 @@ void main()
 {
 
 	FlightCompany* pDelta = NULL;
-	try
+	/*try
 	{
 
 		pDelta = new FlightCompany("Delta.txt", 0);
@@ -34,60 +34,65 @@ void main()
 	catch (const FlightCompException& e) {
 		e.Show();
 		pDelta = new FlightCompany("Delta");
+	}*/
+	//
+	//	//Checking some of the exception put try and catch for each section	
+	try {
+		Plane p1(-34, "AirBus");
+		Cargo c1(45, "Jumbo", -560, 200);
+		Cargo c2(45, "Jumbo", 560, -200);
+		FlightInfo f1("London", -23, 120, 5000);
+		FlightInfo f2("LondonVeryLong", 23, 120, 5000);
+		FlightInfo f3("London", 23, -120, 5000);
+		FlightInfo f4("London", 23, 120, -5000);
+		CrewMember* pC1 = pDelta->GetCrewMember(-1);
+
+		CrewMember* pC2 = pDelta->GetCrewMember(0);
+		(*pC2) += -4;
+		Plane p0 = (*pDelta)[9];
+		//
 	}
-//
-//	//Checking some of the exception put try and catch for each section	
-
-	Plane p1(-34, "AirBus");
-	Cargo c1(45, "Jumbo", -560, 200);
-Cargo c2(45, "Jumbo", 560, -200);
-	FlightInfo f1("London", -23, 120, 5000);
-	FlightInfo f2("LondonVeryLong", 23, 120, 5000);
-	FlightInfo f3("London", 23, -120, 5000);
-	FlightInfo f4("London", 23, 120, -5000);
-	CrewMember* pC1 = pDelta->GetCrewMember(-1);
-
-	CrewMember* pC2 = pDelta->GetCrewMember(0);
-	(*pC2) += -4;
-	//Plane p0 = (*pDelta)[9];
-//
+	catch (const FlightCompException& e) {
+		e.Show();
+	}
+	
 //
 //
 //	//call a static function that get plane or customer from user.
 //
 	PlaneCrewFactory::GetCompanyDataFromUser(*pDelta);
-//
-//
-//	FlightInfo Info("Paris", 343, 320, 5000);
-//	Flight flight1(Info, &(*pDelta)[0]);
-//	pDelta->AddFlight(flight1);
-//
-//Flight* pF = pDelta->GetFlightByNum(343);
-//	CrewMember* pCmTemp;
-//	if (pF != NULL) {
-//		cout << "flight 343 was found " << endl;
-//		for (int i = 0; i < pDelta->GetCrewCount(); i++) {
-//			pCmTemp = pDelta->GetCrewMember(i);
-//			*pF + pCmTemp;
-//		}
-//	}
-//
-//
-//	try
-//	{
-//
-//		pDelta->SaveToFile("Delta.txt");
-//
-//	}
-//	catch (const FlightCompException& e) {
-//		e.Show();
-//	}
-//
-//
-//	delete pDelta;
+	//
+	//
+	//	FlightInfo Info("Paris", 343, 320, 5000);
+	//	Flight flight1(Info, &(*pDelta)[0]);
+	//	pDelta->AddFlight(flight1);
+	//
+	//Flight* pF = pDelta->GetFlightByNum(343);
+	//	CrewMember* pCmTemp;
+	//	if (pF != NULL) {
+	//		cout << "flight 343 was found " << endl;
+	//		for (int i = 0; i < pDelta->GetCrewCount(); i++) {
+	//			pCmTemp = pDelta->GetCrewMember(i);
+	//			*pF + pCmTemp;
+	//		}
+	//	}
+	//
+	//
+	//	try
+	//	{
+	//
+	//		pDelta->SaveToFile("Delta.txt");
+	//
+	//	}
+	//	catch (const FlightCompException& e) {
+	//		e.Show();
+	//	}
+	//
+	//
+	//	delete pDelta;
 
 
-	
+
 
 
 	system("pause");

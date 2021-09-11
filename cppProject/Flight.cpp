@@ -7,6 +7,8 @@ using namespace std;
 #include "Pilot.h"
 #include "Host.h"
 #include "Cargo.h"
+#include "FlightCompException.h"
+
 
 Flight::Flight(FlightInfo& info, Plane* plane) : info(info), plane(plane), numberOfMembers(0)
 {
@@ -86,7 +88,7 @@ bool Flight::operator!=(const Flight& other)
 	return !(*this == other);
 }
 
-bool Flight::TakeOff()
+bool Flight::TakeOff() throw(CompStringException)
 {
 	if (typeid(this->plane) == typeid(Plane))
 	{
@@ -98,14 +100,21 @@ bool Flight::TakeOff()
 			{
 				pilots++;
 				if (pilots > 1)
+				{
+					throw CompStringException("Plane cannot have more than one pilot");
 					return false;
+				}
 			}
 
 			if (typeid(this->members[i]) == typeid(Host) && strcmp(((Host)*this->members[i]).getType(), "Super"))
 			{
 				superHost++;
 				if (superHost > 1)
+				{
+					throw CompStringException("Plane cannot have more than one super host");
 					return false;
+				}
+					
 			}
 			((Cargo*)this->plane)->takeOff(this->info.getFlightTime());
 		}
@@ -119,7 +128,11 @@ bool Flight::TakeOff()
 			{
 				pilots++;
 				if (pilots < 1)
+				{
+					throw CompStringException("Cargo Plane need at least one pilot");
 					return false;
+				}
+					
 			}
 		}
 	}
