@@ -17,6 +17,8 @@ public:
 	//c'tor
 	FlightCompany(const char* name);
 	FlightCompany(FlightCompany& other);
+	FlightCompany(const char* filePath,int x);
+
 
 	//d'tor
 	~FlightCompany();

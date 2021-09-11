@@ -155,7 +155,6 @@
     <ClCompile Include="Address.cpp" />
     <ClCompile Include="Cargo.cpp" />
     <ClCompile Include="Flight.cpp" />
-    <ClCompile Include="FlightCompException.cpp" />
     <ClCompile Include="Host.cpp" />
     <ClCompile Include="Pilot.cpp" />
     <ClCompile Include="Plane.cpp" />

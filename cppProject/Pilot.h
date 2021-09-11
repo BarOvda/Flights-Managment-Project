@@ -8,6 +8,9 @@ public:
 	//c'tor
 	Pilot(const char* name,bool isCaptian, Address* address);
 	Pilot(const char* name, bool isCaptian);
+	Pilot(std::istream& in) :CrewMember(in),adderss(in) {
+		fromOs(in);
+	}
 	const bool operator+=(int minutes)
 	{
 		if (minutes > 0) {
@@ -25,7 +28,21 @@ public:
 			&&other.adderss==this->adderss;
 	}
 	void GetPresent();
+	virtual void fromOs(std::istream& in) override {
+		char* isCapt = new char[1];
 
+		in >> isCapt;
+		stringstream is_cap(isCapt);
+
+		int res;
+		is_cap >> res;
+		if (res == 0) {
+			isCaptian = false;
+		}
+		else {
+			isCaptian = true;
+		}
+	};
 	//d'tor
 //	~FlightCompany();
 

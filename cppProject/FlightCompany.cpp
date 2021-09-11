@@ -1,11 +1,12 @@
 #include <iostream>
 using namespace std;
 #pragma warning (disable: 4996)
-
+#include <fstream>
 #include <string.h>
 #include "FlightCompany.h"
 #include "Pilot.h"
 #include "Host.h"
+#include <sstream>
 
 
 FlightCompany::FlightCompany(const char* name)
@@ -37,6 +38,54 @@ FlightCompany::FlightCompany(FlightCompany& other) {
 	{
 		AddFlight(other.flights[i]);
 	}
+}
+
+FlightCompany::FlightCompany(const char* filePath, int x)
+{
+	std::ifstream inFile(filePath);
+	this->companyName = new char[128];
+	/*inFile.getline(this->companyName, 6);*/
+	inFile >> this->companyName;
+	 
+	inFile >> this->numOfCrewMembers;
+	CrewMember** crew = new CrewMember * [this->numOfCrewMembers];
+	for (int i = 0; i < this->numOfCrewMembers; i++) {
+		char* type = new char[1];
+		inFile >> type;
+		stringstream t_s(type);
+
+		int t;
+		t_s>>t;
+		if (t==0) {
+			//HOST
+			this->crewMembers[i] = *new Host(inFile);
+		}
+		else {
+			//PILOT
+			this->crewMembers[i] = *new Pilot(inFile);
+
+		}
+ 	}
+	inFile >> this->numOfPlanes;
+	for (int i = 0; i < this->numOfPlanes; i++) {
+		char* type = new char[1];
+		inFile >> type;
+		stringstream t_s(type);
+
+		int t;
+		t_s >> t;
+		if (t == 0) {
+			//Regular
+
+			this->Planes[i] = *new Plane(inFile);
+		}
+		else {
+			//Cargo
+			this->Planes[i] = *new Cargo(inFile);
+
+		}
+	}
+
 }
 
 FlightCompany::~FlightCompany()

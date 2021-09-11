@@ -1,8 +1,10 @@
 #ifndef __CREW_MEMBER
 #define __CREW_MEMBER
-
+using namespace std;
 #include <string>
 #include <iostream>
+#include <typeinfo>
+
 
 
 class CrewMember
@@ -14,6 +16,11 @@ public:
 	CrewMember();
 	CrewMember(const char* mName, int mTotalFlightTime = 0);
 	CrewMember(CrewMember& otherMember);
+	CrewMember(istream& in) {
+
+		in >> *this;
+
+	}
 
 	//d'tor
 	~CrewMember();
@@ -51,6 +58,19 @@ public:
 		this->name = _strdup(other.getName());
 
 		this->totalFlightTime = other.getTotalFlightTime();
+	}
+	virtual void fromOs(istream& in) {};
+	friend istream& operator>>(istream& in, CrewMember& c) {
+		//if (typeid(in) == typeid(ifstream))
+		c.name = new char[5];
+		in >> c.name >> c.totalFlightTime;
+		//else {
+		//	char delimiter;
+		//	in >> delimiter >> c.name>>delimiter>>c.totalFlightTime>>delimiter;
+		//}
+		c.fromOs(in);
+		return in;
+
 	}
 	bool IsEqual(CrewMember& otherMember);
 	virtual void print(std::ostream& out);

@@ -29,6 +29,8 @@ CrewMember::CrewMember(CrewMember& otherMember)
 	//this->memberNumber = otherMember.getMemberNumber();
 }
 
+
+
 CrewMember::~CrewMember()
 {
 	try {

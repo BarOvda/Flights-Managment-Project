@@ -1,6 +1,8 @@
 #ifndef __PLANE_H
 #define __PLANE_H
-
+#include <string>
+#include <iostream>
+#include <sstream>
 class Plane
 {
 public:
@@ -8,6 +10,11 @@ public:
 	//c'tor
 	Plane(int mChairNumber, const char* mModel);
 	Plane(Plane& otherPlane);
+	Plane(istream& in) {
+
+		in >> *this;
+
+	}
 	Plane();
 
 
@@ -21,7 +28,20 @@ public:
 
 	//other methods
 		//bool IsEqual(Plane& otherPlane);
+	virtual void fromOs(istream& in) {};
 
+	friend istream& operator>>(istream& in, Plane& p) {
+		//if (typeid(in) == typeid(ifstream))
+		p.model = new char[10];
+		in >> p.CurrentserialNumber >> p.serialNumber >> p.model >> p.chairNumber;
+		//else {
+		//	char delimiter;
+		//	in >> delimiter >> c.name>>delimiter>>c.totalFlightTime>>delimiter;
+		//}
+		p.fromOs(in);
+		return in;
+
+	}
 	bool operator==(Plane& other)
 	{
 		return other.getSerialNumber() == this->getSerialNumber()

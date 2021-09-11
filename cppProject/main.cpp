@@ -31,10 +31,10 @@ void main()
 		pDelta->Print(cout);
 
 	}
-//	catch (const FlightCompException& e) {
-//		e.Show();
-//		pDelta = new FlightCompany("Delta");
-//	}
+	catch (const FlightCompException& e) {
+		e.Show();
+		pDelta = new FlightCompany("Delta");
+	}
 //
 //	//Checking some of the exception put try and catch for each section	
 //
