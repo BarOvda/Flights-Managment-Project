@@ -20,14 +20,14 @@ public:
 		in >> *this;
 
 	}
-	CrewMember();
+	
 	//d'tor
 	virtual ~CrewMember();
 
 	//getters
 	int getTotalFlightTime();
 	char* getName();
-	//int GetMemberID();
+	
 
 	//setters
 	void setName(const char* mName);
@@ -42,8 +42,7 @@ public:
 	virtual bool operator!=(const CrewMember& other);
 	virtual bool operator+=(int minutes);
 
-		this->totalFlightTime = other.getTotalFlightTime();
-	}
+	
 	virtual void fromOs(istream& in) {};
 	friend istream& operator>>(istream& in, CrewMember& c) {
 		//if (typeid(in) == typeid(ifstream))
@@ -57,8 +56,7 @@ public:
 		return in;
 
 	}
-	bool IsEqual(CrewMember& otherMember);
-	virtual void print(std::ostream& out);
+	
 	friend ostream& operator<<(ostream& os, const CrewMember& other);
 	virtual void toOs(ostream& os) const;
 
@@ -71,8 +69,6 @@ protected:
 	char* name;
 	int totalFlightTime;
 
-	//int memberId;
-	//static int currentMemberId;
 };
 
 

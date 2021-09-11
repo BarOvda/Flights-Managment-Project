@@ -49,7 +49,7 @@ Cargo c2(45, "Jumbo", 560, -200);
 
 	CrewMember* pC2 = pDelta->GetCrewMember(0);
 	(*pC2) += -4;
-	Plane p0 = (*pDelta)[9];
+	//Plane p0 = (*pDelta)[9];
 //
 //
 //

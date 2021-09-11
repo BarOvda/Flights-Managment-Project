@@ -1,5 +1,6 @@
 #ifndef __PILOT_H
 #define __PILOT_H
+#include <sstream>
 
 #include "CrewMember.h"
 
@@ -12,14 +13,11 @@ public:
 	Pilot(const char* mName, bool isACapitan, Address* address = nullptr, int mTotalFlightTime = 0);
 	Pilot(CrewMember& member);
 	Pilot(Pilot& other);
-	Pilot(const char* name,bool isCaptian, Address* address);
-	Pilot(const char* name, bool isCaptian);
-	Pilot(std::istream& in) :CrewMember(in),adderss(in) {
+
+	Pilot(std::istream& in) :CrewMember(in) {
+		//TODOADD
 		fromOs(in);
 	}
-	const bool operator+=(int minutes)
-	{
-		if (minutes > 0) {
 
 	//d'tor
 	~Pilot();
@@ -28,10 +26,8 @@ public:
 	void operator=(const Pilot& other);
 	bool operator==(const Pilot& other);
 	bool operator!=(const Pilot& other);
-		return strcmp(other.getName(), this->getName()) == 0
-			&&other.adderss==this->adderss;
-	}
-	void GetPresent();
+
+	
 	virtual void fromOs(std::istream& in) override {
 		char* isCapt = new char[1];
 
@@ -40,11 +36,12 @@ public:
 
 		int res;
 		is_cap >> res;
+
 		if (res == 0) {
-			isCaptian = false;
+			isACapitan = false;
 		}
 		else {
-			isCaptian = true;
+			isACapitan = true;
 		}
 	};
 	//d'tor

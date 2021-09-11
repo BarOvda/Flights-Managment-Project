@@ -7,7 +7,7 @@ using namespace std;
 #include "Host.h"
 
 int CrewMember::START_ID = 1000;
-//int CrewMember::currentMemberId = 1000;
+
 
 CrewMember::CrewMember(const char* mName, int mTotalFlightTime)
 {
@@ -15,7 +15,7 @@ CrewMember::CrewMember(const char* mName, int mTotalFlightTime)
 	strcpy(this->name, mName);
 
 	this->totalFlightTime = mTotalFlightTime;
-	//this->memberId = currentMemberId++;
+	
 
 }
 
@@ -25,7 +25,7 @@ CrewMember::CrewMember(CrewMember& otherMember)
 	strcpy(this->name, otherMember.getName());
 
 	this->totalFlightTime = otherMember.getTotalFlightTime();
-	//this->memberId = otherMember.GetMemberID();
+	
 
 }
 
@@ -47,10 +47,7 @@ char* CrewMember::getName()
 		return this->name;
 }
 
-//int CrewMember::GetMemberID()
-//{
-//	return this->memberId;
-//}
+
 
 void CrewMember::setName(const char* mName)
 {

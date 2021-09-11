@@ -14,7 +14,6 @@ public:
 		in >> *this;
 
 	}
-	Plane();
 
 	//d'tor
 	virtual ~Plane();
@@ -31,8 +30,8 @@ public:
 	friend istream& operator>>(istream& in, Plane& p) {
 		//if (typeid(in) == typeid(ifstream))
 		p.model = new char[10];
-		if (CurrentserialNumber == START_ID)
-			in >> CurrentserialNumber >> p.serialNumber >> p.model >> p.chairNumber;
+		if (currentSerialNumber == 100)
+			in >> currentSerialNumber >> p.serialNumber >> p.model >> p.chairNumber;
 		else
 			in >> p.serialNumber >> p.model >> p.chairNumber;
 
@@ -44,19 +43,7 @@ public:
 		return in;
 
 	}
-	bool operator==(Plane& other)
-	{
-		return other.getSerialNumber() == this->getSerialNumber()
-			&&strcmp(other.getModel(),this->getModel())==0&& other.getChairNumber()== this->getChairNumber();
-	}
-
-	bool operator!=(Plane& other)
-	{
-		return !(this->operator==(other));
-	}
-
-	const Plane& operator=(const Plane& other);
-
+		
 	bool IsEqual(Plane& otherPlane);
 	void print(ostream& out);
 

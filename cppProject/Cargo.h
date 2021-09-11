@@ -23,15 +23,15 @@ public:
 	bool operator==(const Cargo& other);
 	bool operator!=(const Cargo& other);
 
-	bool load(float volume, float weight);
-	const Cargo& operator=(const Cargo& other);
-	void takeOff(ostream& os, const int flightTime);
-	virtual void fromOs(std::istream& in) override {
+	bool Load(float weight, float volume);
+	
 	virtual void toOs(ostream& os) const override;
 
-		in >> maxCargoVolume >> maxCargoWeight >> currentVolume>>currentWeight;
+	virtual void fromOs(std::istream& in) override {
+
+		in >> maxVolume >> maxWeight >> currentVolume>>currentWeight;
 	};
-	bool Load(float weight, float volume);
+	
 	virtual void takeOff(int flightTime);
 
 private:

@@ -26,6 +26,8 @@ public:
 
 	// more methods
 	void print(std::ostream& out);
+	Address& GetCurrentAddress();
+
 	void getAdd(std::istream& in) {
 		char* hasAdd = new char[1];
 
@@ -62,12 +64,11 @@ public:
 
 	friend std::istream& operator>>(std::istream& in, Address& data);
 
-	bool operator==(Address& other)
-	{
+	void operator=(const Address& other);
+	bool operator==(const Address& other);
+	bool operator!=(const Address& other);
 
-		return strcmp(other.getCity(), this->getCity()) && other.houseNumber == this->houseNumber
-			&& strcmp(other.getStreet(), this->getStreet());
-	}
+
 
 private:
 

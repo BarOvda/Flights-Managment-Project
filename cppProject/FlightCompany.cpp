@@ -12,6 +12,7 @@ using namespace std;
 FlightCompany::FlightCompany(const char* mCompanyName) : numberOfCrews(0), numberOfPlanes(0), numberOfFlights(0)
 {
 	this->companyName = new char[strlen(mCompanyName) + 1];
+	
 	strcpy(this->companyName, mCompanyName);
 }
 
@@ -21,24 +22,8 @@ FlightCompany::FlightCompany(FlightCompany& otherCompany) : numberOfCrews(0), nu
 	strcpy(this->companyName, otherCompany.getCompanyName());
 }
 
-	this->companyName = new char[strlen(other.companyName) + 1];
-	strcpy(this->companyName, other.companyName);
-	this->numOfCrewMembers = other.numOfCrewMembers;
-	this->numOfPlanes = other.numOfPlanes;
-	this->numOfFlights = other.numOfFlights;
-	for (int i = 0; i < numOfCrewMembers; i++)
-	{
-		AddCrewMember(other.crewMembers[i]);
-	}
-	for (int i = 0; i < numOfPlanes; i++)
-	{
-		AddPlane(other.Planes[i]);
-	}
-	for (int i = 0; i < numOfFlights; i++)
-	{
-		AddFlight(other.flights[i]);
-	}
-}
+
+
 
 FlightCompany::FlightCompany(const char* filePath, int x)
 {
@@ -47,8 +32,8 @@ FlightCompany::FlightCompany(const char* filePath, int x)
 	/*inFile.getline(this->companyName, 6);*/
 	inFile >> this->companyName;
 	 
-	inFile >> this->numOfCrewMembers;
-	for (int i = 0; i < this->numOfCrewMembers; i++) {
+	inFile >> this->numberOfCrews;
+	for (int i = 0; i < this->numberOfCrews; i++) {
 		char* type = new char[1];
 		inFile >> type;
 		stringstream t_s(type);
@@ -57,16 +42,16 @@ FlightCompany::FlightCompany(const char* filePath, int x)
 		t_s>>t;
 		if (t==0) {
 			//HOST
-			this->crewMembers[i] = *new Host(inFile);
+			this->members[i] = new Host(inFile);
 		}
 		else {
 			//PILOT
-			this->crewMembers[i] = *new Pilot(inFile);
+			this->members[i] = new Pilot(inFile);
 
 		}
  	}
-	inFile >> this->numOfPlanes;
-	for (int i = 0; i < this->numOfPlanes; i++) {
+	inFile >> this->numberOfCrews;
+	for (int i = 0; i < this->numberOfCrews; i++) {
 		char* type = new char[1];
 		inFile >> type;
 		stringstream t_s(type);
@@ -76,16 +61,16 @@ FlightCompany::FlightCompany(const char* filePath, int x)
 		if (t == 0) {
 			//Regular
 
-			this->Planes[i] = *new Plane(inFile);
+			this->planes[i] = new Plane(inFile);
 		}
 		else {
 			//Cargo
-			this->Planes[i] = *new Cargo(inFile);
+			this->planes[i] = new Cargo(inFile);
 
 		}
 	}
-	inFile >> this->numOfFlights;
-	for (int i = 0; i < this->numOfFlights; i++) {
+	inFile >> this->numberOfFlights;
+	for (int i = 0; i < this->numberOfFlights; i++) {
 
 			this->flights[i] = *new Flight(inFile);
 		

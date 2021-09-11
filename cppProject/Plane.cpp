@@ -17,13 +17,14 @@ Plane::Plane(int mChairNumber, const char* mModel): model(nullptr)
 	strcpy(this->model, mModel);
 }
 
-Plane::Plane(const Plane& other): model(nullptr)
+Plane::Plane(Plane& otherPlane)
+	: model(nullptr)
 {
-	this->serialNumber = other.serialNumber;
-	this->chairNumber = other.chairNumber;
+	this->serialNumber = otherPlane.serialNumber;
+	this->chairNumber = otherPlane.chairNumber;
 
 	delete[]this->model;
-	this->model = strdup(other.model);
+	this->model = strdup(otherPlane.model);
 }
 
 Plane::~Plane()

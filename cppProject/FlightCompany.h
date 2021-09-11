@@ -47,7 +47,6 @@ public:
 	//void AddFlight(FlightInfo flight);
 //Operators
 	//Plane& operator 
-	bool operator==(FlightCompany& other);
 
 private:
 	//attributes

@@ -11,7 +11,6 @@ public:
 	//c'tor
 	FlightInfo(const char* mDestination, int mFlightNumber, int mFlightTime, int mFlightLength);
 	FlightInfo(const FlightInfo& other);
-	FlightInfo(FlightInfo& otherFlightInfo);
 	FlightInfo(std::istream& in) {
 		getInfo(in);
 	}

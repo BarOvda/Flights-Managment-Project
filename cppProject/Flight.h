@@ -18,10 +18,8 @@ class Flight
 {
 public:
 	//c'tor
-	Flight(FlightInfo& info);
 
-	Flight(FlightInfo& info, Plane& plane);
-	Flight(Flight& flight);
+	
 	Flight(istream& in):info(in) {
 
 		in >> *this;
@@ -35,7 +33,8 @@ public:
 	~Flight();
 
 	//other methods
-	void updatePlane(Plane& otherPlane);
+	
+
 	friend istream& operator>>(istream& in, Flight& f) {
 		//if (typeid(in) == typeid(ifstream))
 		char* hasPlane = new char[1];
@@ -63,17 +62,18 @@ public:
 
 			int t;
 			t_s >> t;
-			if (t == 0) {
-				//HOST
-				f.crewMembers[i] = *new Host(in);
-			}
-			else {
-				//PILOT
-				f.crewMembers[i] = *new Pilot(in);
+			//if (t == 0) {
+			//	//HOST
+			//	f.crewMembers[i] = *new Host(in);
+			//}
+			//else {
+			//	//PILOT
+			//	f.crewMembers[i] = *new Pilot(in);
 
-			}
+			//}
 		}
 		return in;
+	}
 	void SetPlane(Plane* plane);
 	int GetFlightNumber();
 	Plane* GetPlane();
@@ -84,12 +84,7 @@ public:
 	bool operator==(const Flight& other);
 	bool operator!=(const Flight& other);
 
-	}
-	void operator+(CrewMember& newMember);
-	bool operator==(Flight& otherFlight);
-	void operator=(Flight& other);
 	
-	friend ostream& operator<<(ostream& os, const Flight& data);
 	friend ostream& operator<<(ostream& os, const Flight& other);
 
 	bool TakeOff();

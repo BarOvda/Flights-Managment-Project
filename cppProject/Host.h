@@ -8,21 +8,27 @@ using namespace std;
 #define __HOST_H
 
 #include "CrewMember.h"
+
 class Host :
 	public CrewMember
 {
 public:
-	enum Type {
-		eRegular, eSuper
-		, eCalcelan
-	};
-	Host(const char* name, Host::Type type);
+	//enum
+	enum eHostType { eRegular, eSuper, eCalcelan };
+
 	Host(std::istream& in):CrewMember(in) {
 		fromOs( in);
 	}
 
-	void print(std::ostream& out);
-	void GetPresent();
+	//c'tor
+	Host(const char* mName, Host::eHostType type, int mTotalFlightTime = 0);
+	Host(CrewMember& member);
+	Host(Host& other);
+
+	//d'tor
+	~Host();
+	//void print(std::ostream& out);
+	
 	virtual const char* getType() const { return "Host"; }
 	friend std::ostream& operator<<(std::ostream& out, const Host& data);
 	virtual void fromOs(std::istream& in) override {
@@ -43,16 +49,8 @@ public:
 			type = eCalcelan;
 		}
 	};
-	//enum
-	enum eHostType { eRegular, eSuper, eCalcelan };
 
-	//c'tor
-	Host(const char* mName, Host::eHostType type, int mTotalFlightTime = 0);
-	Host(CrewMember& member);
-	Host(Host& other);
 
-	//d'tor
-	~Host();
 
 	//other methods
 	void operator=(const Host& other);
