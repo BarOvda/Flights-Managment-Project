@@ -2,60 +2,77 @@
 using namespace std;
 #pragma warning (disable: 4996)
 
-#include "Cargo.h"
 
-Cargo::Cargo(int mChairNumber, const char* mModel, float maxCargoWeight, float maxCargoVolume) : Plane(mChairNumber, mModel)
+#include "Cargo.h"
+#include <string.h>
+
+Cargo::Cargo(int mChairNumber, const char* mModel, float maxWeight, float maxVolume) : Plane(mChairNumber, mModel)
 {
-	this->maxCargoVolume = maxCargoVolume;
-	this->maxCargoWeight = maxCargoWeight;
+	this->maxVolume = maxVolume;
+	this->maxWeight = maxWeight;
 	this->currentVolume = 0;
 	this->currentWeight = 0;
 }
 
-Cargo::Cargo(Cargo& other) : Plane(other)
+Cargo::Cargo(Cargo& other): Plane(other.chairNumber, other.model)
 {
-	this->maxCargoVolume = other.maxCargoVolume;
-	this->maxCargoWeight = other.maxCargoWeight;
+	this->maxVolume = other.maxVolume;
+	this->maxWeight = other.maxWeight;
 	this->currentVolume = 0;
 	this->currentWeight = 0;
 }
 
 Cargo::~Cargo()
 {
-
 }
 
-bool Cargo::load(float volume, float weight)
-{
-	if (this->currentVolume < this->maxCargoVolume && this->currentWeight < this->maxCargoWeight) {
-		float totalWeight = this->currentWeight + weight;
-		float totalVolume = this->currentVolume + volume;
-
-		if (totalVolume <= this->maxCargoVolume && totalWeight <= this->maxCargoWeight) {
-			this->currentVolume += volume;
-			this->currentWeight += weight;
-
-			return true;
-		}
-	}
-
-	return false;
-}
-
-const Cargo& Cargo::operator=(const Cargo& other)
+void Cargo::operator=(const Cargo& other)
 {
 	Plane::operator=(other);
 
+	this->maxVolume = other.maxVolume;
+	this->maxWeight = other.maxWeight;
 	this->currentVolume = other.currentVolume;
 	this->currentWeight = other.currentWeight;
-	this->maxCargoVolume = other.maxCargoVolume;
-	this->maxCargoWeight = other.maxCargoWeight;
-
-	return *this;
 }
 
-void Cargo::takeOff(ostream& os, const int flightTime)
+bool Cargo::operator==(const Cargo& other)
 {
-	os << "Need to add " << flightTime << " to my log book";
+	return Plane::operator==(other);
 }
 
+bool Cargo::operator!=(const Cargo& other)
+{
+	return !(*this == other);
+}
+
+void Cargo::toOs(ostream& os) const
+{
+	os << "Cargo M_vol"
+		<< this->maxVolume
+		<< " M_Kg "
+		<< this->maxWeight
+		<< " C_vol "
+		<< this->currentVolume
+		<< " C_Kg "
+		<< this->currentWeight
+		<< endl;
+}
+
+bool Cargo::Load(float weight, float volume)
+{
+	float totalVolume = this->currentVolume + volume;
+	float totalWeight = this->currentWeight + weight;
+
+	if (totalVolume < this->maxVolume && totalWeight < this->maxWeight) {
+		currentVolume = totalVolume;
+		currentWeight = totalWeight;
+		return true;
+	}
+	return false;
+}
+
+void Cargo::takeOff(int flightTime)
+{
+	cout << "Need to add " << flightTime << " to my log book" << endl;
+}

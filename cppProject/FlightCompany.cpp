@@ -4,39 +4,19 @@ using namespace std;
 
 #include <string.h>
 #include "FlightCompany.h"
+#include "Cargo.h"
 #include "Pilot.h"
-#include "Host.h"
 
-
-FlightCompany::FlightCompany(const char* name)
+FlightCompany::FlightCompany(const char* mCompanyName) : numberOfCrews(0), numberOfPlanes(0), numberOfFlights(0)
 {
-
-	this->companyName = new char[strlen(name) + 1];
-	strcpy(this->companyName, name);
-	this->numOfCrewMembers = 0;
-	this->numOfPlanes = 0;
-	this->numOfFlights = 0;
-
+	this->companyName = new char[strlen(mCompanyName) + 1];
+	strcpy(this->companyName, mCompanyName);
 }
-FlightCompany::FlightCompany(FlightCompany& other) {
 
-	this->companyName = new char[strlen(other.companyName) + 1];
-	strcpy(this->companyName, other.companyName);
-	this->numOfCrewMembers = other.numOfCrewMembers;
-	this->numOfPlanes = other.numOfPlanes;
-	this->numOfFlights = other.numOfFlights;
-	for (int i = 0; i < numOfCrewMembers; i++)
-	{
-		AddCrewMember(other.crewMembers[i]);
-	}
-	for (int i = 0; i < numOfPlanes; i++)
-	{
-		AddPlane(other.Planes[i]);
-	}
-	for (int i = 0; i < numOfFlights; i++)
-	{
-		AddFlight(other.flights[i]);
-	}
+FlightCompany::FlightCompany(FlightCompany& otherCompany) : numberOfCrews(0), numberOfPlanes(0), numberOfFlights(0)
+{
+	this->companyName = new char[strlen(otherCompany.getCompanyName()) + 1];
+	strcpy(this->companyName, otherCompany.getCompanyName());
 }
 
 FlightCompany::~FlightCompany()
@@ -49,8 +29,42 @@ char* FlightCompany::getCompanyName()
 	return this->companyName;
 }
 
-Plane& FlightCompany::GetPlane(int i) {
-	return this->Planes[i];
+Flight* FlightCompany::GetFlightByNum(int number)
+{
+	for (int i = 0; i < numberOfFlights; i++)
+	{
+		if (this->flights[i].GetFlightNumber() == number) {
+			return &this->flights[i];
+		}
+	}
+}
+
+CrewMember* FlightCompany::GetCrewMember(int index)
+{
+	if (index <= numberOfCrews) {
+		return this->members[index];
+	}
+	return nullptr;
+}
+
+Plane* FlightCompany::GetPlane(int index)
+{
+	if (index <= numberOfPlanes) {
+		if (this->planes[index] != 0)
+			return this->planes[index];
+	}
+	return nullptr;
+}
+
+int FlightCompany::GetCargoCount()
+{
+	int counter = 0;
+	for (int i = 0; i < numberOfPlanes; i++)
+	{
+		if (typeid(this->planes[i]) == typeid(Cargo))
+			counter++;
+	}
+	return counter;
 }
 
 void FlightCompany::setName(const char* mName)
@@ -63,153 +77,107 @@ void FlightCompany::setName(const char* mName)
 
 void FlightCompany::Print(ostream& out)
 {
-	out << "Flight company: " << this->companyName << endl
-		<< "There are " << numOfCrewMembers << " Crew members : " << endl;
-	for (int i = 0; i < numOfCrewMembers; i++) {
-
-		crewMembers[i].print(out);
-
-	}
-
-	out << "There are " << numOfPlanes << " Planes:" << endl;
-	for (int i = 0; i < numOfPlanes; i++) {
-		out << Planes[i] << endl;
-
-	}
-	out
-		<< "There are " << numOfFlights << " Flights:" << endl;
-	for (int i = 0; i < numOfFlights; i++) {
-		out << flights[i] << endl;
-
-	}
-	out
-		<< endl;
-}
-
-bool FlightCompany::AddCrewMember(CrewMember& crewMember) {
-	if (numOfCrewMembers > MAX_CREWS)
-		return false;
-	for (int i = 0; i < numOfCrewMembers; i++)
-	{
-		if (this->crewMembers[i] == crewMember) {
-			return false;
-		}
-	}
-
-	crewMembers[numOfCrewMembers] = crewMember;
-	numOfCrewMembers++;
-	return true;
-}
-
-bool FlightCompany::AddPlane(Plane& plane) {
-	if (numOfPlanes > MAX_PLANES)
-		return false;
-	for (int i = 0; i < numOfPlanes; i++)
-	{
-		if (this->Planes[i] == plane) {
-			return false;
-		}
-	}
-	//Plane* p = new Plane(plane);
-	//this->Planes[numOfCrewMembers] = *p;
-	Planes[numOfPlanes] = plane;
-	numOfPlanes++;
-	return true;
-}
-bool FlightCompany::AddFlight(Flight& flight) {
-	if (numOfFlights > MAX_FLIGHT)
-		return false;
-	for (int i = 0; i < numOfFlights; i++)
-	{
-		if (this->flights[i] == flight) {
-			return false;
-		}
-	}
-
-	flights[numOfFlights] = flight;
-	numOfFlights++;
-	return true;
-}
-
-
-void FlightCompany::AddCrewToFlight(int f_number, int crew_member_number) {
-	*(this->GetFlightByNum(f_number)) + *(this->GetCrewMember(crew_member_number));
-}
-
-int FlightCompany::GetCargoCount()
-{
-	int totalAmount = 0;
-
-	for (int i = 0; i < this->numOfPlanes; i++)
-	{
-		if (typeid(this->Planes[i]) == typeid(Cargo)) 
+	out << "Flight company: " << this->companyName << endl;
+	out << "There are " << numberOfCrews << "  Crew members:" << endl;
+	if (numberOfCrews > 0) {
+		for (int i = 0; i < numberOfCrews; i++)
 		{
-			totalAmount++;
+			this->members[i]->toOs(out);
 		}
 	}
-	return totalAmount;
-}
 
+	out << "There are " << numberOfPlanes << "  Planes:" << endl;
+	if (numberOfPlanes > 0) {
+		for (int i = 0; i < numberOfPlanes; i++)
+		{
+			this->planes[i]->toOs(out);
+		}
+	}
 
-bool FlightCompany::TakeOff(int flightNumber)
-{
-	Flight* temp = this->GetFlightByNum(flightNumber);
-
-	return temp->TakeOff();
-}
-
-bool FlightCompany::operator==(FlightCompany& other)
-{
-	return strcmp(this->companyName, other.companyName);
-}
-
-Flight* FlightCompany::GetFlightByNum(int f_number) {
-	for (int i = 0; i < numOfFlights; i++) {
-		if (this->flights[i].GetFlightInfo().GetFNum() == f_number)
-			return &this->flights[i];
+	out << "There are " << numberOfFlights << "  Flights:" << endl;
+	if (numberOfFlights > 0) {
+		for (int i = 0; i < numberOfFlights; i++)
+		{
+			out << this->flights[i] << endl;
+		}
 	}
 }
 
-
-//CrewMember* FlightCompany::GetCrew(int c_number) {
-//	for (int i = 0; i < numOfCrewMembers; i++) {
-//		if (this->crewMembers[i].getMemberNumber() == c_number)
-//			return &this->crewMembers[i];
-//	}
-//}
-CrewMember* FlightCompany::GetCrewMember(int index) {
-	if (index < numOfCrewMembers)
-		return &(this->crewMembers[index]);
-	return NULL;
-}
-void FlightCompany::CrewGetPresent() {
-	for (int i = 0; i < this->numOfCrewMembers; i++) {
-		this->crewMembers[i].GetPresent();
-		
+bool FlightCompany::AddCrewMember(CrewMember& other)
+{
+	if (this->numberOfCrews < MAX_CREWS) {
+		for (int i = 0; i < numberOfCrews; i++)
+		{
+			if (*this->members[i] == other) {
+				return false;
+			}
+		}
+		this->members[numberOfCrews] = &other;
+		numberOfCrews++;
+		return true;
 	}
+	return false;
+}
+
+bool FlightCompany::AddPlane(Plane& other)
+{
+	if (this->numberOfPlanes < MAX_PLANES) {
+		for (int i = 0; i < numberOfPlanes; i++)
+		{
+			if (*this->planes[i] == other) {
+				return false;
+			}
+		}
+		this->planes[numberOfPlanes] = &other;
+		numberOfPlanes++;
+		return true;
+	}
+	return false;
+}
+
+bool FlightCompany::AddFlight(Flight& other)
+{
+	if (this->numberOfFlights < MAX_FLIGHT) {
+		for (int i = 0; i < numberOfFlights; i++)
+		{
+			if (this->flights[i] == other) {
+				return false;
+			}
+		}
+		this->flights[numberOfFlights] = other;
+		numberOfFlights++;
+		return true;
+	}
+	return false;
+}
+
+void FlightCompany::AddCrewToFlight(int flightNum, int memberNum)
+{
+	*this->GetFlightByNum(flightNum) + this->GetCrewMember(memberNum);
 }
 
 void FlightCompany::PilotsToSimulator()
 {
-	for (int i = 0; i < this->numOfCrewMembers; i++) {
-		std::cout << (typeid(this->crewMembers[i])).name() << endl;
-		if (strcmp(this->crewMembers[i].getType(), "Host") == 0) {
-			std::cout << " I was not expecting it" << endl;
+	for (int i = 0; i < numberOfCrews; i++)
+		if (typeid(this->members[i]) == typeid(Pilot))
+			((Pilot)*this->members[i]).gotoSimulator();
+}
 
-		}
-
-	}
+void FlightCompany::CrewGetPresent()
+{
+	for (int i = 0; i < numberOfCrews; i++)
+		this->members[i]->getPresent();
 }
 
 void FlightCompany::CrewGetUniform()
 {
-	for (int i = 0; i < this->numOfCrewMembers; i++) {
-		std::cout << (typeid(this->crewMembers[i])).name() << endl;
-		if (strcmp(this->crewMembers[i].getType(), "Host") == 0) {
-			std::cout << " I was not expecting it" << endl;
+	for (int i = 0; i < numberOfCrews; i++)
+		this->members[i]->getUniform();
+}
 
-		}
-
-	}
+void FlightCompany::TakeOff(int flightNumber)
+{
+	Flight flight = *GetFlightByNum(flightNumber);
+	flight.TakeOff();
 
 }

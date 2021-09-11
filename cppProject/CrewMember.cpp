@@ -4,12 +4,10 @@ using namespace std;
 
 #include <string.h>
 #include "CrewMember.h"
+#include "Host.h"
 
-//int CrewMember::currentMemberNumber = CrewMember::START_ID;
-CrewMember::CrewMember() {
-	//this->name = new char[1];
-
-}
+int CrewMember::START_ID = 1000;
+//int CrewMember::currentMemberId = 1000;
 
 CrewMember::CrewMember(const char* mName, int mTotalFlightTime)
 {
@@ -17,7 +15,8 @@ CrewMember::CrewMember(const char* mName, int mTotalFlightTime)
 	strcpy(this->name, mName);
 
 	this->totalFlightTime = mTotalFlightTime;
-	//this->memberNumber = currentMemberNumber++;
+	//this->memberId = currentMemberId++;
+
 }
 
 CrewMember::CrewMember(CrewMember& otherMember)
@@ -26,18 +25,14 @@ CrewMember::CrewMember(CrewMember& otherMember)
 	strcpy(this->name, otherMember.getName());
 
 	this->totalFlightTime = otherMember.getTotalFlightTime();
-	//this->memberNumber = otherMember.getMemberNumber();
+	//this->memberId = otherMember.GetMemberID();
+
 }
+
 
 CrewMember::~CrewMember()
 {
-	try {
-		delete[]this->name;
-		//delete this;
-	}
-	catch (exception ex) {
-		cout << ex.what();
-	}
+	delete[]this->name;
 }
 
 int CrewMember::getTotalFlightTime()
@@ -47,12 +42,13 @@ int CrewMember::getTotalFlightTime()
 
 char* CrewMember::getName()
 {
-	return this->name;
+	if(this)
+		return this->name;
 }
 
-//int CrewMember::getMemberNumber()
+//int CrewMember::GetMemberID()
 //{
-//	return this->memberNumber;
+//	return this->memberId;
 //}
 
 void CrewMember::setName(const char* mName)
@@ -63,44 +59,71 @@ void CrewMember::setName(const char* mName)
 	strcpy(this->name, mName);
 }
 
-void CrewMember::GetPresent()
+bool CrewMember::UpdateMinutes(int minutes)
 {
-	std::cout << this->name << " thanking the company for receiving the holiday gift" << endl;
-
+	if (minutes > 0) {
+		this->totalFlightTime += minutes;
+		return true;
+	}
+	return false;
 }
 
-//bool CrewMember::UpdateMinutes(int minutes)
-//{
-//	if (minutes > 0) {
-//		this->totalFlightTime += minutes;
-//		return true;
-//	}
-//	return false;
-//}
-
-//bool CrewMember::IsEqual(CrewMember& otherMember)
-//{
-//	if (this->memberNumber == otherMember.getMemberNumber())
-//		return true;
-//	return false;
-//}
-
-void CrewMember::print(ostream& out)
+bool CrewMember::IsEqual(CrewMember& otherMember)
 {
-	out << "crew member " << this->name << " minutes " << this->totalFlightTime<<endl;
+	if (strcmp(this->name, otherMember.getName()) == 0)
+		return true;
+	return false;
 }
 
-void CrewMember::setCurrentMemberNumber(int mCurrentMemberNumber)
+
+void CrewMember::Print(ostream& out)
 {
-	//CrewMember::currentMemberNumber = mCurrentMemberNumber;
+	//out << "crew member " << this->name << " minutes " << this->totalFlightTime;
+		this->toOs(out);
 }
 
- ostream& operator<<(ostream& os, const CrewMember& data) {
-	os << "Name "
-		<< data.name
-		//<< " Member Number "
-		//<< data.memberNumber
-		<< " Total Flight Time "
-		<< data.totalFlightTime;
+void CrewMember::operator=(const CrewMember& other)
+{
+	if (*this != other) {
+		this->totalFlightTime = other.totalFlightTime;
+
+		delete[]name;
+		this->name = strdup(other.name);
+	}
+}
+
+bool CrewMember::operator==(const CrewMember& other)
+{
+	if (strcmp(this->name,other.name) == 0)
+		return true;
+	return false;
+}
+
+bool CrewMember::operator!=(const CrewMember& other)
+{
+	return !(*this == other);
+}
+
+bool CrewMember::operator+=(int minutes)
+{
+	if (minutes > 0) {
+		this->totalFlightTime += minutes;
+		return true;
+	}
+	return false;
+}
+
+void CrewMember::toOs(ostream& os) const
+{
+}
+
+void CrewMember::getPresent() const
+{
+	cout << this->name << " thanking the company for receiving the holiday gift." << endl;
+}
+
+ostream& operator<<(ostream& os, const CrewMember& other)
+{
+	other.toOs(os);
 	return os;
 }
