@@ -15,28 +15,26 @@ using namespace std;
 #include "FlightCompException.h"
 #include "PlaneCrewFactory.h"
 
-//const int CM_COUNT = 5;
-//const int PLANE_COUNT = 4;
-//const int FLIGHT_COUNT = 4;
+const int CM_COUNT = 5;
+const int PLANE_COUNT = 4;
+const int FLIGHT_COUNT = 4;
 
 void main()
 {
 
 	FlightCompany* pDelta = NULL;
-	/*try
+	try
 	{
-
 		pDelta = new FlightCompany("Delta.txt", 0);
 		cout << "This was in file " << endl;
 		pDelta->Print(cout);
-
 	}
 	catch (const FlightCompException& e) {
 		e.Show();
 		pDelta = new FlightCompany("Delta");
-	}*/
-	//
-	//	//Checking some of the exception put try and catch for each section	
+	}
+
+	//Checking some of the exception put try and catch for each section	
 	try {
 		Plane p1(-34, "AirBus");
 		Cargo c1(45, "Jumbo", -560, 200);
@@ -55,45 +53,34 @@ void main()
 	catch (const FlightCompException& e) {
 		e.Show();
 	}
-	
-//
-//
-//	//call a static function that get plane or customer from user.
-//
+
+	//call a static function that get plane or customer from user.
+
 	PlaneCrewFactory::GetCompanyDataFromUser(*pDelta);
-	//
-	//
-	//	FlightInfo Info("Paris", 343, 320, 5000);
-	//	Flight flight1(Info, &(*pDelta)[0]);
-	//	pDelta->AddFlight(flight1);
-	//
-	//Flight* pF = pDelta->GetFlightByNum(343);
-	//	CrewMember* pCmTemp;
-	//	if (pF != NULL) {
-	//		cout << "flight 343 was found " << endl;
-	//		for (int i = 0; i < pDelta->GetCrewCount(); i++) {
-	//			pCmTemp = pDelta->GetCrewMember(i);
-	//			*pF + pCmTemp;
-	//		}
-	//	}
-	//
-	//
-	//	try
-	//	{
-	//
-	//		pDelta->SaveToFile("Delta.txt");
-	//
-	//	}
-	//	catch (const FlightCompException& e) {
-	//		e.Show();
-	//	}
-	//
-	//
-	//	delete pDelta;
 
+	FlightInfo Info("Paris", 343, 320, 5000);
+	Flight flight1(Info, &(*pDelta)[0]);
+	pDelta->AddFlight(flight1);
 
+	Flight* pF = pDelta->GetFlightByNum(343);
+	CrewMember* pCmTemp;
+	if (pF != NULL) {
+		cout << "flight 343 was found " << endl;
+		for (int i = 0; i < pDelta->GetCrewCount(); i++) {
+			pCmTemp = pDelta->GetCrewMember(i);
+			*pF + pCmTemp;
+		}
+	}
 
+	try
+	{
+		pDelta->SaveToFile("Delta.txt");
+	}
+	catch (const FlightCompException& e) {
+		e.Show();
+	}
 
+	delete pDelta;
 
 	system("pause");
 }

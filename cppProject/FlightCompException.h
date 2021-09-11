@@ -7,7 +7,7 @@ using namespace std;
 class FlightCompException
 {
 public:
-	virtual ~FlightCompException();
+	virtual ~FlightCompException() {}
 	virtual void Show() const = 0;
 
 };
