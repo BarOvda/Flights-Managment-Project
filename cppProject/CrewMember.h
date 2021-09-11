@@ -13,7 +13,6 @@ public:
 	//static const int START_ID = 0;
 
 	//c'tor
-	CrewMember();
 	CrewMember(const char* mName, int mTotalFlightTime = 0);
 	CrewMember(CrewMember& otherMember);
 	CrewMember(istream& in) {
@@ -21,7 +20,7 @@ public:
 		in >> *this;
 
 	}
-
+	CrewMember();
 	//d'tor
 	~CrewMember();
 

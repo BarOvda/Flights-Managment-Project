@@ -22,7 +22,7 @@ public:
 	//getters
 
 	void getInfo(std::istream& in) {
-		in >> destination >> flightNumber >> flightTime >> flightLength;
+		in>>destination>>flightNumber>>flightTime>>flightLength;
 
 	};
 
