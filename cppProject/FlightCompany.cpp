@@ -48,7 +48,6 @@ FlightCompany::FlightCompany(const char* filePath, int x)
 	inFile >> this->companyName;
 	 
 	inFile >> this->numOfCrewMembers;
-	CrewMember** crew = new CrewMember * [this->numOfCrewMembers];
 	for (int i = 0; i < this->numOfCrewMembers; i++) {
 		char* type = new char[1];
 		inFile >> type;
@@ -85,6 +84,13 @@ FlightCompany::FlightCompany(const char* filePath, int x)
 
 		}
 	}
+	inFile >> this->numOfFlights;
+	for (int i = 0; i < this->numOfFlights; i++) {
+
+			this->flights[i] = *new Flight(inFile);
+		
+	}
+
 
 }
 

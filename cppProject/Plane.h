@@ -33,7 +33,11 @@ public:
 	friend istream& operator>>(istream& in, Plane& p) {
 		//if (typeid(in) == typeid(ifstream))
 		p.model = new char[10];
-		in >> p.CurrentserialNumber >> p.serialNumber >> p.model >> p.chairNumber;
+		if (CurrentserialNumber == START_ID)
+			in >> CurrentserialNumber >> p.serialNumber >> p.model >> p.chairNumber;
+		else
+			in >> p.serialNumber >> p.model >> p.chairNumber;
+
 		//else {
 		//	char delimiter;
 		//	in >> delimiter >> c.name>>delimiter>>c.totalFlightTime>>delimiter;

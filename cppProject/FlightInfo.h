@@ -11,12 +11,21 @@ public:
 	//c'tor
 	FlightInfo(const char* mDestination, int mFlightNumber, int mFlightTime, int mFlightLength);
 	FlightInfo(FlightInfo& otherFlightInfo);
+	FlightInfo(std::istream& in) {
+		getInfo(in);
+	}
 	FlightInfo();
 
 	//d'tor
 	~FlightInfo();
 
 	//getters
+
+	void getInfo(std::istream& in) {
+		in >> destination >> flightNumber >> flightTime >> flightLength;
+
+	};
+
 	int getFlightTime();
 	int getFlightLength();
 	char* getDestination();

@@ -158,8 +158,8 @@ FlightInfo Flight::GetFlightInfo()
 ostream& operator<<(ostream& os, const Flight& data)
 {
 	os << "Flight info: " << data.info;
-	if(data.isPlaneAssigned)
-	os <<" plane: " << data.plane;
+	if (data.isPlaneAssigned)
+		os << " plane: " << data.plane;
 	else
 		os << " No plane assign yet " ;
 

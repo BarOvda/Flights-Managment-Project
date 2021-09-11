@@ -26,9 +26,8 @@ public:
 	const Cargo& operator=(const Cargo& other);
 	void takeOff(ostream& os, const int flightTime);
 	virtual void fromOs(std::istream& in) override {
-		char* tt = new char[10];
-		in >> tt;
-		//in >> maxCargoVolume >> maxCargoWeight >> currentVolume>>currentWeight;
+
+		in >> maxCargoVolume >> maxCargoWeight >> currentVolume>>currentWeight;
 	};
 
 private:

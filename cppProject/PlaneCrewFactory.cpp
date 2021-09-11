@@ -1,35 +1,37 @@
 #include "PlaneCrewFactory.h"
 
-PlaneType CPlaneCrewFactory::GetPlaneType(const CPlane* pPlane)
+
+
+PlaneType PlaneCrewFactory::GetPlaneType(const Plane* pPlane)
 {
     return PlaneType();
 }
 
-CrewType CPlaneCrewFactory::GetCrewType(const CCrewMember* pCrew)
+CrewType PlaneCrewFactory::GetCrewType(const CrewMember* pCrew)
 {
     return CrewType();
 }
 
-void CPlaneCrewFactory::GetCompanyDataFromUser(CFlightCompany& comp)
+void PlaneCrewFactory::GetCompanyDataFromUser(FlightCompany& comp)
 {
 }
 
-CPlane* CPlaneCrewFactory::GetPlaneFromUser()
-{
-    return nullptr;
-}
-
-CCrewMember* CPlaneCrewFactory::GetCrewFromUser()
+Plane* PlaneCrewFactory::GetPlaneFromUser()
 {
     return nullptr;
 }
 
-CCrewMember* CPlaneCrewFactory::GetCrewMemberFromFile(ifstream& inFile)
+CrewMember* PlaneCrewFactory::GetCrewFromUser()
 {
     return nullptr;
 }
 
-CPlane* CPlaneCrewFactory::GetPlaneFromFile(ifstream& inFile)
+CrewMember* PlaneCrewFactory::GetCrewMemberFromFile(ifstream& inFile)
+{
+    return nullptr;
+}
+
+Plane* PlaneCrewFactory::GetPlaneFromFile(ifstream& inFile)
 {
     return nullptr;
 }
