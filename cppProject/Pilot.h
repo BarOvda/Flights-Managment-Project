@@ -3,8 +3,8 @@
 #include <sstream>
 
 #include "CrewMember.h"
+#include "Address.h"
 
-class Address;
 
 class Pilot : public CrewMember
 {
@@ -29,6 +29,32 @@ public:
 
 	
 	virtual void fromOs(std::istream& in) override {
+		
+		//address = &Address(in);
+
+		char* hasAdd = new char[1];
+
+		in >> hasAdd;
+		stringstream is_add(hasAdd);
+
+		int res_add;
+		is_add >> res_add;
+		if (res_add == 1) {
+			
+				char* city = new char[10];
+				char* street = new char[10];
+				int hose;
+
+
+				in >> hose >> street >> city;
+				Address add = Address(hose, street, city);
+				this->address = &add;
+				
+
+			
+		}
+		
+
 		char* isCapt = new char[1];
 
 		in >> isCapt;

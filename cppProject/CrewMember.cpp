@@ -111,9 +111,7 @@ bool CrewMember::operator+=(int minutes)
 	return false;
 }
 
-void CrewMember::toOs(ostream& os) const
-{
-}
+void CrewMember::toOs(ostream& os) const{}
 
 void CrewMember::getPresent() const
 {
@@ -122,6 +120,8 @@ void CrewMember::getPresent() const
 
 ostream& operator<<(ostream& os, const CrewMember& other)
 {
+	os << other.name << " " << other.totalFlightTime;
+
 	other.toOs(os);
 	return os;
 }

@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 #pragma warning (disable: 4996)
+#include <fstream>
 
 #include <string.h>
 #include "Flight.h"
@@ -134,19 +135,40 @@ bool Flight::TakeOff()
 
 ostream& operator<<(ostream& os, const Flight& other)
 {
-	os << "Flight info: " << other.info;
+	if (typeid(os) == typeid(ofstream)) {
+		os << other.info;
 
-	if (other.isPlaneAssigned)
-		os << " plane: " << other.plane;
-	else
-		os << " No plane assign yet ";
+		if (other.isPlaneAssigned)
+			os << " 1 "<<endl;
+		else
+			os << " 0 "<<endl;
+		
 
-	os << " There are " << other.numberOfMembers << " crew memebers in flight: " << endl;
+		os << other.numberOfMembers << endl;
 
-	for (size_t i = 0; i < other.numberOfMembers; i++)
-	{
-		os << " member: " << other.members[i] << endl;
+		for (size_t i = 0; i < other.numberOfMembers; i++)
+		{
+			os << *other.members[i] << endl;
+		}
+
+	}
+	else {
+		os << "Flight info: " << other.info;
+
+		if (other.isPlaneAssigned)
+			os << " plane: " << other.plane;
+		else
+			os << " No plane assign yet ";
+
+		os << " There are " << other.numberOfMembers << " crew memebers in flight: " << endl;
+
+		for (size_t i = 0; i < other.numberOfMembers; i++)
+		{
+			os << " member: " << other.members[i] << endl;
+		}
+
 	}
 
+	
 	return os;
 }

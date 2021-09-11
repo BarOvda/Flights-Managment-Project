@@ -14,6 +14,7 @@ CrewType PlaneCrewFactory::GetCrewType(const CrewMember* pCrew)
 
 void PlaneCrewFactory::GetCompanyDataFromUser(FlightCompany& comp)
 {
+    
 }
 
 Plane* PlaneCrewFactory::GetPlaneFromUser()

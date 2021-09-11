@@ -24,6 +24,43 @@ FlightCompany::FlightCompany(FlightCompany& otherCompany) : numberOfCrews(0), nu
 
 
 
+void FlightCompany::SaveToFile(const char* filePath)
+{
+	ofstream outFile(filePath, ios::trunc);
+	outFile << this->companyName << endl;
+	outFile << this->numberOfCrews << endl;
+	for (int i = 0; i < this->numberOfCrews; i++) {
+		if (typeid(*this->members[i]) == typeid(Host)) {
+			outFile << "0 ";
+			outFile <<*(this->members[i]);
+		}
+		else {
+			outFile << "1 ";
+			outFile << *(this->members[i]);
+		}
+	}
+	outFile << this->numberOfPlanes<<endl;
+	for (int i = 0; i < this->numberOfPlanes; i++) {
+
+
+		if (typeid(*this->planes[i]) == typeid(Cargo)) {
+			outFile << "1 ";
+			outFile << *(this->planes[i]);
+		}
+		else {
+			outFile << "0 ";
+			outFile << *(this->planes[i]);
+		}
+	}
+	outFile << this->numberOfFlights << endl;
+	
+	for (int i = 0; i < this->numberOfFlights; i++) {
+
+		outFile << this->flights[i];
+
+	}
+
+}
 
 FlightCompany::FlightCompany(const char* filePath, int x)
 {
@@ -43,6 +80,7 @@ FlightCompany::FlightCompany(const char* filePath, int x)
 		if (t==0) {
 			//HOST
 			this->members[i] = new Host(inFile);
+		
 		}
 		else {
 			//PILOT
@@ -50,8 +88,8 @@ FlightCompany::FlightCompany(const char* filePath, int x)
 
 		}
  	}
-	inFile >> this->numberOfCrews;
-	for (int i = 0; i < this->numberOfCrews; i++) {
+	inFile >> this->numberOfPlanes;
+	for (int i = 0; i < this->numberOfPlanes; i++) {
 		char* type = new char[1];
 		inFile >> type;
 		stringstream t_s(type);
@@ -62,6 +100,7 @@ FlightCompany::FlightCompany(const char* filePath, int x)
 			//Regular
 
 			this->planes[i] = new Plane(inFile);
+			
 		}
 		else {
 			//Cargo
@@ -133,6 +172,7 @@ void FlightCompany::setName(const char* mName)
 
 	strcpy(this->companyName, mName);
 }
+
 
 void FlightCompany::Print(ostream& out)
 {
@@ -239,4 +279,12 @@ void FlightCompany::TakeOff(int flightNumber)
 	Flight flight = *GetFlightByNum(flightNumber);
 	flight.TakeOff();
 
+}
+
+Plane& FlightCompany::operator[](int index)
+{
+	if (index < numberOfPlanes)
+		return *this->planes[index];
+	
+	//throw new CompLimeEx
 }

@@ -4,6 +4,7 @@ using namespace std;
 #pragma warning (disable: 4996)
 
 #include <string.h>
+#include <fstream>
 
 #include "Pilot.h"
 
@@ -51,17 +52,27 @@ bool Pilot::operator!=(const Pilot& other)
 
 void Pilot::toOs(ostream& os) const
 {
-	os << "Pilot " << this->name << " minutes " << this->totalFlightTime << " ";
+	if (typeid(os) == typeid(ofstream)) {
 
-	if (this->address != nullptr)
-		os << &this->address << endl;
-		
-	if (this->isACapitan)
-		os << " a Captian";
-	else
-		os << " not a Captian";
 
-	os << endl;
+		//os << *this->address;
+		os << "  " << this->isACapitan << " ";
+
+	}
+	else {
+
+		os << "Pilot " << this->name << " minutes " << this->totalFlightTime << " ";
+
+		if (this->address != nullptr)
+		//	os << *this->address << endl;
+
+		if (this->isACapitan)
+			os << " a Captian";
+		else
+			os << " not a Captian";
+
+		os << endl;
+	}
 }
 
 void Pilot::getUniform() const

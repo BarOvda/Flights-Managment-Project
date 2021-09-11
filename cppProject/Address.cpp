@@ -111,7 +111,7 @@ Address& Address::GetCurrentAddress()
 	return *this;
 }
 
-ostream& operator<<(ostream& os, const Address& other)
+ostream& operator<<(ostream& os, Address& other)
 {
 	os << other.street
 		<< " "

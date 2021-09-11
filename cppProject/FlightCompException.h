@@ -16,7 +16,7 @@ class CompStringException :public FlightCompException
 public:
 	CompStringException(char* message) {
 		this->message = new char[strlen(message) + 1];
-		strcpy(this->message, message);
+		strcpy_s(this->message, strlen(message) + 1, message);
 
 	}
 	 virtual void Show() const override
@@ -47,7 +47,9 @@ class CompFileException :public FlightCompException
 public:
 	CompFileException(char* fileName) {
 		this->fileName = new char[strlen(fileName) + 1];
-		strcpy(this->fileName, fileName);
+		strcpy_s(this->fileName, strlen(fileName) + 1, fileName);
+
+		
 
 	}
 	virtual void Show() const override

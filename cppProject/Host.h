@@ -30,7 +30,7 @@ public:
 	//void print(std::ostream& out);
 	
 	virtual const char* getType() const { return "Host"; }
-	friend std::ostream& operator<<(std::ostream& out, const Host& data);
+	//friend std::ostream& operator<<(std::ostream& out, const Host& data);
 	virtual void fromOs(std::istream& in) override {
 		char* mtype = new char[1];
 		

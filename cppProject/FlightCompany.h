@@ -32,6 +32,7 @@ public:
 	void setName(const char* mName);
 
 	//other methods
+	void SaveToFile(const char* filePath);
 	void Print(ostream& out);
 	bool AddCrewMember(CrewMember& other);
 	bool AddPlane(Plane& other);
@@ -46,7 +47,7 @@ public:
 
 	//void AddFlight(FlightInfo flight);
 //Operators
-	//Plane& operator 
+	Plane& operator[](int index);
 
 private:
 	//attributes

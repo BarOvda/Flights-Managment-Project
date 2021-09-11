@@ -2,6 +2,7 @@
 using namespace std;
 
 #pragma warning (disable: 4996)
+#include <fstream>
 
 #include <string.h>
 #include "Plane.h"
@@ -104,13 +105,27 @@ Plane Plane::operator++(int)
 
 void Plane::toOs(ostream& os) const
 {
-	os << "Plane "
-		<< this->serialNumber
-		<< " degem "
-		<< this->model
-		<< " seats "
-		<< this->chairNumber
-		<< endl;
+	if (typeid(os) == typeid(ofstream)) {
+		os << " "
+			<<this->currentSerialNumber<<" "
+			<< this->serialNumber
+			<< " "
+			<< this->model
+			<< " seats "
+			<< this->chairNumber
+			<< endl;
+	}
+	else {
+		os << "Plane "
+			<< this->serialNumber
+			<< " degem "
+			<< this->model
+			<< " seats "
+			<< this->chairNumber
+			<< endl;
+	}
+
+	
 }
 
 ostream& operator<<(ostream& os, const Plane& other)

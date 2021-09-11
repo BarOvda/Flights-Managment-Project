@@ -1,0 +1,8 @@
+Delta
+2
+0 momo 100 1 1 koko 400  1 2
+0  102 100 eee seats 100
+1 20000 1000 0 0
+1
+Flight info dest: Paris Number 343 minutes 320 KM 5000 1 
+2
