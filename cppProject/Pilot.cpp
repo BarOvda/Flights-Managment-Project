@@ -55,7 +55,7 @@ void Pilot::toOs(ostream& os) const
 	if (typeid(os) == typeid(ofstream)) {
 
 
-		//os << *this->address;
+		os << *this->address;
 		os << "  " << this->isACapitan << " ";
 
 	}
@@ -64,7 +64,7 @@ void Pilot::toOs(ostream& os) const
 		os << "Pilot " << this->name << " minutes " << this->totalFlightTime << " ";
 
 		if (this->address != nullptr)
-		//	os << *this->address << endl;
+			os << *this->address << endl;
 
 		if (this->isACapitan)
 			os << " a Captian";

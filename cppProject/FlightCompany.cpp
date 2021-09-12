@@ -119,6 +119,8 @@ FlightCompany::FlightCompany(const char* filePath, int x)
 }
 FlightCompany::~FlightCompany()
 {
+
+
 	delete[]this->companyName;
 }
 
@@ -279,6 +281,11 @@ void FlightCompany::TakeOff(int flightNumber)
 	Flight flight = *GetFlightByNum(flightNumber);
 	flight.TakeOff();
 
+}
+
+int FlightCompany::GetCrewCount()
+{
+	return this->numberOfCrews;
 }
 
 Plane& FlightCompany::operator[](int index)

@@ -32,21 +32,37 @@ public:
 	virtual const char* getType() const { return "Host"; }
 	//friend std::ostream& operator<<(std::ostream& out, const Host& data);
 	virtual void fromOs(std::istream& in) override {
-		char* mtype = new char[1];
-		
-		in >> mtype;
-		stringstream t_s(mtype);
+		if (typeid(in) == typeid(ifstream)) {
 
-		int t;
-		t_s >> t;
-		if (t == 0) {
-			type = eRegular;
+			char* mtype = new char[1];
+
+			in >> mtype;
+			stringstream t_s(mtype);
+
+			int t;
+			t_s >> t;
+			if (t == 0) {
+				type = eRegular;
+			}
+			else if (t == 1) {
+				type = eSuper;
+			}
+			else if (t == 2) {
+				type = eCalcelan;
+			}
 		}
-		else if (t == 1) {
-			type = eSuper;
-		}
-		else if (t == 2) {
-			type = eCalcelan;
+		else {
+			int mtype;
+			in >> mtype;
+			if (mtype == 0) {
+				type = eRegular;
+			}
+			else if (mtype == 1) {
+				type = eSuper;
+			}
+			else if (mtype == 2) {
+				type = eCalcelan;
+			}
 		}
 	};
 

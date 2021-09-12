@@ -42,7 +42,7 @@ public:
 	void CrewGetPresent();
 	void CrewGetUniform();
 	void TakeOff(int flightNumber);
-	
+	int GetCrewCount();
 	//void AddCrewToFlight(int f_number,int crew_member_number);
 
 	//void AddFlight(FlightInfo flight);

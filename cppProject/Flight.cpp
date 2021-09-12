@@ -164,7 +164,7 @@ ostream& operator<<(ostream& os, const Flight& other)
 
 		for (size_t i = 0; i < other.numberOfMembers; i++)
 		{
-			os << " member: " << other.members[i] << endl;
+			os << " member: " << *other.members[i] << endl;
 		}
 
 	}

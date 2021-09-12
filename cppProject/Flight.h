@@ -21,10 +21,12 @@ public:
 
 	
 	Flight(istream& in):info(in) {
-
-		in >> *this;
+		//this->
+	//	in >> *this;
+		fromOS(in);
 
 	}
+
 	Flight(FlightInfo& info, Plane* plane = nullptr);
 	Flight(const Flight& other);
 	Flight();
@@ -34,7 +36,32 @@ public:
 
 	//other methods
 	
+	virtual void fromOS(std::istream& in) {
+		in>> this->isPlaneAssigned;
+		char* b = new char[100];
+		in >> b;
+		in >> this->numberOfMembers;
 
+		for (int i = 0; i < this->numberOfMembers; i++) {
+			char* type = new char[1];
+			in >> type;
+			stringstream t_s(type);
+
+			int t;
+			t_s >> t;
+			if (t == 0) {
+				//HOST
+				this->members[i] = new Host(in);
+
+			}
+			else {
+				//PILOT
+				this->members[i] = new Pilot(in);
+
+			}
+		}
+	
+	};
 	friend istream& operator>>(istream& in, Flight& f) {
 		//if (typeid(in) == typeid(ifstream))
 		char* hasPlane = new char[1];

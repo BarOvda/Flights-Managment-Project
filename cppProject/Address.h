@@ -10,9 +10,12 @@ public:
 	//c'tors
 	Address(int mHouseNumber, const char* mStreet, const char* mCity = "Tel Aviv");
 	Address(const Address& other);
-	//Address(std::istream& in) {
-	//	getAdd(in);
-	//}
+	Address(std::istream& in) {
+		this->city = new char[10];
+		this->street = new char[10];
+		this->houseNumber = 0;
+
+	}
 	//d'tor
 	~Address();
 

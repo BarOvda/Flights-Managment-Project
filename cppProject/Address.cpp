@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 #pragma warning (disable: 4996)
+#include <fstream>
 
 #include <string.h>
 #include "Address.h"
@@ -81,7 +82,7 @@ void Address::print(ostream& out)
 
 void Address::operator=(const Address& other)
 {
-	if (*this != other) {
+	if (this==nullptr|| *this != other) {
 		this->houseNumber = other.houseNumber;
 
 		delete[]this->street;
@@ -125,8 +126,15 @@ ostream& operator<<(ostream& os, Address& other)
 
 istream& operator>>(istream& in, Address& other)
 {
-	cout << "Please enter house number street name and city name:" << endl;
+	
+	if (typeid(in) == typeid(ifstream)) {
+		in >> other.houseNumber >> other.street >> other.city;
+		return in;
+	}
 
+	cout << "Please enter house number street name and city name:" << endl;
 	in >> other.houseNumber >> other.street >> other.city;
 	return in;
+
+	
 }

@@ -16,6 +16,8 @@ public:
 
 	Pilot(std::istream& in) :CrewMember(in) {
 		//TODOADD
+		Address* ad = new Address(0,"");
+		this->address = ad;
 		fromOs(in);
 	}
 
@@ -29,45 +31,59 @@ public:
 
 	
 	virtual void fromOs(std::istream& in) override {
-		
-		//address = &Address(in);
+		if (typeid(in) == typeid(ifstream)) {
 
-		char* hasAdd = new char[1];
+			//address = &Address(in);
 
-		in >> hasAdd;
-		stringstream is_add(hasAdd);
+			char* hasAdd = new char[1];
 
-		int res_add;
-		is_add >> res_add;
-		if (res_add == 1) {
-			
+			in >> hasAdd;
+			stringstream is_add(hasAdd);
+
+			int res_add;
+			is_add >> res_add;
+			if (res_add == 1) {
+
 				char* city = new char[10];
 				char* street = new char[10];
 				int hose;
 
 
-				in >> hose >> street >> city;
-				Address add = Address(hose, street, city);
-				this->address = &add;
-				
+				//	in >> hose >> street >> city;
+							//Address add = Address(hose, street, city);
+					//this->address = &add;
+				in >> *this->address;
 
-			
-		}
-		
+				//*this->address = Address(hose, street, city);;
 
-		char* isCapt = new char[1];
 
-		in >> isCapt;
-		stringstream is_cap(isCapt);
 
-		int res;
-		is_cap >> res;
+			}
 
-		if (res == 0) {
-			isACapitan = false;
+
+			char* isCapt = new char[1];
+
+			in >> isCapt;
+			stringstream is_cap(isCapt);
+
+			int res;
+			is_cap >> res;
+
+			if (res == 0) {
+				isACapitan = false;
+			}
+			else {
+				isACapitan = true;
+			}
 		}
 		else {
-			isACapitan = true;
+			bool has_add;
+			in >> has_add;
+			if (has_add) {
+				in >> *this->address;
+			}
+			
+			in >> this->isACapitan;
 		}
 	};
 	//d'tor
