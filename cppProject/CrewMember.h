@@ -1,5 +1,10 @@
 #ifndef __CREW_MEMBER
 #define __CREW_MEMBER
+using namespace std;
+#include <string>
+#include <iostream>
+#include <typeinfo>
+
 
 
 class CrewMember
@@ -10,14 +15,19 @@ public:
 	//c'tor
 	CrewMember(const char* mName = "", int mTotalFlightTime = 0);
 	CrewMember(CrewMember& otherMember);
+	CrewMember(istream& in) {
 
+		in >> *this;
+
+	}
+	
 	//d'tor
 	virtual ~CrewMember();
 
 	//getters
 	int getTotalFlightTime();
 	char* getName();
-	//int GetMemberID();
+	
 
 	//setters
 	void setName(const char* mName);
@@ -32,6 +42,21 @@ public:
 	virtual bool operator!=(const CrewMember& other);
 	virtual bool operator+=(int minutes);
 
+	
+	virtual void fromOs(istream& in) {};
+	friend istream& operator>>(istream& in, CrewMember& c) {
+		//if (typeid(in) == typeid(ifstream))
+		c.name = new char[5];
+		in >> c.name >> c.totalFlightTime;
+		//else {
+		//	char delimiter;
+		//	in >> delimiter >> c.name>>delimiter>>c.totalFlightTime>>delimiter;
+		//}
+		c.fromOs(in);
+		return in;
+
+	}
+	
 	friend ostream& operator<<(ostream& os, const CrewMember& other);
 	virtual void toOs(ostream& os) const;
 
@@ -44,8 +69,6 @@ protected:
 	char* name;
 	int totalFlightTime;
 
-	//int memberId;
-	//static int currentMemberId;
 };
 
 

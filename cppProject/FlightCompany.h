@@ -13,8 +13,10 @@ class FlightCompany
 {
 public:
 	//c'tor
-	FlightCompany(const char* mCompanyName);
-	FlightCompany(FlightCompany& otherCompany);
+	FlightCompany(const char* name);
+	FlightCompany(FlightCompany& other);
+	FlightCompany(const char* filePath, int x);
+
 
 	//d'tor
 	~FlightCompany();
@@ -39,7 +41,10 @@ public:
 	void CrewGetPresent();
 	void CrewGetUniform();
 	void TakeOff(int flightNumber);
-	
+
+
+	//Operators
+	Plane& operator[](int index);
 
 private:
 	//attributes

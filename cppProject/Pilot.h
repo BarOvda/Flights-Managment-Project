@@ -1,5 +1,6 @@
 #ifndef __PILOT_H
 #define __PILOT_H
+#include <sstream>
 
 #include "CrewMember.h"
 
@@ -13,6 +14,11 @@ public:
 	Pilot(CrewMember& member);
 	Pilot(Pilot& other);
 
+	Pilot(std::istream& in) :CrewMember(in) {
+		//TODOADD
+		fromOs(in);
+	}
+
 	//d'tor
 	~Pilot();
 
@@ -21,6 +27,25 @@ public:
 	bool operator==(const Pilot& other);
 	bool operator!=(const Pilot& other);
 
+	
+	virtual void fromOs(std::istream& in) override {
+		char* isCapt = new char[1];
+
+		in >> isCapt;
+		stringstream is_cap(isCapt);
+
+		int res;
+		is_cap >> res;
+
+		if (res == 0) {
+			isACapitan = false;
+		}
+		else {
+			isACapitan = true;
+		}
+	};
+	//d'tor
+//	~FlightCompany();
 	virtual void toOs(ostream& os) const override;
 
 

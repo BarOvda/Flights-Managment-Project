@@ -4,25 +4,22 @@ using namespace std;
 #pragma warning (disable: 4996)
 #include <string.h>
 #include "FlightInfo.h"
+#include "FlightCompException.h"
 
 FlightInfo::FlightInfo(const char* mDestination, int mFlightNumber, int mFlightTime, int mFlightLength)
 {
-	this->flightNumber = mFlightNumber;
-	this->flightTime = mFlightTime;
-	this->flightLength = mFlightLength;
-
-	if (strlen(mDestination) < MAX)
-		strcpy(this->destination, mDestination);
+	this->setDest(mDestination);
+	this->setFlightLength(mFlightLength);
+	this->setFlightNumber(mFlightNumber);
+	this->setFlightTime(mFlightTime);
 }
 
 FlightInfo::FlightInfo(const FlightInfo& other)
 {
-	this->flightNumber = other.flightNumber;
-	this->flightTime = other.flightTime;
-	this->flightLength = other.flightLength;
-
-	if (strlen(other.destination) < MAX)
-		strcpy(this->destination, other.destination);
+	this->setDest(other.destination);
+	this->setFlightLength(other.flightLength);
+	this->setFlightNumber(other.flightNumber);
+	this->setFlightTime(other.flightTime);
 }
 
 FlightInfo::FlightInfo()
@@ -54,25 +51,36 @@ char* FlightInfo::getDestination()
 	return this->destination;
 }
 
-void FlightInfo::setFlightNumber(int mFlightNumber)
+void FlightInfo::setFlightNumber(int mFlightNumber) throw(CompStringException)
 {
-	this->flightNumber = mFlightNumber;
+	if (mFlightNumber < 0)
+		throw CompStringException("Flight Number cannot have a negative value");
+	else
+		this->flightNumber = mFlightNumber;
 }
 
-void FlightInfo::setFlightTime(int mFlightTime)
+void FlightInfo::setFlightTime(int mFlightTime) throw(CompStringException)
 {
-	this->flightTime = mFlightTime;
+	if (mFlightTime < 0)
+		throw CompStringException("Flight Time cannot have a negative value");
+	else
+		this->flightTime = mFlightTime;
 }
 
-void FlightInfo::setFlightLength(int mFlightLength)
+void FlightInfo::setFlightLength(int mFlightLength) throw(CompStringException)
 {
-	this->flightLength = mFlightLength;
+	if (mFlightLength < 0)
+		throw CompStringException("Flight Length cannot have a negative value");
+	else
+		this->flightLength = mFlightLength;
 }
 
-void FlightInfo::setDest(const char mDestination[])
+void FlightInfo::setDest(const char mDestination[]) throw(CompStringException)
 {
 	if (strlen(mDestination) < MAX)
 		strcpy(this->destination, mDestination);
+	else
+		throw CompStringException("destination value is too long");
 }
 
 bool FlightInfo::isSameFlightNumber(int mFlightNumber)

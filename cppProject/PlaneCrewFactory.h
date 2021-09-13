@@ -23,25 +23,25 @@ const string PlaneType_TITLE[nofPlaneType] = { "Regular","Cargo" };
 const string CrewType_TITLE[nofCrewType] = { "Host","Pilot" };
 
 
-class CPlane;
-class CCrewMember;
-class CFlightCompany;
-class CAddress;
+class Plane;
+class CrewMember;
+class FlightCompany;
+class Address;
 
-class CPlaneCrewFactory
+class PlaneCrewFactory
 {
 public:
 
-	static PlaneType GetPlaneType(const CPlane* pPlane);
-	static CrewType GetCrewType(const CCrewMember* pCrew);
-	static void GetCompanyDataFromUser(CFlightCompany& comp);
-	static CPlane* GetPlaneFromUser();
-	static CCrewMember* GetCrewFromUser();
+	static PlaneType GetPlaneType(const Plane* pPlane);
+	static CrewType GetCrewType(const CrewMember* pCrew);
+	static void GetCompanyDataFromUser(FlightCompany& comp);
+	static Plane* GetPlaneFromUser();
+	static CrewMember* GetCrewFromUser();
 
-	static CCrewMember* GetCrewMemberFromFile(ifstream& inFile);
-	static CPlane* GetPlaneFromFile(ifstream& inFile);
+	static CrewMember* GetCrewMemberFromFile(ifstream& inFile);
+	static Plane* GetPlaneFromFile(ifstream& inFile);
 
 
 private:
-	CPlaneCrewFactory(void) { ; }
+	PlaneCrewFactory(void) { ; }
 };

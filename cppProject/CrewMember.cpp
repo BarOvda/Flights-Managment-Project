@@ -5,9 +5,10 @@ using namespace std;
 #include <string.h>
 #include "CrewMember.h"
 #include "Host.h"
+#include "FlightCompException.h"
 
 int CrewMember::START_ID = 1000;
-//int CrewMember::currentMemberId = 1000;
+
 
 CrewMember::CrewMember(const char* mName, int mTotalFlightTime)
 {
@@ -15,7 +16,7 @@ CrewMember::CrewMember(const char* mName, int mTotalFlightTime)
 	strcpy(this->name, mName);
 
 	this->totalFlightTime = mTotalFlightTime;
-	//this->memberId = currentMemberId++;
+	
 
 }
 
@@ -25,10 +26,9 @@ CrewMember::CrewMember(CrewMember& otherMember)
 	strcpy(this->name, otherMember.getName());
 
 	this->totalFlightTime = otherMember.getTotalFlightTime();
-	//this->memberId = otherMember.GetMemberID();
+	
 
 }
-
 
 CrewMember::~CrewMember()
 {
@@ -46,10 +46,7 @@ char* CrewMember::getName()
 		return this->name;
 }
 
-//int CrewMember::GetMemberID()
-//{
-//	return this->memberId;
-//}
+
 
 void CrewMember::setName(const char* mName)
 {
@@ -59,13 +56,17 @@ void CrewMember::setName(const char* mName)
 	strcpy(this->name, mName);
 }
 
-bool CrewMember::UpdateMinutes(int minutes)
+bool CrewMember::UpdateMinutes(int minutes) throw(CompStringException)
 {
 	if (minutes > 0) {
 		this->totalFlightTime += minutes;
 		return true;
 	}
-	return false;
+	else {
+		throw CompStringException("flight time cannot be negative value");
+		return false;
+	}
+	
 }
 
 bool CrewMember::IsEqual(CrewMember& otherMember)

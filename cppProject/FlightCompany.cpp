@@ -1,15 +1,19 @@
 #include <iostream>
 using namespace std;
 #pragma warning (disable: 4996)
-
+#include <fstream>
 #include <string.h>
 #include "FlightCompany.h"
 #include "Cargo.h"
 #include "Pilot.h"
+#include "Host.h"
+#include <sstream>
+#include "FlightCompException.h"
 
 FlightCompany::FlightCompany(const char* mCompanyName) : numberOfCrews(0), numberOfPlanes(0), numberOfFlights(0)
 {
 	this->companyName = new char[strlen(mCompanyName) + 1];
+
 	strcpy(this->companyName, mCompanyName);
 }
 
@@ -19,6 +23,59 @@ FlightCompany::FlightCompany(FlightCompany& otherCompany) : numberOfCrews(0), nu
 	strcpy(this->companyName, otherCompany.getCompanyName());
 }
 
+FlightCompany::FlightCompany(const char* filePath, int x)
+{
+	std::ifstream inFile(filePath);
+	this->companyName = new char[128];
+	/*inFile.getline(this->companyName, 6);*/
+	inFile >> this->companyName;
+
+	inFile >> this->numberOfCrews;
+	for (int i = 0; i < this->numberOfCrews; i++) {
+		char* type = new char[1];
+		inFile >> type;
+		stringstream t_s(type);
+
+		int t;
+		t_s >> t;
+		if (t == 0) {
+			//HOST
+			this->members[i] = new Host(inFile);
+		}
+		else {
+			//PILOT
+			this->members[i] = new Pilot(inFile);
+
+		}
+	}
+	inFile >> this->numberOfCrews;
+	for (int i = 0; i < this->numberOfCrews; i++) {
+		char* type = new char[1];
+		inFile >> type;
+		stringstream t_s(type);
+
+		int t;
+		t_s >> t;
+		if (t == 0) {
+			//Regular
+
+			this->planes[i] = new Plane(inFile);
+		}
+		else {
+			//Cargo
+			this->planes[i] = new Cargo(inFile);
+
+		}
+	}
+	inFile >> this->numberOfFlights;
+	for (int i = 0; i < this->numberOfFlights; i++) {
+
+		this->flights[i] = *new Flight(inFile);
+
+	}
+
+
+}
 FlightCompany::~FlightCompany()
 {
 	delete[]this->companyName;
@@ -39,21 +96,31 @@ Flight* FlightCompany::GetFlightByNum(int number)
 	}
 }
 
-CrewMember* FlightCompany::GetCrewMember(int index)
+CrewMember* FlightCompany::GetCrewMember(int index) throw(CompLimitException)
 {
 	if (index <= numberOfCrews) {
 		return this->members[index];
 	}
-	return nullptr;
+	else
+	{
+		throw CompLimitException(numberOfCrews);
+		return nullptr;
+	}
+
 }
 
-Plane* FlightCompany::GetPlane(int index)
+Plane* FlightCompany::GetPlane(int index) throw(CompLimitException)
 {
 	if (index <= numberOfPlanes) {
 		if (this->planes[index] != 0)
 			return this->planes[index];
 	}
-	return nullptr;
+	else
+	{
+		throw CompLimitException(numberOfPlanes);
+		return nullptr;
+	}
+
 }
 
 int FlightCompany::GetCargoCount()
@@ -75,30 +142,35 @@ void FlightCompany::setName(const char* mName)
 	strcpy(this->companyName, mName);
 }
 
-void FlightCompany::Print(ostream& out)
+void FlightCompany::Print(ostream& out) throw(CompStringException)
 {
-	out << "Flight company: " << this->companyName << endl;
-	out << "There are " << numberOfCrews << "  Crew members:" << endl;
-	if (numberOfCrews > 0) {
-		for (int i = 0; i < numberOfCrews; i++)
-		{
-			this->members[i]->toOs(out);
-		}
-	}
+	if (!this->companyName)
+		throw CompStringException("company dont has a name");
+	else {
 
-	out << "There are " << numberOfPlanes << "  Planes:" << endl;
-	if (numberOfPlanes > 0) {
-		for (int i = 0; i < numberOfPlanes; i++)
-		{
-			this->planes[i]->toOs(out);
+		out << "Flight company: " << this->companyName << endl;
+		out << "There are " << numberOfCrews << "  Crew members:" << endl;
+		if (numberOfCrews > 0) {
+			for (int i = 0; i < numberOfCrews; i++)
+			{
+				this->members[i]->toOs(out);
+			}
 		}
-	}
 
-	out << "There are " << numberOfFlights << "  Flights:" << endl;
-	if (numberOfFlights > 0) {
-		for (int i = 0; i < numberOfFlights; i++)
-		{
-			out << this->flights[i] << endl;
+		out << "There are " << numberOfPlanes << "  Planes:" << endl;
+		if (numberOfPlanes > 0) {
+			for (int i = 0; i < numberOfPlanes; i++)
+			{
+				this->planes[i]->toOs(out);
+			}
+		}
+
+		out << "There are " << numberOfFlights << "  Flights:" << endl;
+		if (numberOfFlights > 0) {
+			for (int i = 0; i < numberOfFlights; i++)
+			{
+				out << this->flights[i] << endl;
+			}
 		}
 	}
 }
@@ -175,9 +247,21 @@ void FlightCompany::CrewGetUniform()
 		this->members[i]->getUniform();
 }
 
-void FlightCompany::TakeOff(int flightNumber)
+void FlightCompany::TakeOff(int flightNumber) throw(CompStringException)
 {
 	Flight flight = *GetFlightByNum(flightNumber);
-	flight.TakeOff();
 
+	if (flight.GetFlightNumber() != flightNumber)
+		throw CompStringException("there is no such flight");
+	else
+		flight.TakeOff();
+
+}
+
+Plane& FlightCompany::operator[](int index) throw(CompLimitException)
+{
+	if (index < numberOfPlanes)
+		return *this->planes[index];
+	else
+		throw CompLimitException(numberOfPlanes);
 }

@@ -5,25 +5,31 @@ using namespace std;
 
 #include <string.h>
 #include "Plane.h"
+#include "FlightCompException.h"
 
 int Plane::currentSerialNumber = 100;
 
-Plane::Plane(int mChairNumber, const char* mModel): model(nullptr)
+Plane::Plane(int mChairNumber, const char* mModel) throw(CompStringException) : model(nullptr)
 {
 	this->serialNumber = currentSerialNumber++;
-	this->chairNumber = mChairNumber;
+
+	if (mChairNumber < 0)
+		throw CompStringException("number of chairs cannot be a negative value");
+	else
+		this->chairNumber = mChairNumber;
 
 	this->model = new char[strlen(mModel)];
 	strcpy(this->model, mModel);
 }
 
-Plane::Plane(const Plane& other): model(nullptr)
+Plane::Plane(Plane& otherPlane)
+	: model(nullptr)
 {
-	this->serialNumber = other.serialNumber;
-	this->chairNumber = other.chairNumber;
+	this->serialNumber = otherPlane.serialNumber;
+	this->chairNumber = otherPlane.chairNumber;
 
 	delete[]this->model;
-	this->model = strdup(other.model);
+	this->model = strdup(otherPlane.model);
 }
 
 Plane::~Plane()
@@ -117,3 +123,4 @@ ostream& operator<<(ostream& os, const Plane& other)
 	other.toOs(os);
 	return os;
 }
+

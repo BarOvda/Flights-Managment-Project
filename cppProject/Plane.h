@@ -1,12 +1,19 @@
 #ifndef __PLANE_H
 #define __PLANE_H
-
+#include <string>
+#include <iostream>
+#include <sstream>
 class Plane
 {
 public:
 	//c'tor
 	Plane(int mChairNumber, const char* mModel);
-	Plane(const Plane& other);
+	Plane(Plane& otherPlane);
+	Plane(istream& in) {
+
+		in >> *this;
+
+	}
 
 	//d'tor
 	virtual ~Plane();
@@ -17,6 +24,26 @@ public:
 	virtual char* getModel();
 
 	//other methods
+		//bool IsEqual(Plane& otherPlane);
+	virtual void fromOs(istream& in) {};
+
+	friend istream& operator>>(istream& in, Plane& p) {
+		//if (typeid(in) == typeid(ifstream))
+		p.model = new char[10];
+		if (currentSerialNumber == 100)
+			in >> currentSerialNumber >> p.serialNumber >> p.model >> p.chairNumber;
+		else
+			in >> p.serialNumber >> p.model >> p.chairNumber;
+
+		//else {
+		//	char delimiter;
+		//	in >> delimiter >> c.name>>delimiter>>c.totalFlightTime>>delimiter;
+		//}
+		p.fromOs(in);
+		return in;
+
+	}
+		
 	bool IsEqual(Plane& otherPlane);
 	void print(ostream& out);
 
