@@ -6,6 +6,8 @@
 #include "Pilot.h"
 #include "Host.h"
 #include "Cargo.h"
+#include "PlaneCrewFactory.h"
+
 #include <sstream>
 
 
@@ -25,6 +27,7 @@ public:
 		in >> *this;
 
 	}
+
 	Flight(FlightInfo& info, Plane* plane = nullptr);
 	Flight(const Flight& other);
 	Flight();
@@ -34,45 +37,102 @@ public:
 
 	//other methods
 	
+	virtual void fromOS(std::istream& in) {
+		in>> this->isPlaneAssigned;
+		char* b = new char[100];
+		in >> b;
+		in >> this->numberOfMembers;
 
-	friend istream& operator>>(istream& in, Flight& f) {
-		//if (typeid(in) == typeid(ifstream))
-		char* hasPlane = new char[1];
-
-		in >> hasPlane;
-		stringstream t_s(hasPlane);
-
-		int t;
-		t_s >> t;
-		if (t == 0)
-			f.isPlaneAssigned = false;
-		else
-			f.isPlaneAssigned = true;
-		//else {
-		//	char delimiter;
-		//	in >> delimiter >> c.name>>delimiter>>c.totalFlightTime>>delimiter;
-		//}
-		//f.fromOs(in);
-		in >> f.numberOfMembers; //TODO - check what the 100 mean
-		in >> f.numberOfMembers;
-		for (int i = 0; i < f.numberOfMembers; i++) {
+		for (int i = 0; i < this->numberOfMembers; i++) {
 			char* type = new char[1];
 			in >> type;
 			stringstream t_s(type);
 
 			int t;
 			t_s >> t;
-			//if (t == 0) {
-			//	//HOST
-			//	f.crewMembers[i] = *new Host(in);
-			//}
-			//else {
-			//	//PILOT
-			//	f.crewMembers[i] = *new Pilot(in);
+			if (t == 0) {
+				//HOST
+				this->members[i] = new Host(in);
 
-			//}
+			}
+			else {
+				//PILOT
+				this->members[i] = new Pilot(in);
+
+			}
 		}
+	
+	};
+	friend istream& operator>>(istream& in, Flight& f) {
+		if (typeid(in) == typeid(ifstream)) {
+			char* hasPlane = new char[1];
+
+			in >> hasPlane;
+			stringstream t_s(hasPlane);
+
+			int t;
+			t_s >> t;
+			if (t == 0)
+				f.isPlaneAssigned = false;
+			else
+				f.isPlaneAssigned = true;
+
+			in >> f.numberOfMembers; //TODO - check what the 100 mean
+			in >> f.numberOfMembers;
+			for (int i = 0; i < f.numberOfMembers; i++) {
+				char* type = new char[1];
+				in >> type;
+				stringstream t_s(type);
+
+				int t;
+				t_s >> t;
+				if (t == 0) {
+
+					
+					f.members[i] =new Host(in);
+
+
+				}
+				else {
+
+					f.members[i] = new Pilot(in);
+															
+				}
+			}
+		}
+		else {
+			in >> f.info;
+			cout << "Enter if assign" << endl;
+			in >> f.isPlaneAssigned;
+	/*		cout << "Enter number of members" << endl;
+			
+
+			in >> f.numberOfMembers;
+			for (int i = 0; i < f.numberOfMembers; i++) {
+				cout << "Enter Details for Member Number " << i + 1 << endl;
+					f.AddCrewMember(*PlaneCrewFactory::GetCrewFromUser());
+				
+			}*/
+		}
+
+
+
+
 		return in;
+	}
+	bool AddCrewMember(CrewMember& other)
+	{
+		if (this->numberOfMembers < MAX_CREW) {
+			/*for (int i = 0; i < numberOfMembers; i++)
+			{
+				if (*this->members[i] == other) {
+					return false;
+				}
+			}*/
+			this->members[numberOfMembers] = &other;
+			return true;
+		}
+		return false;
 	}
 	void SetPlane(Plane* plane);
 	int GetFlightNumber();

@@ -3,6 +3,8 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include <fstream>
+
 class Plane
 {
 public:
@@ -28,17 +30,28 @@ public:
 	virtual void fromOs(istream& in) {};
 
 	friend istream& operator>>(istream& in, Plane& p) {
-		//if (typeid(in) == typeid(ifstream))
-		p.model = new char[10];
-		if (currentSerialNumber == 100)
-			in >> currentSerialNumber >> p.serialNumber >> p.model >> p.chairNumber;
-		else
-			in >> p.serialNumber >> p.model >> p.chairNumber;
+		if (typeid(in) == typeid(std::ifstream)) {
+			p.model = new char[10];
+			if (currentSerialNumber == 100)
+				in >> currentSerialNumber >> p.serialNumber >> p.model >> p.chairNumber;
+			else
+				in >> p.serialNumber >> p.model >> p.chairNumber;
+		}
+		else {
+			cout << "Enter model:" << endl;
 
-		//else {
-		//	char delimiter;
-		//	in >> delimiter >> c.name>>delimiter>>c.totalFlightTime>>delimiter;
-		//}
+			in >> p.model;
+			cout << "Enter Current Searial Number:" << endl;
+
+			in >> currentSerialNumber;
+			cout << "Enter serial number:" << endl;
+
+			in >> p.serialNumber;
+
+			cout << "Enter number of chairs:" << endl;
+
+			in >> p.chairNumber;
+		}
 		p.fromOs(in);
 		return in;
 

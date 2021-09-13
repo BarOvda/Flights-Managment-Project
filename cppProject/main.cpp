@@ -34,29 +34,25 @@ void main()
 		pDelta = new FlightCompany("Delta");
 	}
 
-	//Checking some of the exception put try and catch for each section	
-	try {
-		Plane p1(-34, "AirBus");
-		Cargo c1(45, "Jumbo", -560, 200);
-		Cargo c2(45, "Jumbo", 560, -200);
-		FlightInfo f1("London", -23, 120, 5000);
-		FlightInfo f2("LondonVeryLong", 23, 120, 5000);
-		FlightInfo f3("London", 23, -120, 5000);
-		FlightInfo f4("London", 23, 120, -5000);
-		CrewMember* pC1 = pDelta->GetCrewMember(-1);
+	//	//Checking some of the exception put try and catch for each section	
 
-		CrewMember* pC2 = pDelta->GetCrewMember(0);
-		(*pC2) += -4;
-		Plane p0 = (*pDelta)[9];
-		//
-	}
-	catch (const FlightCompException& e) {
-		e.Show();
-	}
+	Plane p1(-34, "AirBus");
+	Cargo c1(45, "Jumbo", -560, 200);
+	Cargo c2(45, "Jumbo", 560, -200);
+	FlightInfo f1("London", -23, 120, 5000);
+	FlightInfo f2("LondonVeryLong", 23, 120, 5000);
+	FlightInfo f3("London", 23, -120, 5000);
+	FlightInfo f4("London", 23, 120, -5000);
+	CrewMember* pC1 = pDelta->GetCrewMember(-1);
 
-	//call a static function that get plane or customer from user.
+	CrewMember* pC2 = pDelta->GetCrewMember(0);
+	(*pC2) += -4;
+	Plane p0 = (*pDelta)[9];
+
+		//call a static function that get plane or customer from user.
 
 	PlaneCrewFactory::GetCompanyDataFromUser(*pDelta);
+	
 
 	FlightInfo Info("Paris", 343, 320, 5000);
 	Flight flight1(Info, &(*pDelta)[0]);
@@ -74,7 +70,7 @@ void main()
 
 	try
 	{
-		pDelta->SaveToFile("Delta.txt");
+		pDelta->SaveToFile("Delta_o.txt");
 	}
 	catch (const FlightCompException& e) {
 		e.Show();

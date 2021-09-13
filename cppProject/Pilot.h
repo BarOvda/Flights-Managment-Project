@@ -3,8 +3,8 @@
 #include <sstream>
 
 #include "CrewMember.h"
+#include "Address.h"
 
-class Address;
 
 class Pilot : public CrewMember
 {
@@ -16,6 +16,8 @@ public:
 
 	Pilot(std::istream& in) :CrewMember(in) {
 		//TODOADD
+		Address* ad = new Address(0,"");
+		this->address = ad;
 		fromOs(in);
 	}
 
@@ -29,19 +31,65 @@ public:
 
 	
 	virtual void fromOs(std::istream& in) override {
-		char* isCapt = new char[1];
+		if (typeid(in) == typeid(ifstream)) {
 
-		in >> isCapt;
-		stringstream is_cap(isCapt);
+			//address = &Address(in);
 
-		int res;
-		is_cap >> res;
+			char* hasAdd = new char[1];
 
-		if (res == 0) {
-			isACapitan = false;
+			in >> hasAdd;
+			stringstream is_add(hasAdd);
+
+			int res_add;
+			is_add >> res_add;
+			if (res_add == 1) {
+
+				char* city = new char[10];
+				char* street = new char[10];
+				int hose;
+
+
+				//	in >> hose >> street >> city;
+							//Address add = Address(hose, street, city);
+					//this->address = &add;
+				in >> *this->address;
+
+				//*this->address = Address(hose, street, city);;
+
+
+
+			}
+
+
+			char* isCapt = new char[1];
+
+			in >> isCapt;
+			stringstream is_cap(isCapt);
+
+			int res;
+			is_cap >> res;
+
+			if (res == 0) {
+				isACapitan = false;
+			}
+			else {
+				isACapitan = true;
+			}
 		}
 		else {
-			isACapitan = true;
+			bool has_add;
+			cout << "Enter Has Address: 0 - No 1 - Yes:" << endl;
+
+			in >> has_add;
+			if (has_add) {
+				Address* h = new Address(0, "");;
+
+				this->address = h;
+				in >> *this->address;
+			}
+			cout << "Enter Is a captian: 0 - No 1 - Yes:" << endl;
+
+			in >> this->isACapitan;
 		}
 	};
 	//d'tor

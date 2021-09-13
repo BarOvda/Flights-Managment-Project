@@ -11,7 +11,10 @@ public:
 	Address(int mHouseNumber, const char* mStreet, const char* mCity = "Tel Aviv");
 	Address(const Address& other);
 	Address(std::istream& in) {
-		getAdd(in);
+		this->city = new char[10];
+		this->street = new char[10];
+		this->houseNumber = 0;
+
 	}
 	//d'tor
 	~Address();
@@ -40,27 +43,11 @@ public:
 			street = new char[10];
 			city = new char[10];
 			in >> houseNumber >> street >> city;
-		/*	char* hose_num = new char[3];
-
-			in >> hose_num;
-			stringstream h_n(hose_num);
-
-	void operator=(const Address& other);
-	bool operator==(const Address& other);
-	bool operator!=(const Address& other);
-	
-	friend ostream& operator<<(ostream& os, const Address& other);
-	friend istream& operator>>(istream& in, Address& other);
-			int hose;
-			h_n >> hose;
-			houseNumber = hose;
-			in >> street;
-			in >> city;*/
 		
 		}
 		
 	};
-	friend std::ostream& operator<<(std::ostream& os, const Address& data);
+	friend std::ostream& operator<<(std::ostream& os, Address& data);
 
 	friend std::istream& operator>>(std::istream& in, Address& data);
 

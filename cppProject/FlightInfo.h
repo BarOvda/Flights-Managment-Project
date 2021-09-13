@@ -3,6 +3,11 @@
 #define __FLIGHT_INFO_H
 
 #define MAX 100
+#include <string>
+#include <iostream>
+#include <typeinfo>
+
+#include <fstream>
 
 
 class FlightInfo
@@ -12,7 +17,7 @@ public:
 	FlightInfo(const char* mDestination, int mFlightNumber, int mFlightTime, int mFlightLength);
 	FlightInfo(const FlightInfo& other);
 	FlightInfo(std::istream& in) {
-		getInfo(in);
+		in >> *this;
 	}
 	FlightInfo();
 
@@ -22,10 +27,25 @@ public:
 	//getters
 	int GetFNum();
 
-	void getInfo(std::istream& in) {
-		in >> destination >> flightNumber >> flightTime >> flightLength;
+	friend istream& operator>>(istream& in, FlightInfo& f) {
+		if (typeid(in) == typeid(std::ifstream)) {
+			in >> f.destination >> f.flightNumber >> f.flightTime >> f.flightLength;
+		}
+		else {
+			cout << "Enter destination" << endl;
 
-	};
+			in >> f.destination;
+			cout << "Enter flight Number" << endl;
+			in >> f.flightNumber;
+			cout << "Enter flightTime" << endl;
+
+			in >> f.flightTime;
+			cout << "Enter flightLength" << endl;
+			in >> f.flightLength;
+		}
+		return in;
+	}
+
 
 	int getFlightTime();
 	int getFlightLength();

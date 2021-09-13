@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 #pragma warning (disable: 4996)
+#include <fstream>
 
 
 #include "Cargo.h"
@@ -65,15 +66,29 @@ bool Cargo::operator!=(const Cargo& other)
 
 void Cargo::toOs(ostream& os) const
 {
-	os << "Cargo M_vol"
-		<< this->maxVolume
-		<< " M_Kg "
-		<< this->maxWeight
-		<< " C_vol "
-		<< this->currentVolume
-		<< " C_Kg "
-		<< this->currentWeight
-		<< endl;
+	if (typeid(os) == typeid(ofstream)) {
+		os 
+			<< this->maxVolume
+			<< " "
+			<< this->maxWeight
+			<< " "
+			<< this->currentVolume
+			<< " "
+			<< this->currentWeight
+			<< endl;
+	}
+	else {
+		os << "Cargo M_vol"
+			<< this->maxVolume
+			<< " M_Kg "
+			<< this->maxWeight
+			<< " C_vol "
+			<< this->currentVolume
+			<< " C_Kg "
+			<< this->currentWeight
+			<< endl;
+	}
+	
 }
 
 bool Cargo::Load(float weight, float volume)

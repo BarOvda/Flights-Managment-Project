@@ -7,6 +7,8 @@ using namespace std;
 #include "Cargo.h"
 #include "Pilot.h"
 #include "Host.h"
+#include "PlaneCrewFactory.h"
+
 #include <sstream>
 #include "FlightCompException.h"
 
@@ -23,59 +25,67 @@ FlightCompany::FlightCompany(FlightCompany& otherCompany) : numberOfCrews(0), nu
 	strcpy(this->companyName, otherCompany.getCompanyName());
 }
 
+void FlightCompany::SaveToFile(const char* filePath)
+{
+	ofstream outFile(filePath, ios::trunc);
+	outFile << this->companyName << endl;
+	outFile << this->numberOfCrews << endl;
+	for (int i = 0; i < this->numberOfCrews; i++) {
+		if (typeid(*this->members[i]) == typeid(Host)) {
+			outFile << "0 ";
+			outFile <<*(this->members[i]);
+		}
+		else {
+			outFile << "1 ";
+			outFile << *(this->members[i]);
+		}
+	}
+	outFile << this->numberOfPlanes<<endl;
+	for (int i = 0; i < this->numberOfPlanes; i++) {
+
+
+		if (typeid(*this->planes[i]) == typeid(Cargo)) {
+			outFile << "1 ";
+			outFile << *(this->planes[i]);
+		}
+		else {
+			outFile << "0 ";
+			outFile << *(this->planes[i]);
+		}
+	}
+	outFile << this->numberOfFlights << endl;
+	
+	for (int i = 0; i < this->numberOfFlights; i++) {
+
+		outFile << this->flights[i];
+
+	}
+
+}
+
 FlightCompany::FlightCompany(const char* filePath, int x)
 {
+
 	std::ifstream inFile(filePath);
 	this->companyName = new char[128];
 	/*inFile.getline(this->companyName, 6);*/
 	inFile >> this->companyName;
-
 	inFile >> this->numberOfCrews;
 	for (int i = 0; i < this->numberOfCrews; i++) {
-		char* type = new char[1];
-		inFile >> type;
-		stringstream t_s(type);
-
-		int t;
-		t_s >> t;
-		if (t == 0) {
-			//HOST
-			this->members[i] = new Host(inFile);
-		}
-		else {
-			//PILOT
-			this->members[i] = new Pilot(inFile);
-
-		}
-	}
-	inFile >> this->numberOfCrews;
-	for (int i = 0; i < this->numberOfCrews; i++) {
-		char* type = new char[1];
-		inFile >> type;
-		stringstream t_s(type);
-
-		int t;
-		t_s >> t;
-		if (t == 0) {
-			//Regular
-
-			this->planes[i] = new Plane(inFile);
-		}
-		else {
-			//Cargo
-			this->planes[i] = new Cargo(inFile);
-
-		}
+		this->members[i] = PlaneCrewFactory::GetCrewMemberFromFile(inFile);
+	
+ 	}
+	inFile >> this->numberOfPlanes;
+	for (int i = 0; i < this->numberOfPlanes; i++) {
+		this->planes[i] = PlaneCrewFactory::GetPlaneFromFile(inFile);
 	}
 	inFile >> this->numberOfFlights;
 	for (int i = 0; i < this->numberOfFlights; i++) {
 
 		this->flights[i] = *new Flight(inFile);
-
 	}
-
-
 }
+
 FlightCompany::~FlightCompany()
 {
 	delete[]this->companyName;
@@ -209,6 +219,7 @@ bool FlightCompany::AddPlane(Plane& other)
 
 bool FlightCompany::AddFlight(Flight& other)
 {
+
 	if (this->numberOfFlights < MAX_FLIGHT) {
 		for (int i = 0; i < numberOfFlights; i++)
 		{
@@ -217,7 +228,7 @@ bool FlightCompany::AddFlight(Flight& other)
 			}
 		}
 		this->flights[numberOfFlights] = other;
-		numberOfFlights++;
+		
 		return true;
 	}
 	return false;
@@ -264,4 +275,18 @@ Plane& FlightCompany::operator[](int index) throw(CompLimitException)
 		return *this->planes[index];
 	else
 		throw CompLimitException(numberOfPlanes);
+}
+
+int FlightCompany::GetCrewCount()
+{
+	return this->numberOfCrews;
+}
+
+Plane& FlightCompany::operator[](int index)
+{
+	if (index < numberOfPlanes)
+		return *this->planes[index];
+
+	return *new Plane(0,"");
+	
 }

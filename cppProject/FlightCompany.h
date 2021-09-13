@@ -17,7 +17,6 @@ public:
 	FlightCompany(FlightCompany& other);
 	FlightCompany(const char* filePath, int x);
 
-
 	//d'tor
 	~FlightCompany();
 
@@ -32,6 +31,7 @@ public:
 	void setName(const char* mName);
 
 	//other methods
+	void SaveToFile(const char* filePath);
 	void Print(ostream& out);
 	bool AddCrewMember(CrewMember& other);
 	bool AddPlane(Plane& other);
@@ -41,9 +41,8 @@ public:
 	void CrewGetPresent();
 	void CrewGetUniform();
 	void TakeOff(int flightNumber);
+	int GetCrewCount();
 
-
-	//Operators
 	Plane& operator[](int index);
 
 private:

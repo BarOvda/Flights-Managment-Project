@@ -1,18 +1,25 @@
-#include <iostream>
+ #include <iostream>
 using namespace std;
 
 #pragma warning (disable: 4996)
 
 #include <string.h>
+#include <fstream>
 
 #include "Pilot.h"
 #include "FlightCompException.h"
 
 
-Pilot::Pilot(const char* mName, bool isACapitan, Address* address, int mTotalFlightTime): CrewMember(mName, mTotalFlightTime)
+Pilot::Pilot(const char* mName, bool isACapitan, Address* address, int mTotalFlightTime) : CrewMember(mName, mTotalFlightTime)
 {
 	this->isACapitan = isACapitan;
-	this->address = address;
+	if (this->address == nullptr) {
+		Address* a = new Address(0,"");
+
+	}
+	else
+		this->address = address;
+
 }
 
 Pilot::Pilot(CrewMember& member): CrewMember(member)
@@ -52,17 +59,27 @@ bool Pilot::operator!=(const Pilot& other)
 
 void Pilot::toOs(ostream& os) const
 {
-	os << "Pilot " << this->name << " minutes " << this->totalFlightTime << " ";
+	if (typeid(os) == typeid(ofstream)) {
 
-	if (this->address != nullptr)
-		os << &this->address << endl;
-		
-	if (this->isACapitan)
-		os << " a Captian";
-	else
-		os << " not a Captian";
 
-	os << endl;
+		os << *this->address;
+		os << "  " << this->isACapitan << " ";
+
+	}
+	else {
+
+		os << "Pilot " << this->name << " minutes " << this->totalFlightTime << " ";
+
+		if (this->address != nullptr)
+			os << *this->address << endl;
+
+		if (this->isACapitan)
+			os << " a Captian";
+		else
+			os << " not a Captian";
+
+		os << endl;
+	}
 }
 
 void Pilot::getUniform() const

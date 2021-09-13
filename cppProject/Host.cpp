@@ -48,22 +48,28 @@ bool Host::operator!=(const Host& other)
 
 void Host::toOs(ostream& os) const
 {
-	os << "Host ";
-	switch (this->type)
-	{
-	case Host::eHostType::eRegular:
-		os << "Regular ";
-		break;
-	case Host::eHostType::eSuper:
-		os << "Super ";
-		break;
-	case Host::eHostType::eCalcelan:
-		os << "Calcelan ";
-		break;
-	default:
-		break;
+	if ((typeid(os) == typeid(ofstream))) {
+		os << " " << this->type<<" ";
 	}
-	os << this->name << " minutes " << this->totalFlightTime << endl;
+	else {
+		os << "Host ";
+		switch (this->type)
+		{
+		case Host::eHostType::eRegular:
+			os << "Regular ";
+			break;
+		case Host::eHostType::eSuper:
+			os << "Super ";
+			break;
+		case Host::eHostType::eCalcelan:
+			os << "Calcelan ";
+			break;
+		default:
+			break;
+		}
+		os << this->name << " minutes " << this->totalFlightTime << endl;
+	}
+
 }
 
 const char* Host::getType()
