@@ -112,7 +112,7 @@ void Plane::toOs(ostream& os) const
 {
 	if (typeid(os) == typeid(ofstream)) {
 		os << " "
-			<<this->currentSerialNumber<<" "
+			<< this->currentSerialNumber << " "
 			<< this->serialNumber
 			<< " "
 			<< this->model
@@ -130,7 +130,7 @@ void Plane::toOs(ostream& os) const
 			<< endl;
 	}
 
-	
+
 }
 
 ostream& operator<<(ostream& os, const Plane& other)

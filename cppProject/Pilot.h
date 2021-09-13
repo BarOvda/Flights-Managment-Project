@@ -16,7 +16,7 @@ public:
 
 	Pilot(std::istream& in) :CrewMember(in) {
 		//TODOADD
-		Address* ad = new Address(0,"");
+		Address* ad = new Address(0, "");
 		this->address = ad;
 		fromOs(in);
 	}
@@ -29,7 +29,7 @@ public:
 	bool operator==(const Pilot& other);
 	bool operator!=(const Pilot& other);
 
-	
+
 	virtual void fromOs(std::istream& in) override {
 		if (typeid(in) == typeid(ifstream)) {
 

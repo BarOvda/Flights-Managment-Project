@@ -16,8 +16,8 @@ public:
 	//enum
 	enum eHostType { eRegular, eSuper, eCalcelan };
 
-	Host(std::istream& in):CrewMember(in) {
-		fromOs( in);
+	Host(std::istream& in) :CrewMember(in) {
+		fromOs(in);
 	}
 
 	//c'tor
@@ -28,7 +28,7 @@ public:
 	//d'tor
 	~Host();
 	//void print(std::ostream& out);
-	
+
 	virtual const char* getType() const { return "Host"; }
 	//friend std::ostream& operator<<(std::ostream& out, const Host& data);
 	virtual void fromOs(std::istream& in) override {
@@ -69,7 +69,6 @@ public:
 	};
 
 
-
 	//other methods
 	void operator=(const Host& other);
 	bool operator==(const Host& other);
@@ -78,7 +77,6 @@ public:
 	virtual void toOs(ostream& os) const override;
 
 	const char* getType();
-
 
 	// Inherited via CrewMember
 	virtual void getUniform() const override;

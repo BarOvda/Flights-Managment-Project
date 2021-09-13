@@ -24,7 +24,7 @@ public:
 	bool operator!=(const Cargo& other);
 
 	bool Load(float weight, float volume);
-	
+
 	virtual void toOs(ostream& os) const override;
 
 	virtual void fromOs(std::istream& in) override {
@@ -48,9 +48,8 @@ public:
 
 			in >> currentWeight;
 		}
-
 	};
-	
+
 	virtual void takeOff(int flightTime);
 
 private:

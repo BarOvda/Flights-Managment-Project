@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 
+
 class Address
 {
 public:
@@ -10,12 +11,13 @@ public:
 	//c'tors
 	Address(int mHouseNumber, const char* mStreet, const char* mCity = "Tel Aviv");
 	Address(const Address& other);
-	Address(std::istream& in) {
+	Address(std::istream& in)
+	{
 		this->city = new char[10];
 		this->street = new char[10];
 		this->houseNumber = 0;
-
 	}
+
 	//d'tor
 	~Address();
 
@@ -43,10 +45,9 @@ public:
 			street = new char[10];
 			city = new char[10];
 			in >> houseNumber >> street >> city;
-		
 		}
-		
 	};
+
 	friend std::ostream& operator<<(std::ostream& os, Address& data);
 
 	friend std::istream& operator>>(std::istream& in, Address& data);
@@ -54,7 +55,6 @@ public:
 	void operator=(const Address& other);
 	bool operator==(const Address& other);
 	bool operator!=(const Address& other);
-
 
 
 private:

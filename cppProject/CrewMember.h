@@ -19,7 +19,6 @@ public:
 	CrewMember(istream& in) {
 
 		in >> *this;
-
 	}
 
 	//d'tor
@@ -28,7 +27,6 @@ public:
 	//getters
 	int getTotalFlightTime();
 	char* getName();
-
 
 	//setters
 	void setName(const char* mName);
@@ -43,7 +41,6 @@ public:
 	virtual bool operator!=(const CrewMember& other);
 	virtual bool operator+=(int minutes);
 
-
 	virtual void fromOs(istream& in) {};
 	friend istream& operator>>(istream& in, CrewMember& c) {
 		if (typeid(in) == typeid(ifstream)) {
@@ -51,20 +48,17 @@ public:
 			in >> c.name >> c.totalFlightTime;
 		}
 		else {
-			
-			cout << "Enter Name"  << endl;
+			cout << "Enter Name" << endl;
 
-			in >>  c.name  ;
+			in >> c.name;
 			cout << "Enter FlightTime" << endl;
 			in >> c.totalFlightTime;;
 		}
 		c.fromOs(in);
 		return in;
-	
 	}
 
 
-	
 	friend ostream& operator<<(ostream& os, const CrewMember& other);
 	virtual void toOs(ostream& os) const;
 

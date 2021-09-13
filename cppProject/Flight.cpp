@@ -115,7 +115,7 @@ bool Flight::TakeOff() throw(CompStringException)
 					throw CompStringException("Plane cannot have more than one super host");
 					return false;
 				}
-					
+
 			}
 			((Cargo*)this->plane)->takeOff(this->info.getFlightTime());
 		}
@@ -133,7 +133,6 @@ bool Flight::TakeOff() throw(CompStringException)
 					throw CompStringException("Cargo Plane need at least one pilot");
 					return false;
 				}
-					
 			}
 		}
 	}
@@ -152,10 +151,10 @@ ostream& operator<<(ostream& os, const Flight& other)
 		os << other.info;
 
 		if (other.isPlaneAssigned)
-			os << " 1 "<<endl;
+			os << " 1 " << endl;
 		else
-			os << " 0 "<<endl;
-		
+			os << " 0 " << endl;
+
 
 		os << other.numberOfMembers << endl;
 
@@ -179,9 +178,8 @@ ostream& operator<<(ostream& os, const Flight& other)
 		{
 			os << " member: " << *other.members[i] << endl;
 		}
-
 	}
 
-	
+
 	return os;
 }

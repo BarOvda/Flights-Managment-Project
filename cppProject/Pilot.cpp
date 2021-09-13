@@ -1,4 +1,4 @@
- #include <iostream>
+#include <iostream>
 using namespace std;
 
 #pragma warning (disable: 4996)
@@ -14,20 +14,19 @@ Pilot::Pilot(const char* mName, bool isACapitan, Address* address, int mTotalFli
 {
 	this->isACapitan = isACapitan;
 	if (this->address == nullptr) {
-		Address* a = new Address(0,"");
+		Address* a = new Address(0, "");
 
 	}
 	else
 		this->address = address;
-
 }
 
-Pilot::Pilot(CrewMember& member): CrewMember(member)
+Pilot::Pilot(CrewMember& member) : CrewMember(member)
 {
 	isACapitan = false;
 }
 
-Pilot::Pilot(Pilot& other): CrewMember(other)
+Pilot::Pilot(Pilot& other) : CrewMember(other)
 {
 	this->isACapitan = other.isACapitan;
 	this->address = other.address;
@@ -64,7 +63,6 @@ void Pilot::toOs(ostream& os) const
 
 		os << *this->address;
 		os << "  " << this->isACapitan << " ";
-
 	}
 	else {
 
@@ -84,7 +82,7 @@ void Pilot::toOs(ostream& os) const
 
 void Pilot::getUniform() const
 {
-	cout << this->name <<" this is the fifth time I get a new uniform – this is a waste of money!" << endl;
+	cout << this->name << " this is the fifth time I get a new uniform – this is a waste of money!" << endl;
 }
 
 void Pilot::takeOff(int flightTime) throw(CompStringException)
@@ -103,5 +101,4 @@ void Pilot::gotoSimulator()
 {
 	cout << "Pilot " << this->name << " got the message will come soon" << endl;
 }
-
 

@@ -9,15 +9,12 @@ using namespace std;
 
 int CrewMember::START_ID = 1000;
 
-
 CrewMember::CrewMember(const char* mName, int mTotalFlightTime)
 {
 	this->name = new char[strlen(mName) + 1];
 	strcpy(this->name, mName);
 
 	this->totalFlightTime = mTotalFlightTime;
-	
-
 }
 
 CrewMember::CrewMember(CrewMember& otherMember)
@@ -26,7 +23,6 @@ CrewMember::CrewMember(CrewMember& otherMember)
 	strcpy(this->name, otherMember.getName());
 
 	this->totalFlightTime = otherMember.getTotalFlightTime();
-	
 
 }
 
@@ -42,11 +38,9 @@ int CrewMember::getTotalFlightTime()
 
 char* CrewMember::getName()
 {
-	if(this)
+	if (this)
 		return this->name;
 }
-
-
 
 void CrewMember::setName(const char* mName)
 {
@@ -66,7 +60,6 @@ bool CrewMember::UpdateMinutes(int minutes) throw(CompStringException)
 		throw CompStringException("flight time cannot be negative value");
 		return false;
 	}
-	
 }
 
 bool CrewMember::IsEqual(CrewMember& otherMember)
@@ -76,11 +69,9 @@ bool CrewMember::IsEqual(CrewMember& otherMember)
 	return false;
 }
 
-
 void CrewMember::Print(ostream& out)
 {
-	//out << "crew member " << this->name << " minutes " << this->totalFlightTime;
-		this->toOs(out);
+	this->toOs(out);
 }
 
 void CrewMember::operator=(const CrewMember& other)
@@ -95,7 +86,7 @@ void CrewMember::operator=(const CrewMember& other)
 
 bool CrewMember::operator==(const CrewMember& other)
 {
-	if (strcmp(this->name,other.name) == 0)
+	if (strcmp(this->name, other.name) == 0)
 		return true;
 	return false;
 }
@@ -114,7 +105,7 @@ bool CrewMember::operator+=(int minutes)
 	return false;
 }
 
-void CrewMember::toOs(ostream& os) const{}
+void CrewMember::toOs(ostream& os) const {}
 
 void CrewMember::getPresent() const
 {

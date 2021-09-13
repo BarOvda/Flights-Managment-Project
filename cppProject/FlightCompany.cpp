@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 #pragma warning (disable: 4996)
+
 #include <fstream>
 #include <string.h>
 #include "FlightCompany.h"
@@ -33,14 +34,14 @@ void FlightCompany::SaveToFile(const char* filePath)
 	for (int i = 0; i < this->numberOfCrews; i++) {
 		if (typeid(*this->members[i]) == typeid(Host)) {
 			outFile << "0 ";
-			outFile <<*(this->members[i]);
+			outFile << *(this->members[i]);
 		}
 		else {
 			outFile << "1 ";
 			outFile << *(this->members[i]);
 		}
 	}
-	outFile << this->numberOfPlanes<<endl;
+	outFile << this->numberOfPlanes << endl;
 	for (int i = 0; i < this->numberOfPlanes; i++) {
 
 
@@ -54,7 +55,7 @@ void FlightCompany::SaveToFile(const char* filePath)
 		}
 	}
 	outFile << this->numberOfFlights << endl;
-	
+
 	for (int i = 0; i < this->numberOfFlights; i++) {
 
 		outFile << this->flights[i];
@@ -63,18 +64,20 @@ void FlightCompany::SaveToFile(const char* filePath)
 
 }
 
-FlightCompany::FlightCompany(const char* filePath, int x)
+FlightCompany::FlightCompany(const char* filePath, int x) throw (CompFileException)
 {
 
 	std::ifstream inFile(filePath);
+	if (inFile == NULL)
+		throw CompFileException(filePath);
+
 	this->companyName = new char[128];
-	/*inFile.getline(this->companyName, 6);*/
 	inFile >> this->companyName;
 	inFile >> this->numberOfCrews;
 	for (int i = 0; i < this->numberOfCrews; i++) {
 		this->members[i] = PlaneCrewFactory::GetCrewMemberFromFile(inFile);
-	
- 	}
+
+	}
 	inFile >> this->numberOfPlanes;
 	for (int i = 0; i < this->numberOfPlanes; i++) {
 		this->planes[i] = PlaneCrewFactory::GetPlaneFromFile(inFile);
@@ -228,7 +231,7 @@ bool FlightCompany::AddFlight(Flight& other)
 			}
 		}
 		this->flights[numberOfFlights] = other;
-		
+
 		return true;
 	}
 	return false;
@@ -280,13 +283,4 @@ Plane& FlightCompany::operator[](int index) throw(CompLimitException)
 int FlightCompany::GetCrewCount()
 {
 	return this->numberOfCrews;
-}
-
-Plane& FlightCompany::operator[](int index)
-{
-	if (index < numberOfPlanes)
-		return *this->planes[index];
-
-	return *new Plane(0,"");
-	
 }

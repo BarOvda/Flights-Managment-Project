@@ -1,9 +1,8 @@
 #include <iostream>
 using namespace std;
 #pragma warning (disable: 4996)
+
 #include <fstream>
-
-
 #include "Cargo.h"
 #include <string.h>
 #include "FlightCompException.h"
@@ -67,7 +66,7 @@ bool Cargo::operator!=(const Cargo& other)
 void Cargo::toOs(ostream& os) const
 {
 	if (typeid(os) == typeid(ofstream)) {
-		os 
+		os
 			<< this->maxVolume
 			<< " "
 			<< this->maxWeight
@@ -88,7 +87,7 @@ void Cargo::toOs(ostream& os) const
 			<< this->currentWeight
 			<< endl;
 	}
-	
+
 }
 
 bool Cargo::Load(float weight, float volume)

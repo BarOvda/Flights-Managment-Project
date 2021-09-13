@@ -28,7 +28,6 @@ FlightInfo::FlightInfo()
 
 FlightInfo::~FlightInfo()
 {
-
 }
 
 int FlightInfo::GetFNum()

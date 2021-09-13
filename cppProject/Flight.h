@@ -11,7 +11,6 @@
 #include <sstream>
 
 
-
 #define MAX_CREW 20
 
 class Plane;
@@ -19,13 +18,11 @@ class Plane;
 class Flight
 {
 public:
-	//c'tor
 
-	
-	Flight(istream& in):info(in) {
+	//c'tor
+	Flight(istream& in) :info(in) {
 
 		in >> *this;
-
 	}
 
 	Flight(FlightInfo& info, Plane* plane = nullptr);
@@ -36,9 +33,9 @@ public:
 	~Flight();
 
 	//other methods
-	
+
 	virtual void fromOS(std::istream& in) {
-		in>> this->isPlaneAssigned;
+		in >> this->isPlaneAssigned;
 		char* b = new char[100];
 		in >> b;
 		in >> this->numberOfMembers;
@@ -53,15 +50,12 @@ public:
 			if (t == 0) {
 				//HOST
 				this->members[i] = new Host(in);
-
 			}
 			else {
 				//PILOT
 				this->members[i] = new Pilot(in);
-
 			}
 		}
-	
 	};
 	friend istream& operator>>(istream& in, Flight& f) {
 		if (typeid(in) == typeid(ifstream)) {
@@ -87,16 +81,10 @@ public:
 				int t;
 				t_s >> t;
 				if (t == 0) {
-
-					
-					f.members[i] =new Host(in);
-
-
+					f.members[i] = new Host(in);
 				}
 				else {
-
 					f.members[i] = new Pilot(in);
-															
 				}
 			}
 		}
@@ -104,36 +92,19 @@ public:
 			in >> f.info;
 			cout << "Enter if assign" << endl;
 			in >> f.isPlaneAssigned;
-	/*		cout << "Enter number of members" << endl;
-			
-
-			in >> f.numberOfMembers;
-			for (int i = 0; i < f.numberOfMembers; i++) {
-				cout << "Enter Details for Member Number " << i + 1 << endl;
-					f.AddCrewMember(*PlaneCrewFactory::GetCrewFromUser());
-				
-			}*/
 		}
-
-
-
-
 		return in;
 	}
+
 	bool AddCrewMember(CrewMember& other)
 	{
 		if (this->numberOfMembers < MAX_CREW) {
-			/*for (int i = 0; i < numberOfMembers; i++)
-			{
-				if (*this->members[i] == other) {
-					return false;
-				}
-			}*/
 			this->members[numberOfMembers] = &other;
 			return true;
 		}
 		return false;
 	}
+
 	void SetPlane(Plane* plane);
 	int GetFlightNumber();
 	Plane* GetPlane();
@@ -144,7 +115,6 @@ public:
 	bool operator==(const Flight& other);
 	bool operator!=(const Flight& other);
 
-	
 	friend ostream& operator<<(ostream& os, const Flight& other);
 
 	bool TakeOff();

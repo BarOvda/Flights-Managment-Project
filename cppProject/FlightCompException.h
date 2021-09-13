@@ -26,7 +26,6 @@ public:
 	virtual void Show() const override
 	{
 		std::cout << " Exeption was throw: " << this->message << endl;
-
 	}
 
 private:
@@ -46,7 +45,6 @@ public:
 	virtual void Show() const override
 	{
 		std::cout << "Limit Exeption was throw: The limit was " << this->limit << endl;
-
 	}
 
 private:
@@ -62,14 +60,11 @@ public:
 		this->fileName = new char[strlen(fileName) + 1];
 		strcpy_s(this->fileName, strlen(fileName) + 1, fileName);
 
-		
-
 	}
 
 	virtual void Show() const override
 	{
 		std::cout << "File Exeption was throw: " << this->fileName << endl;
-
 	}
 
 private:

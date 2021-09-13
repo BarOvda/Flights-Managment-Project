@@ -14,7 +14,6 @@ public:
 	Plane(istream& in) {
 
 		in >> *this;
-
 	}
 
 	//d'tor
@@ -56,7 +55,7 @@ public:
 		return in;
 
 	}
-		
+
 	bool IsEqual(Plane& otherPlane);
 	void print(ostream& out);
 

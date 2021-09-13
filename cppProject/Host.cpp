@@ -49,7 +49,7 @@ bool Host::operator!=(const Host& other)
 void Host::toOs(ostream& os) const
 {
 	if ((typeid(os) == typeid(ofstream))) {
-		os << " " << this->type<<" ";
+		os << " " << this->type << " ";
 	}
 	else {
 		os << "Host ";
@@ -69,7 +69,6 @@ void Host::toOs(ostream& os) const
 		}
 		os << this->name << " minutes " << this->totalFlightTime << endl;
 	}
-
 }
 
 const char* Host::getType()
@@ -90,7 +89,6 @@ const char* Host::getType()
 	}
 }
 
-
 void Host::getUniform() const
 {
 	cout << "I think the new uniform is very nice!" << endl;
@@ -98,7 +96,7 @@ void Host::getUniform() const
 
 void Host::takeOff(int flightTime) throw(CompStringException)
 {
-	if(flightTime < 0)
+	if (flightTime < 0)
 		throw CompStringException("flight time cannot be negative value");
 	UpdateMinutes(flightTime);
 }
