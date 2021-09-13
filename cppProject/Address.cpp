@@ -131,9 +131,17 @@ istream& operator>>(istream& in, Address& other)
 		in >> other.houseNumber >> other.street >> other.city;
 		return in;
 	}
+	else {
+		cout << "Enter house number" << endl;
 
-	cout << "Please enter house number street name and city name:" << endl;
-	in >> other.houseNumber >> other.street >> other.city;
+		in >> other.houseNumber;
+
+		cout << "Enter street" << endl;
+
+		in >> other.street;
+		cout << "Enter city" << endl;
+		in >> other.city;;
+	}
 	return in;
 
 	

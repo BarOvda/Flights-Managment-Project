@@ -38,7 +38,7 @@ void main()
 	//
 	//	//Checking some of the exception put try and catch for each section	
 
-	/*Plane p1(-34, "AirBus");
+	Plane p1(-34, "AirBus");
 	Cargo c1(45, "Jumbo", -560, 200);
 	Cargo c2(45, "Jumbo", 560, -200);
 	FlightInfo f1("London", -23, 120, 5000);
@@ -49,11 +49,11 @@ void main()
 
 	CrewMember* pC2 = pDelta->GetCrewMember(0);
 	(*pC2) += -4;
-	Plane p0 = (*pDelta)[9];*/
+	Plane p0 = (*pDelta)[9];
 	//
 	//
 	//
-	//	//call a static function that get plane or customer from user.
+		//call a static function that get plane or customer from user.
 	//
 	PlaneCrewFactory::GetCompanyDataFromUser(*pDelta);
 	//

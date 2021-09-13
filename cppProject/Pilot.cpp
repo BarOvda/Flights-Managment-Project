@@ -1,4 +1,4 @@
-#include <iostream>
+ #include <iostream>
 using namespace std;
 
 #pragma warning (disable: 4996)
@@ -9,10 +9,16 @@ using namespace std;
 #include "Pilot.h"
 
 
-Pilot::Pilot(const char* mName, bool isACapitan, Address* address, int mTotalFlightTime): CrewMember(mName, mTotalFlightTime)
+Pilot::Pilot(const char* mName, bool isACapitan, Address* address, int mTotalFlightTime) : CrewMember(mName, mTotalFlightTime)
 {
 	this->isACapitan = isACapitan;
-	this->address = address;
+	if (this->address == nullptr) {
+		Address* a = new Address(0,"");
+
+	}
+	else
+		this->address = address;
+
 }
 
 Pilot::Pilot(CrewMember& member): CrewMember(member)

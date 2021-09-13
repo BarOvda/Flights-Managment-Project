@@ -53,6 +53,8 @@ public:
 		}
 		else {
 			int mtype;
+			cout << "Enter Type: 0 - Regular 1 - Super 2 - Calcelan:" << endl;
+
 			in >> mtype;
 			if (mtype == 0) {
 				type = eRegular;

@@ -78,11 +78,17 @@ public:
 		}
 		else {
 			bool has_add;
+			cout << "Enter Has Address: 0 - No 1 - Yes:" << endl;
+
 			in >> has_add;
 			if (has_add) {
+				Address* h = new Address(0, "");;
+
+				this->address = h;
 				in >> *this->address;
 			}
-			
+			cout << "Enter Is a captian: 0 - No 1 - Yes:" << endl;
+
 			in >> this->isACapitan;
 		}
 	};

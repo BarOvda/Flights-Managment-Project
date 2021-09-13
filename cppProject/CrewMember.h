@@ -51,8 +51,12 @@ public:
 			in >> c.name >> c.totalFlightTime;
 		}
 		else {
-			char delimiter;
-			in >> delimiter >> c.name >> delimiter >> c.totalFlightTime >> delimiter;
+			
+			cout << "Enter Name"  << endl;
+
+			in >>  c.name  ;
+			cout << "Enter FlightTime" << endl;
+			in >> c.totalFlightTime;;
 		}
 		c.fromOs(in);
 		return in;

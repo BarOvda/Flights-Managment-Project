@@ -31,7 +31,6 @@ class Address;
 class PlaneCrewFactory
 {
 public:
-
 	static PlaneType GetPlaneType(const Plane* pPlane);
 	static CrewType GetCrewType(const CrewMember* pCrew);
 	static void GetCompanyDataFromUser(FlightCompany& comp);

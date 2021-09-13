@@ -28,8 +28,27 @@ public:
 	virtual void toOs(ostream& os) const override;
 
 	virtual void fromOs(std::istream& in) override {
+		if (typeid(in) == typeid(ifstream)) {
 
-		in >> maxVolume >> maxWeight >> currentVolume>>currentWeight;
+			in >> maxVolume >> maxWeight >> currentVolume >> currentWeight;
+		}
+		else {
+
+			cout << "Enter maxVolume:" << endl;
+
+			in >> maxVolume;
+			cout << "Enter maxWeight:" << endl;
+
+			in >> maxWeight;
+			cout << "Enter currentVolume:" << endl;
+
+			in >> currentVolume;
+
+			cout << "Enter currentWeight:" << endl;
+
+			in >> currentWeight;
+		}
+
 	};
 	
 	virtual void takeOff(int flightTime);

@@ -7,6 +7,8 @@ using namespace std;
 #include "Cargo.h"
 #include "Pilot.h"
 #include "Host.h"
+#include "PlaneCrewFactory.h"
+
 #include <sstream>
 
 FlightCompany::FlightCompany(const char* mCompanyName) : numberOfCrews(0), numberOfPlanes(0), numberOfFlights(0)
@@ -64,49 +66,25 @@ void FlightCompany::SaveToFile(const char* filePath)
 
 FlightCompany::FlightCompany(const char* filePath, int x)
 {
+
+
+
 	std::ifstream inFile(filePath);
 	this->companyName = new char[128];
 	/*inFile.getline(this->companyName, 6);*/
 	inFile >> this->companyName;
-	 
+	
 	inFile >> this->numberOfCrews;
 	for (int i = 0; i < this->numberOfCrews; i++) {
-		char* type = new char[1];
-		inFile >> type;
-		stringstream t_s(type);
-
-		int t;
-		t_s>>t;
-		if (t==0) {
-			//HOST
-			this->members[i] = new Host(inFile);
-		
-		}
-		else {
-			//PILOT
-			this->members[i] = new Pilot(inFile);
-
-		}
+		this->members[i] = PlaneCrewFactory::GetCrewMemberFromFile(inFile);
+	
  	}
 	inFile >> this->numberOfPlanes;
 	for (int i = 0; i < this->numberOfPlanes; i++) {
-		char* type = new char[1];
-		inFile >> type;
-		stringstream t_s(type);
 
-		int t;
-		t_s >> t;
-		if (t == 0) {
-			//Regular
 
-			this->planes[i] = new Plane(inFile);
-			
-		}
-		else {
-			//Cargo
-			this->planes[i] = new Cargo(inFile);
+		this->planes[i] = PlaneCrewFactory::GetPlaneFromFile(inFile);
 
-		}
 	}
 	inFile >> this->numberOfFlights;
 	for (int i = 0; i < this->numberOfFlights; i++) {
@@ -238,6 +216,7 @@ bool FlightCompany::AddPlane(Plane& other)
 
 bool FlightCompany::AddFlight(Flight& other)
 {
+
 	if (this->numberOfFlights < MAX_FLIGHT) {
 		for (int i = 0; i < numberOfFlights; i++)
 		{
@@ -246,7 +225,7 @@ bool FlightCompany::AddFlight(Flight& other)
 			}
 		}
 		this->flights[numberOfFlights] = other;
-		numberOfFlights++;
+		
 		return true;
 	}
 	return false;
@@ -292,6 +271,7 @@ Plane& FlightCompany::operator[](int index)
 {
 	if (index < numberOfPlanes)
 		return *this->planes[index];
+
+	return *new Plane(0,"");
 	
-	//throw new CompLimeEx
 }

@@ -17,7 +17,6 @@ public:
 	FlightCompany(FlightCompany& other);
 	FlightCompany(const char* filePath,int x);
 
-
 	//d'tor
 	~FlightCompany();
 
