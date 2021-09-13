@@ -6,19 +6,36 @@ using namespace std;
 
 #include "Cargo.h"
 #include <string.h>
+#include "FlightCompException.h"
 
-Cargo::Cargo(int mChairNumber, const char* mModel, float maxWeight, float maxVolume) : Plane(mChairNumber, mModel)
+Cargo::Cargo(int mChairNumber, const char* mModel, float maxWeight, float maxVolume) throw(CompStringException) : Plane(mChairNumber, mModel)
 {
-	this->maxVolume = maxVolume;
-	this->maxWeight = maxWeight;
+	if (maxVolume < 0)
+		throw CompStringException("max volume cannot be a negative value");
+	else
+		this->maxVolume = maxVolume;
+
+	if (maxWeight < 0)
+		throw CompStringException("max weight cannot be a negative value");
+	else
+		this->maxWeight = maxWeight;
+
 	this->currentVolume = 0;
 	this->currentWeight = 0;
 }
 
-Cargo::Cargo(Cargo& other): Plane(other.chairNumber, other.model)
+Cargo::Cargo(Cargo& other) : Plane(other.chairNumber, other.model)
 {
-	this->maxVolume = other.maxVolume;
-	this->maxWeight = other.maxWeight;
+	if (other.maxVolume < 0)
+		throw CompStringException("max volume cannot be a negative value");
+	else
+		this->maxVolume = other.maxVolume;
+
+	if (other.maxWeight < 0)
+		throw CompStringException("max weight cannot be a negative value");
+	else
+		this->maxWeight = other.maxWeight;
+
 	this->currentVolume = 0;
 	this->currentWeight = 0;
 }
@@ -87,7 +104,10 @@ bool Cargo::Load(float weight, float volume)
 	return false;
 }
 
-void Cargo::takeOff(int flightTime)
+void Cargo::takeOff(int flightTime) throw(CompStringException)
 {
+	if (flightTime < 0)
+		throw CompStringException("Cargo plane cannot add negative flight time");
+
 	cout << "Need to add " << flightTime << " to my log book" << endl;
 }

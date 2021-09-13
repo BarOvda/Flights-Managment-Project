@@ -27,7 +27,6 @@ public:
 	//getters
 	int GetFNum();
 
-
 	friend istream& operator>>(istream& in, FlightInfo& f) {
 		if (typeid(in) == typeid(std::ifstream)) {
 			in >> f.destination >> f.flightNumber >> f.flightTime >> f.flightLength;

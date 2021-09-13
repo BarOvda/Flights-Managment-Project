@@ -7,26 +7,34 @@ using namespace std;
 class FlightCompException
 {
 public:
-	virtual ~FlightCompException();
+	virtual ~FlightCompException() {}
 	virtual void Show() const = 0;
 
 };
+
+//======================================================================
+
 class CompStringException :public FlightCompException
 {
 public:
-	CompStringException(char* message) {
+	CompStringException(const char* message) {
 		this->message = new char[strlen(message) + 1];
 		strcpy_s(this->message, strlen(message) + 1, message);
 
 	}
-	 virtual void Show() const override
-	 {
-		 std::cout << " Exeption was throw: " << this->message << endl;
 
-	 }
+	virtual void Show() const override
+	{
+		std::cout << " Exeption was throw: " << this->message << endl;
+
+	}
+
 private:
 	char* message;
 };
+
+//======================================================================
+
 class CompLimitException :public FlightCompException
 {
 public:
@@ -34,14 +42,19 @@ public:
 		this->limit = limit;
 
 	}
+
 	virtual void Show() const override
 	{
 		std::cout << "Limit Exeption was throw: The limit was " << this->limit << endl;
 
 	}
+
 private:
 	int limit;
 };
+
+//======================================================================
+
 class CompFileException :public FlightCompException
 {
 public:
@@ -52,11 +65,13 @@ public:
 		
 
 	}
+
 	virtual void Show() const override
 	{
 		std::cout << "File Exeption was throw: " << this->fileName << endl;
 
 	}
+
 private:
 	char* fileName;
 };

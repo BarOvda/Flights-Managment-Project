@@ -15,9 +15,9 @@ using namespace std;
 #include "FlightCompException.h"
 #include "PlaneCrewFactory.h"
 
-//const int CM_COUNT = 5;
-//const int PLANE_COUNT = 4;
-//const int FLIGHT_COUNT = 4;
+const int CM_COUNT = 5;
+const int PLANE_COUNT = 4;
+const int FLIGHT_COUNT = 4;
 
 void main()
 {
@@ -25,17 +25,15 @@ void main()
 	FlightCompany* pDelta = NULL;
 	try
 	{
-
 		pDelta = new FlightCompany("Delta.txt", 0);
 		cout << "This was in file " << endl;
 		pDelta->Print(cout);
-
 	}
 	catch (const FlightCompException& e) {
 		e.Show();
 		pDelta = new FlightCompany("Delta");
 	}
-	//
+
 	//	//Checking some of the exception put try and catch for each section	
 
 	Plane p1(-34, "AirBus");
@@ -50,14 +48,12 @@ void main()
 	CrewMember* pC2 = pDelta->GetCrewMember(0);
 	(*pC2) += -4;
 	Plane p0 = (*pDelta)[9];
-	//
-	//
-	//
+
 		//call a static function that get plane or customer from user.
-	//
+
 	PlaneCrewFactory::GetCompanyDataFromUser(*pDelta);
-	//
-	//
+	
+
 	FlightInfo Info("Paris", 343, 320, 5000);
 	Flight flight1(Info, &(*pDelta)[0]);
 	pDelta->AddFlight(flight1);
@@ -72,23 +68,15 @@ void main()
 		}
 	}
 
-
 	try
 	{
-		//
 		pDelta->SaveToFile("Delta_o.txt");
-
 	}
 	catch (const FlightCompException& e) {
 		e.Show();
 	}
-	//
-	//
+
 	delete pDelta;
-
-
-
-
 
 	system("pause");
 }

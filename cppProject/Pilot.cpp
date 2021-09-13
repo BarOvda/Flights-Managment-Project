@@ -7,6 +7,7 @@ using namespace std;
 #include <fstream>
 
 #include "Pilot.h"
+#include "FlightCompException.h"
 
 
 Pilot::Pilot(const char* mName, bool isACapitan, Address* address, int mTotalFlightTime) : CrewMember(mName, mTotalFlightTime)
@@ -86,8 +87,10 @@ void Pilot::getUniform() const
 	cout << this->name <<" this is the fifth time I get a new uniform – this is a waste of money!" << endl;
 }
 
-void Pilot::takeOff(int flightTime)
+void Pilot::takeOff(int flightTime) throw(CompStringException)
 {
+	if (flightTime < 0)
+		throw CompStringException("flight time cannot be negative value");
 	UpdateMinutes(flightTime + (flightTime * 0.1));
 }
 

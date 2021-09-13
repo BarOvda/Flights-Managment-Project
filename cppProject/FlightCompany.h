@@ -15,7 +15,7 @@ public:
 	//c'tor
 	FlightCompany(const char* name);
 	FlightCompany(FlightCompany& other);
-	FlightCompany(const char* filePath,int x);
+	FlightCompany(const char* filePath, int x);
 
 	//d'tor
 	~FlightCompany();
@@ -42,10 +42,7 @@ public:
 	void CrewGetUniform();
 	void TakeOff(int flightNumber);
 	int GetCrewCount();
-	//void AddCrewToFlight(int f_number,int crew_member_number);
 
-	//void AddFlight(FlightInfo flight);
-//Operators
 	Plane& operator[](int index);
 
 private:

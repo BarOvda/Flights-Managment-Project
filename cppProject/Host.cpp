@@ -5,6 +5,7 @@ using namespace std;
 #include <string.h>
 
 #include "Host.h"
+#include "FlightCompException.h"
 
 
 Host::Host(const char* name, Host::eHostType type, int totalFlightTime) : CrewMember(name, totalFlightTime), type(type)
@@ -95,8 +96,10 @@ void Host::getUniform() const
 	cout << "I think the new uniform is very nice!" << endl;
 }
 
-void Host::takeOff(int flightTime)
+void Host::takeOff(int flightTime) throw(CompStringException)
 {
+	if(flightTime < 0)
+		throw CompStringException("flight time cannot be negative value");
 	UpdateMinutes(flightTime);
 }
 
